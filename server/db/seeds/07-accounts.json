@@ -1,0 +1,2080 @@
+{
+  "id": "req_5r3GdqPL-P5T",
+  "title": "《使用手册 07｜账号、成员与权限管理》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_I2j-xavneL"
+        },
+        "content": [
+          {
+            "text": "本篇介绍如何注册和登录、通过审批或邀请加入项目、修改个人密码，以及由管理员创建账号、分配角色和管理账号状态。普通成员可先阅读前四节；项目管理员重点阅读角色管理，超级管理员可继续阅读账号与审批操作。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_CeN98JHEIA"
+        },
+        "content": [
+          {
+            "text": "先分清三个概念：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "账号用于登录，项目成员资格决定能否访问需求，项目角色表示分工及相应管理权限。注册成功后通常还要等待审批；已经加入项目且账号启用的普通成员，也可以创建和编辑需求。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_Vy4C4gcXeu"
+        },
+        "content": [
+          {
+            "text": "一、认识身份、项目角色和操作入口",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_bN7CwZ6nHs"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_l-vEZQoiYz"
+                    },
+                    "content": [
+                      {
+                        "text": "身份或状态",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_24f-ih10Yb"
+                    },
+                    "content": [
+                      {
+                        "text": "可做的事与主要入口",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2_DFfNgPJd"
+                    },
+                    "content": [
+                      {
+                        "text": "尚未加入项目的登录用户",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_zwa4L54A4u"
+                    },
+                    "content": [
+                      {
+                        "text": "在“我的账号”查看资料、补充加入说明、查看审批结果及修改密码；暂时不能查看项目需求和历史内容。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_RMzi6rxwi5"
+                    },
+                    "content": [
+                      {
+                        "text": "普通项目成员",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_mJwaIMR2jo"
+                    },
+                    "content": [
+                      {
+                        "text": "查看、创建和编辑需求，参与共同编辑、保存版本和 AI 文档编辑；通过右上角“个人账号”查看本人信息。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_mqfkuaPIku"
+                    },
+                    "content": [
+                      {
+                        "text": "项目管理员",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Zy2HXzugn0"
+                    },
+                    "content": [
+                      {
+                        "text": "除日常需求操作外，可从顶部“成员管理”进入项目成员页，调整现有成员的普通业务角色。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_dKL2Vg9ggD"
+                    },
+                    "content": [
+                      {
+                        "text": "超级管理员",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_JlrD0hQncQ"
+                    },
+                    "content": [
+                      {
+                        "text": "从右上角“系统管理”进入用户管理，处理账号、加入申请和邀请，并调整系统身份及项目管理员资格。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_-Yda5PwraO"
+        },
+        "content": [
+          {
+            "text": "“系统身份”分为普通用户和超级管理员；“项目角色”包括项目管理员、产品经理、开发、测试、UI 设计和运维，一个人可以同时承担多个角色。没有分配职业角色的项目成员仍可参与需求编辑。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_J8Z7_-YE_h"
+        },
+        "content": [
+          {
+            "text": "当前应用使用固定项目。产品、开发、测试等角色用于团队分工，尚未形成只允许某种角色编辑正文的限制；子任务流转和状态自动汇总也尚未实现。账号停用后，无论原来拥有何种角色，都不能继续访问项目。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_qUx9e_jubh"
+        },
+        "content": [
+          {
+            "text": "二、自行注册、登录并申请加入",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Hrqezd3ITa"
+        },
+        "content": [
+          {
+            "text": "创建自己的账号",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_42jNjLtYX5"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_59-DFvbMCo"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_iG78nrZSep"
+                },
+                "content": [
+                  {
+                    "text": "在登录页点击“注册账号”，填写姓名、用户名、邮箱、密码和确认密码。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_YALXWro8sX"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_HQkkT64sn5"
+                },
+                "content": [
+                  {
+                    "text": "用户名使用 3–30 位字母、数字、下划线或点；密码为 6–128 个字符，两次输入应一致。用户名与邮箱会按小写保存。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_RWdPPynN9m"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_9bj2wdZLSW"
+                },
+                "content": [
+                  {
+                    "text": "点击“注册并申请加入”。成功后进入“我的账号”，查看“项目访问”区域的状态。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_idkfK19QvL"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_4phGNQoqxm"
+                },
+                "content": [
+                  {
+                    "text": "在“加入说明（选填）”中介绍团队或工作内容，点击“保存申请说明”，等待管理员审批。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_eonovq0Lm5"
+        },
+        "content": [
+          {
+            "text": "注册只创建登录账号和加入申请，不会自动取得需求访问权。等待审批时不显示项目导航，直接打开别人发来的需求链接也不能代替审批。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_El8FxwF9pi"
+        },
+        "content": [
+          {
+            "text": "查看审批结果或重新申请",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_KJxMeNy0sR"
+        },
+        "content": [
+          {
+            "text": "点击“刷新审批状态”获取最新结果。批准后可以进入需求工作台；被拒绝时，“我的账号”会显示管理员回复，可以补充说明后点击“重新申请加入”。待审批期间更新说明会保留申请，供管理员再次查看。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_wK8MBKPZax"
+        },
+        "content": [
+          {
+            "text": "已有账号时登录",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_71HbvQfu26"
+        },
+        "content": [
+          {
+            "text": "登录页的“账号或邮箱”支持用户名或邮箱。填写密码后点击“登录”，可按需要勾选“保持登录”。如果邮箱已经注册，应登录已有账号；再次注册或让管理员重复创建，不会覆盖原账号。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Ks1DGrx2mi"
+        },
+        "content": [
+          {
+            "text": "收到邀请的用户可以按下一节直接接受邀请，成功后不需要再等待一次加入审批。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_DZKI1DGVj5"
+        },
+        "content": [
+          {
+            "text": "三、通过邀请直接加入项目",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_yCqzEw9QCz"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pR_3Y8P3U8"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_E3nXY_qgVi"
+                },
+                "content": [
+                  {
+                    "text": "打开管理员发来的完整邀请链接，核对受邀姓名、邮箱、项目角色及有效期。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ij5iC6pxH9"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_bC5ZpgCb7g"
+                },
+                "content": [
+                  {
+                    "text": "已有账号时，点击“登录后接受邀请”，使用与受邀邮箱一致的账号登录。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_3Lr3xKNCby"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_OeNjCVKHsU"
+                },
+                "content": [
+                  {
+                    "text": "如果页面显示的当前登录邮箱不匹配，点击“切换账号”，再登录受邀账号。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk__SrViTzNe5"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ASgPyv9_6r"
+                },
+                "content": [
+                  {
+                    "text": "没有账号时，在邀请页补全姓名、用户名和密码，点击“注册并接受邀请”；受邀邮箱由邀请确定。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_wMwBoAKVQy"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_yLaDrISUhc"
+                },
+                "content": [
+                  {
+                    "text": "已登录且邮箱匹配时，点击“接受邀请并进入项目”。成功后进入工作台，无需二次审批。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_q17QoYfWok"
+        },
+        "content": [
+          {
+            "text": "邀请有效期为 7 天，由管理员手动把链接交给同事，当前不会自动发送邀请邮件。链接失效时，请管理员核对状态或重新邀请；不要通过修改链接中的内容尝试更换受邀身份。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_tRl_7ksduP"
+        },
+        "content": [
+          {
+            "text": "邀请页打开后可能不再在地址栏显示完整邀请信息。需要重新打开时，使用管理员原先提供的完整链接；需要转交给受邀本人时，也应让管理员从邀请记录复制完整链接。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_TaRrK3v0PS"
+        },
+        "content": [
+          {
+            "text": "已经加入项目的成员需要调整角色时，由管理员直接管理角色；接受旧邀请不会用来叠加新的权限。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_Xn_Ykkf9Ag"
+        },
+        "content": [
+          {
+            "text": "四、查看个人账号与修改密码",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_zh6WibliCr"
+        },
+        "content": [
+          {
+            "text": "从右上角用户菜单点击“个人账号”，进入标题为“我的账号”的页面。个人资料显示姓名、用户名、邮箱和系统身份；“项目访问”显示是否已加入项目及当前项目角色。姓名需要调整时，可联系超级管理员。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_coitehbosU"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_0j3LnV5LPg"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Kob83eT2LN"
+                },
+                "content": [
+                  {
+                    "text": "从右上角菜单或个人资料卡点击“修改密码”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_TTowa7fenL"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_RJAfDh8OyU"
+                },
+                "content": [
+                  {
+                    "text": "填写“当前密码”“新密码”和“确认新密码”。新密码仍为 6–128 个字符。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_V7QelMtjc6"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ZxeRoSPozn"
+                },
+                "content": [
+                  {
+                    "text": "点击“保存新密码”，等待“密码已修改”的成功提示。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_liUyj2WhPd"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_YbL_K8654e"
+                },
+                "content": [
+                  {
+                    "text": "当前设备的登录会保留，其他设备需要使用新密码重新登录。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_q_Z64S74Fw"
+        },
+        "content": [
+          {
+            "text": "忘记当前密码时，无法通过这个弹窗直接改密；请联系管理员处理。当前没有邮件自助找回密码流程。结束使用时，可以通过用户菜单的“退出登录”退出当前登录。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_McjmhxTdjS"
+        },
+        "content": [
+          {
+            "text": "个人账号页还提供 AI Skill 和凭证配置。AI 凭证与网页登录密码用途不同；Skill 安装、凭证更换和撤销见《使用手册 06｜AI 协作使用指南》。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_gfmIfiGcZE"
+        },
+        "content": [
+          {
+            "text": "五、超级管理员安排成员加入",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_xdu3RAoiiC"
+        },
+        "content": [
+          {
+            "text": "从右上角“系统管理”进入“用户管理”。页面分为“团队账号”“加入申请”和“邀请记录”，右上角提供“新增用户”。根据成员是否已有账号，以及是否需要自行设置密码，选择以下方式。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_xvBgYMKsI9"
+        },
+        "content": [
+          {
+            "text": "方式一：直接创建账号",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_ymVdVosZI3"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_p9rDmsd3Xm"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_xqiHfXW-nN"
+                },
+                "content": [
+                  {
+                    "text": "点击“新增用户”，保留默认的“直接创建”方式。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_tmXallOTrg"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_7yufk0h-dN"
+                },
+                "content": [
+                  {
+                    "text": "填写姓名、用户名、邮箱和初始密码；初始密码可手填，也可点击“随机生成密码”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Ul6DQ6S49z"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_hO83179D0W"
+                },
+                "content": [
+                  {
+                    "text": "核对“系统身份”和“项目角色（可多选）”。系统身份默认普通用户；不选项目角色也可以作为普通成员参与需求编辑。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_8BTloavawN"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_bcmR5CpMkb"
+                },
+                "content": [
+                  {
+                    "text": "点击“创建账号”。成功后，该账号已启用并直接加入项目，无需审批。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_wu4Y6NH8qx"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_8T0UUH1d6e"
+                },
+                "content": [
+                  {
+                    "text": "在“账号已创建”弹窗中复制账号信息，交给对应成员；成员登录后可自行修改密码，再点击“完成”关闭弹窗。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_lnRZDwcS9d"
+        },
+        "content": [
+          {
+            "text": "初始密码只展示本次：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "关闭创建成功弹窗后无法再次查看初始密码。复制失败时可选中账号信息手动复制；用户名或邮箱已存在时，应处理已有账号，不会覆盖原资料或密码。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_XYY06XHbD9"
+        },
+        "content": [
+          {
+            "text": "方式二：邀请成员自行设置账号和密码",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_sb_hmquzp8"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pWD7a7lvX5"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_t4TaNOby-n"
+                },
+                "content": [
+                  {
+                    "text": "在“新增用户”弹窗切换为“邀请加入”，或从“邀请记录”点击“创建邀请”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_WESUfVAfUc"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_PvI2jkFahn"
+                },
+                "content": [
+                  {
+                    "text": "填写受邀姓名、邮箱和项目角色，再点击“生成邀请链接”。该方式不填写初始密码。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_dKqa0ucs4M"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk__ZUCFsSk01"
+                },
+                "content": [
+                  {
+                    "text": "点击“复制邀请链接”，将完整链接交给对应成员，告知其按受邀邮箱注册或登录。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_vihdX4ooca"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_kv1EcLoOLO"
+                },
+                "content": [
+                  {
+                    "text": "在“邀请记录”查看“等待接受”“已接受”“已撤销”或“已过期”等状态。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_pKX4uPMSQP"
+        },
+        "content": [
+          {
+            "text": "处于等待接受且仍有效的邀请，可再次点击“复制邀请链接”；刷新页面或换一名超级管理员后也能复制。重新复制不会延长有效期。复制失败时，弹窗会提供链接供手动复制。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_MaZ19DW0eO"
+        },
+        "content": [
+          {
+            "text": "点击“重新邀请”并确认生成后，同一邮箱此前未接受的邀请链接会失效。点击“撤销”并确认会停用该链接。若旧邀请提示“原链接无法恢复”，可明确生成新链接；取消操作则保留原邀请。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_N59eiVZ2g_"
+        },
+        "content": [
+          {
+            "text": "方式三：审批成员自行提交的申请",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_YxixIRdZua"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_a75A5xemcK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_5fg2Tg237a"
+                },
+                "content": [
+                  {
+                    "text": "进入“加入申请”，找到待审批成员并点击“审批”，核对姓名、邮箱和加入说明。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Hxn9lk8I5d"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_KqFpuv9oIC"
+                },
+                "content": [
+                  {
+                    "text": "选择“批准加入”时，至少选择一个项目角色，可填写审批说明，再点击“确认批准”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_sPlkfexo7V"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_tYlXoO_wvr"
+                },
+                "content": [
+                  {
+                    "text": "选择“拒绝申请”时，必须填写拒绝原因，再点击“确认拒绝”；申请人可查看原因并重新申请。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_CuA3jv5c_7"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Ryh3Kb_wD9"
+                },
+                "content": [
+                  {
+                    "text": "处理后核对列表状态；成员可在“我的账号”刷新审批状态。已处理申请通过“查看”回看结果。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_auL8UkkeY3"
+        },
+        "content": [
+          {
+            "text": "直接创建和邀请允许不选项目角色，而批准加入申请要求至少选一个，这是当前各入口的表单规则。已加入成员后续可以按分工调整角色；不要用重复注册代替审批或角色管理。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_7jI1TdGGBE"
+        },
+        "content": [
+          {
+            "text": "六、项目管理员分配业务角色",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_LEzGxmcKiR"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_DDE-QbsxTX"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_hVvW2Sdsim"
+                },
+                "content": [
+                  {
+                    "text": "点击顶部“成员管理”，进入“项目成员”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_TuHovMzRc3"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_kZBGDY-_Ga"
+                },
+                "content": [
+                  {
+                    "text": "按姓名或邮箱搜索，找到成员后点击“设置角色”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_OxDsK-Ciea"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ELTSrrZF5i"
+                },
+                "content": [
+                  {
+                    "text": "在“设置项目角色”中勾选该成员承担的工作，可同时选择多个角色。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Eu5Qz_hmv4"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_AgZVXf__kD"
+                },
+                "content": [
+                  {
+                    "text": "点击“保存角色”，等待“项目角色已更新”，再核对成员列表。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_jBEbuixC6X"
+        },
+        "content": [
+          {
+            "text": "项目管理员可以调整产品经理、开发、测试、UI 设计和运维等业务角色；项目管理员资格由超级管理员调整。系统身份、账号审批、邀请、停用与恢复仍从超级管理员的“系统管理”处理。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_DH3Hs-V3qF"
+        },
+        "content": [
+          {
+            "text": "清空业务角色不会移除项目成员资格，也不会使该成员失去正文编辑能力。需要停止某个账号的访问时，应交由超级管理员按账号状态管理，不能通过清空角色实现。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_wLNgGzXE4E"
+        },
+        "content": [
+          {
+            "text": "七、超级管理员维护账号与操作记录",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_kxXAxggcqw"
+        },
+        "content": [
+          {
+            "text": "查询账号与修改资料",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ouPXff2Ria"
+        },
+        "content": [
+          {
+            "text": "在“团队账号”按姓名、用户名或邮箱搜索，也可以结合项目角色和账号状态筛选，再点击“查询”。列表支持分页；找不到成员时，先检查筛选条件。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_cM-6sxzmNZ"
+        },
+        "content": [
+          {
+            "text": "点击成员行的“管理”，可以修改姓名；已加入成员还可调整系统身份和多个项目角色，最后点击“保存修改”。尚未加入项目的账号，应先在“加入申请”处理加入资格。系统身份变更后，相关账号需要重新登录。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_sAhwKypkNj"
+        },
+        "content": [
+          {
+            "text": "停用、恢复与强制退出",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_nddDexY_yA"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_-FjDSeuxNX"
+                    },
+                    "content": [
+                      {
+                        "text": "操作",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_K6DUY-1xdJ"
+                    },
+                    "content": [
+                      {
+                        "text": "操作方式与结果",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_KFSFiEzuov"
+                    },
+                    "content": [
+                      {
+                        "text": "停用账号",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2P_feOnvCq"
+                    },
+                    "content": [
+                      {
+                        "text": "在“管理用户”中点击“停用账号”，填写停用原因，再“确认操作”。账号不能继续登录或访问项目，所有登录会话失效。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_B2Qe2vBOmO"
+                    },
+                    "content": [
+                      {
+                        "text": "恢复账号",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_yADKxbEsTI"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“恢复账号”并确认。原有成员关系与角色保留，成员需要重新登录，旧会话不会恢复。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_WfE-nzKyUD"
+                    },
+                    "content": [
+                      {
+                        "text": "强制退出登录",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_VaidXAhrB1"
+                    },
+                    "content": [
+                      {
+                        "text": "确认后撤销该用户全部登录会话；账号本身没有因此被停用，启用用户可重新输入密码登录。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_qxS7vKy6t6"
+        },
+        "content": [
+          {
+            "text": "停用保留历史需求、作者和账号操作记录，不等于删除账号或清除贡献。系统至少保留一名启用的超级管理员，因此不能停用或降级最后一名启用的超级管理员。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_2mKEH3n0om"
+        },
+        "content": [
+          {
+            "text": "查看最近操作",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_KBmpVpDD5h"
+        },
+        "content": [
+          {
+            "text": "在“管理用户”弹窗展开“最近操作”，查看最近 30 条账号相关记录，包括操作者、时间和已有详情。加入说明的更新、重新申请、审批和角色调整会形成不同记录；记录条数不代表独立申请人数。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_oVuzCu1g15"
+        },
+        "content": [
+          {
+            "text": "账号管理记录用于追踪成员及权限操作。文档正文的修改人、版本差异和选区历史在需求页面查看，具体方法见《使用手册 05｜版本管理与差异追踪》。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_e-l-50ssOT"
+        },
+        "content": [
+          {
+            "text": "八、遇到问题时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_9X_xyT-fmr"
+        },
+        "content": [
+          {
+            "text": "能登录，但看不到需求或成员管理",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_F5ZosE6zlS"
+        },
+        "content": [
+          {
+            "text": "先到“个人账号”查看项目访问状态。待审批或申请被拒绝时，先处理加入流程；已加入的普通成员可访问需求，但不会显示管理员的成员管理入口。需要管理权限时联系超级管理员核对资格。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_wJWm1kpMrR"
+        },
+        "content": [
+          {
+            "text": "邀请邮箱不匹配、已过期或无法打开",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_qX1Gth0EOs"
+        },
+        "content": [
+          {
+            "text": "核对页面显示的受邀邮箱与当前登录邮箱，必要时使用“切换账号”。过期、撤销或被新邀请替代的链接需要管理员重新处理。请使用完整邀请链接，单独打开邀请页地址不能代替原邀请。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_RXGuWWav70"
+        },
+        "content": [
+          {
+            "text": "账号已停用，或原来能用的页面突然要求登录",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Kh9lH8CA6-"
+        },
+        "content": [
+          {
+            "text": "停用需要管理员先恢复账号；单纯重置密码不会恢复访问。若账号启用，但密码修改、系统身份变更或强制退出导致会话失效，按提示使用当前密码重新登录。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_jGy1yfxDOn"
+        },
+        "content": [
+          {
+            "text": "表单无法提交，或提示操作过于频繁",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_nik0HMiR2Y"
+        },
+        "content": [
+          {
+            "text": "检查字段下的提示：批准申请需要至少一个角色，拒绝申请需要原因，停用账号需要原因，两次密码也应一致。出现频率限制时，等待后再试；不要连续重复提交注册或审批。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_dmdYN-i51Y"
+        },
+        "content": [
+          {
+            "text": "九、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_4X-V0T16BJ"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_Mwasnf_Wwd"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_gA59SZnDY2"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_FIt4Kfwxrm"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 01｜快速入门",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_AesMxFEKIMbg",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：加入项目后，体验创建、编辑、保存和比较的完整流程。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_LWBpl6s4Eh"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_UIDokpzdQN"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：维护文档属性、安排负责人，并使用列表筛选工作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_TRmct9mJ-I"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_BX2GVd3MOB"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 03｜富文本编辑器指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_Z70DEAPyNSfx",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：掌握格式、表格、图片、链接与常用编辑操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_f1KluqJDAD"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_DTUUQ06JJI"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 04｜共同编辑与草稿恢复",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_nnHYXgmeMyuY",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：与成员共同编辑，并处理断网和待恢复修改。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_KQrIekOS9D"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_jvXrnoT7SN"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 05｜版本管理与差异追踪",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_PnGYTL3Srr3_",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：保存版本、查看差异、回退草稿更改及追踪修改人。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ZCuHDNYEr7"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_bHVqTK0qa9"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 06｜AI 协作使用指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_fCtoq-Tut1w3",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：配置个人 AI 凭证和 Skill，直接创建和修改文档。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_VwlGiUVrYU"
+        }
+      }
+    ]
+  }
+}

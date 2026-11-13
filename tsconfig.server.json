@@ -1,0 +1,4 @@
+{
+  "extends": "./.nuxt/tsconfig.server.json",
+  "files": ["./tests/types/audit.ts"]
+}

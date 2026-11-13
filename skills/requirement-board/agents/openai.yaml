@@ -1,0 +1,6 @@
+interface:
+  display_name: "Requirement Board"
+  short_description: "分页查找和关联文档、编辑需求与节点标注、按需读图及追溯版本历史"
+  default_prompt: "使用 $requirement-board 完成本次需求文档任务；普通修改直接更新草稿，只有我明确要求保存版本时才创建正式版本。"
+policy:
+  allow_implicit_invocation: true

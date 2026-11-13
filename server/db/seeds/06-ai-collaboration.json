@@ -1,0 +1,2083 @@
+{
+  "id": "req_fCtoq-Tut1w3",
+  "title": "《使用手册 06｜AI 协作使用指南》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_f9fONx79e0"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "本篇介绍如何让本机 Codex 通过 requirement-board Skill 直接创建和修改需求，包括安装、凭证配置、草稿编辑、按要求保存版本，以及处理编辑锁和冲突。适用于整理结构、补充验收标准、润色说明和编写使用手册。"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_dJw33G40bt"
+        },
+        "content": [
+          {
+            "text": "完整流程：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "配置 Skill → 提供需求链接和修改要求 → AI 锁定并读取草稿 → 校验并直接修改 → 在正文或版本比较中查看结果。用户明确要求时才保存正式版本；新建文档会一次初始化完整正文与初始 v1。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_DSNOjX66U3"
+        },
+        "content": [
+          {
+            "text": "一、开始前需要准备什么",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_Kv_XQAC-Ik"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_zeBMb57A4d"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XFTz5yhLPq"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "已登录网站并取得当前项目访问权限；普通项目成员也可编辑需求。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Ar4T8PY2VE"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_B_GNKUfWTT"
+                },
+                "content": [
+                  {
+                    "text": "本机已能使用 Codex，并安装 Node.js 22 或更高版本；当前 Skill 的安装向导面向本机 Codex。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_MZNzN9sYcr"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_A9xG-4Jo_I"
+                },
+                "content": [
+                  {
+                    "text": "运行 Codex 的电脑能够访问需求链接。localhost 指向这台电脑，本地开发服务需要保持运行。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_21xsfhCt5t"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Tg2ui_5NbN"
+                },
+                "content": [
+                  {
+                    "text": "发起前先等待正文修改同步，并处理未完成的图片上传；需要保留当前阶段成果时，可先保存一个正式版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_hEElla6XXT"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "AI 写作在本机 Codex 中提出要求。网站提供当前共同草稿、校验结构并执行修改；结果直接出现在需求页。普通修改不会自动保存正式版本，具体差异使用原有“版本比较”查看。"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_TL0L0vIBTg"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_tdzyHtzSA5"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "适合交给 AI 的工作"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_HNmOA8C5Q-"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "当前使用边界"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_-EVJjOJ_5J"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "创建文档、修改名称、整理或补充正文"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_kXqaIw6wWq"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "新建一次初始化完整正文与 v1；已有需求默认只更新草稿。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_QOLZgfCYOe"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "调整列表、表格、格式、链接和已有图片说明"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_FU7eJqrZ38"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "使用网站支持的文档结构；暂不支持 Agent 上传新附件。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ysnDbspC9u"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "阅读全文后给出分析或写作建议"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_RJT312izDU"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "只读任务不写入，也不取得编辑锁。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ajTSNBL55M"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "调整属性、分轮完善内容或保存版本"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_gzBvJDwJ8m"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "属性逐项记日志；用户明确要求保存版本时才创建新版本，多篇需求逐篇执行。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_mJ-eeh5wLY"
+        },
+        "content": [
+          {
+            "text": "二、安装 Skill 并配置个人凭证",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_cIQ81m6YSc"
+        },
+        "content": [
+          {
+            "text": "首次安装",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_Apiwb0Pn1j"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_8ts2YS9jh0"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_HR3qWyhKmC"
+                },
+                "content": [
+                  {
+                    "text": "打开“我的账号”，找到“让本机 AI 帮你写需求”区域。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_9-KkgXb9Kv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_CkXEchKzsC"
+                },
+                "content": [
+                  {
+                    "text": "点击“复制安装链接”，把复制出的安装请求和说明链接一起发给本机 Codex。该内容包含安装要求，不包含个人凭证。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pEdRpnWvTK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_HdtRNUsT6n"
+                },
+                "content": [
+                  {
+                    "text": "让 Codex 按链接说明下载并安装 Skill。首次需要配置时，Windows 下会打开独立安装终端，站点地址由安装链接带入。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_14i0NpKefg"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_cQQPOahnHn"
+                },
+                "content": [
+                  {
+                    "text": "回到账号页点击“创建凭证”，填写“凭证名称”，例如“我的工作电脑”；“有效期（天）”默认 30 天，可设置 1–90 天的整数。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pa3qHH4tH8"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ogaroJgbEN"
+                },
+                "content": [
+                  {
+                    "text": "创建成功后点击“复制凭证”，将它粘贴到安装终端的 Token 提示中。输入会被隐藏，按向导完成连接验证。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_vOK1puWNIv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_J2JqQFd1Vk"
+                },
+                "content": [
+                  {
+                    "text": "等待安装成功。之后在 Codex 中调用 $requirement-board，并附上需求链接和写作要求。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_54fu6YbRH7"
+        },
+        "content": [
+          {
+            "text": "凭证只交给安装向导：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "完整凭证只在创建成功时显示一次。不要把它发到聊天、写进文档正文或拼进链接；关闭页面后需要重新配置而又没有保留凭证时，可创建新凭证并撤销不再使用的旧凭证。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_I8iPg2N8fE"
+        },
+        "content": [
+          {
+            "text": "已经安装过时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_r_VPJT0iSF"
+        },
+        "content": [
+          {
+            "text": "已有同站点配置会自动复用，无需重复创建凭证或重新填写 Token。正常安装完成后，也不需要每次先打开安装终端才能调用 Skill。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_FTptDuNByJ"
+        },
+        "content": [
+          {
+            "text": "账号页还保留“安装说明”和“下载 Skill”入口，供需要手动安装时使用。只下载压缩包还没有完成安装与配置，应继续按说明运行安装向导。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_vMz1WyZysF"
+        },
+        "content": [
+          {
+            "text": "三、把修改要求说清楚",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_keo_VDrSto"
+        },
+        "content": [
+          {
+            "text": "每次提供当前需求的完整链接，并说明要解决的问题、改动范围、必须保留的内容和期望形式。AI 读取的是当前共同草稿，因此刚刚同步、尚未保存为正式版本的内容也会成为本轮写作依据。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Qd4SE1nDy4"
+        },
+        "content": [
+          {
+            "text": "可以直接改写使用的提问模板",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "codeBlock",
+        "attrs": {
+          "diffId": "blk_TPjSKtjGM5",
+          "language": null
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "请使用 $requirement-board 修改下面这条需求。\n需求链接：粘贴当前需求的完整地址\n\n目标：补全“验收标准”，让测试人员可以按步骤验证。\n范围：只修改“验收标准”这一节。\n内容：覆盖成功、输入为空和请求超时三种情况。\n保留：文档名称、其他章节、现有表格和图片。\n要求：用“前置条件、操作步骤、预期结果”组织内容；\n缺少业务规则时先列出待确认点，不要自行编造。\n完成后校验并直接更新草稿。"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_oXKDIWnqBC"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_60Bd4BRYIS"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_yfobasxIHf"
+                },
+                "content": [
+                  {
+                    "text": "整理结构：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "说明哪些章节需要合并、拆分或重排，以及哪些原句必须保留。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_V4Ev2X0TbW"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_s1tdv13BNC"
+                },
+                "content": [
+                  {
+                    "text": "修改具体规则：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "同时给出原规则、新规则及修改原因，避免 AI 只润色文字却没有改到关键条件。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_8OU2GY1MOt"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_4d8-T8rkaG"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "只做分析：明确要求“只阅读并在聊天中给出意见，不修改文档”。只读查询不会锁定需求。"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_4kdRgz__hN"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "可以继续要求 AI 调整当前草稿，也可以直接人工修改。只有明确说“保存版本”或“修改并保存正式版本”，AI 才会编写提交信息并保存；默认调用无需 --takeover 或 -t 参数。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_krwwHYT1dC"
+        },
+        "content": [
+          {
+            "text": "四、理解 AI 编辑期间的锁定",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_qOD7frPu61"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_DvUujgjiVs"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "页面状态"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_WJ62hBi17f"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "代表什么"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_NEOYWph104"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "AI 正在编辑 · 只读"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_1tP3Z4sDZf"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "AI 已取得锁，正在准备、校验或执行修改。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ds7T0sE0nZ"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "AI 编辑结束，正文恢复可编辑"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_mSsi9HjjS2"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "已完成的修改直接进入草稿；没有额外审核步骤。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_h7jvDIZWcr"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "显示发起人和自动解锁时间"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ut4MjJMmvI"
+                    },
+                    "content": [
+                      {
+                        "type": "text",
+                        "text": "确认是谁发起本轮编辑，以及锁何时到期；默认 30 分钟，以页面当前时间为准。"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_5FuOUSmvDV"
+        },
+        "content": [
+          {
+            "text": "锁定期间，这条需求的正文、文档名称、其他属性和保存版本暂时不可操作，包括发起人和管理员的页面。其他成员可以查看已有内容和锁定状态。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_p15b0v1qFq"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "编辑提示只在 AI 持锁期间出现：正文模式位于右侧，版本比较模式位于导航区。窄屏通过“AI 编辑中”打开弹窗，或展开“文档属性”查看；解锁后入口自动隐藏。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_W5_JWJKQpZ"
+        },
+        "content": [
+          {
+            "text": "继续等待、自然到期与主动取消",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_JdDORqoRzr"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "AI 执行成功后自动解除本轮锁，页面显示最新草稿。锁自然到期也会恢复人工编辑；若 AI 的执行中断，可让它查询执行结果并重试原请求，避免重复创建或保存版本。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_qe6I_KWbr_"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "需要停止本轮时，由发起人或系统管理员点击“取消 AI 编辑”，阅读提示后确认；也可选择继续等待。取消会终止本轮尚未完成的请求。已经成功写入的内容不会因此撤销，需要从当前草稿另行调整。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_MZcSrdLAxo"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "只读分析不取得编辑锁。已取得锁但停止写作时，应让 AI 释放本轮锁。同一需求每次安排一轮 AI 修改，完成后继续下一轮。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_Udn1hWrMIg"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "五、查看修改与保存版本"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_fvpcnDyyp-"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_AbttUFB3v-"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_gB7g6PgFdB"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "打开 AI 返回的需求链接，直接查看当前正文、名称与属性。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_jkXKxCwir-"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_C16oOAfrRl"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "在“保存版本”旁查看是否显示“已修改”。该标记比较当前标题、正文和最新正式版本，与谁完成修改无关。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_FJmDqEVPEg"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Yo7ckGzeL9"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "点击“版本比较”，选择最新正式版本和“当前草稿”。可切换“并排 / 统一”、勾选“仅变化”，或逐处查看差异。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_-fAd9Bd1Yc"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_2OfJDIjjUt"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "核对业务规则、遗漏内容、表格和链接；需要调整时直接人工修改或继续交给 AI。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_LdvaiMpFAO"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ApEISoIhc4"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "需要保留阶段成果时，点击“保存版本”，填写版本说明并确认；也可明确要求 AI 保存版本并编写对应说明。"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_MhqAHnwycO"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_sy_DhFdcRT"
+                },
+                "content": [
+                  {
+                    "type": "text",
+                    "text": "成功后核对保存的版本号、时间和提交信息。版本比较仍可查看任意历史版本与当前草稿。"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ptKm575oSp"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "没有待恢复输入的需求页会自动显示 AI 更新后的内容并恢复编辑。保存区的“已修改”表示当前标题或正文与最新正式版本不同；改回原内容，或成功保存版本后，会显示“与最新版本一致”。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_NtulA779lj"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "“草稿已同步”表示当前内容已写入共同文档，不代表已生成正式版本。普通 AI 修改和人工编辑都遵循这一区分；只有保存后的版本号与时间才属于正式历史记录。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_H4kYwesbsL"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "状态、负责人和优先级即时更新，每个实际变化单独记入“属性变更记录”，不触发正文“已修改”状态。AI 修改的操作者为凭证所属账号。结构校验确认格式合法，业务规则仍需按实际需求核对。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_dZ7Y1UHBmN"
+        },
+        "content": [
+          {
+            "text": "六、处理冲突与本机待恢复修改",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Vlhog2QpIs"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "AI 报告内容或属性冲突"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_G3L-Dk2yDI"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "锁到期后标题、正文、目标属性或正式版本发生变化，AI 会报告基线冲突；应用文档格式变化也可能要求重新读取。保留当前内容，让 AI 根据最新草稿重新生成操作，不要要求覆盖其他人的修改。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Npj7hxDJ_G"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "当前不提供冲突自动合并。即使人工与 AI 修改位于不同章节，也应重新核对当前内容与本次目标。对未涉及的属性，AI 会保留它们的最新值。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_WLcKEmWIRK"
+        },
+        "content": [
+          {
+            "text": "另一轮 AI 正在编辑此需求",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_in2KgtWjNK"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "这表示需求被另一轮有效锁占用。等待该轮完成，或由发起人、系统管理员确认取消；不能用旧快照抢占新的编辑会话。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_bUY4e9Ingb"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "AI 编辑后提示有待恢复的本机修改"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_lVr1PhBhzU"
+        },
+        "content": [
+          {
+            "text": "如果锁定前本机仍有未确认的输入，页面会保留本机副本并暂停同步，避免这些旧输入直接混入 AI 修改后的草稿。按提示使用“导出本机副本并载入最新内容”，保存恢复文件后再核对需要手动补回的内容。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_0eV2S1ocBU"
+        },
+        "content": [
+          {
+            "text": "恢复文件用于保留和核对本机内容，当前没有自动合并这些旧修改的流程。不要通过清空浏览器数据处理这类提示；具体恢复步骤见《使用手册 04｜共同编辑与草稿恢复》。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_4AroJMyL_i"
+        },
+        "content": [
+          {
+            "text": "七、更新 Skill 与管理凭证",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_7fHRtylk-2"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_brl5-K83UM"
+                    },
+                    "content": [
+                      {
+                        "text": "需要做的事",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_PEOlaN96-u"
+                    },
+                    "content": [
+                      {
+                        "text": "操作方式与结果",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_rYwpJVWwOc"
+                    },
+                    "content": [
+                      {
+                        "text": "更新 Skill",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_nCSRRaHF9b"
+                    },
+                    "content": [
+                      {
+                        "text": "在“我的账号”点击“复制更新链接”，发给本机 Codex。更新会备份旧 Skill 并保留 URL 和 Token，无需先卸载；更新成功不会延长凭证有效期。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_AD4cucxzTO"
+                    },
+                    "content": [
+                      {
+                        "text": "更换凭证或站点",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_GvbxDKgyEu"
+                    },
+                    "content": [
+                      {
+                        "text": "明确让 Codex 重新配置 requirement-board Skill，并按安装终端提示输入。更新文件与重新配置是两个操作；更换站点应使用该站点自己的凭证。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_w2jsu0NNfY"
+                    },
+                    "content": [
+                      {
+                        "text": "卸载 Skill",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_dlkHh-xGNr"
+                    },
+                    "content": [
+                      {
+                        "text": "复制“卸载链接”发给本机 Codex。默认保留本机配置和备份，便于重装；需要一并清除本机配置时应明确提出。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_qUOoNmaKwU"
+                    },
+                    "content": [
+                      {
+                        "text": "停用某个凭证",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_E2nDqVnZ3q"
+                    },
+                    "content": [
+                      {
+                        "text": "在账号页的凭证列表中找到对应名称并点击“撤销”。卸载 Skill 不会自动撤销网站凭证。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Hi4fcOf1My"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "凭证按所属账号当前的项目权限工作。到期、被撤销、账号停用或失去项目访问权后，不能继续读取或执行文档操作。需要继续使用时，处理权限或创建新凭证，再通过向导更换。"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_yQuoqvkgXM"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "撤销凭证会阻止后续调用，但不会回退已完成的文档修改或删除历史版本。想调整已有结果，直接人工编辑或重新发起文档操作。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_Za5XdXXar7"
+        },
+        "content": [
+          {
+            "text": "八、遇到问题时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_SLGJbJK1Yr"
+        },
+        "content": [
+          {
+            "text": "账号页没有 AI 配置区域",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_N-J6jt4tzV"
+        },
+        "content": [
+          {
+            "text": "先查看“项目访问”状态。尚未取得项目访问权时，需要等待审批或通过邀请加入；仅注册账号还不能使用项目的 AI 文档编辑能力。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_fTAeTKQpDo"
+        },
+        "content": [
+          {
+            "text": "安装后无法调用，或连接失败",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_nIBcluMwnk"
+        },
+        "content": [
+          {
+            "text": "确认安装向导已经报告成功，且本机具备 Node.js 22 或更高版本。需求链接应与 Skill 配置的站点一致，协议、主机和端口都需要匹配；localhost 与 127.0.0.1 不是同一个站点地址。向 AI 提供不含凭证的错误信息，按安装说明排查。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_4jYuCqX2ud"
+        },
+        "content": [
+          {
+            "text": "提示凭证无效或没有权限",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_lMHIRQePzn"
+        },
+        "content": [
+          {
+            "text": "检查账号页中的凭证到期日期、是否撤销，以及账号和项目访问状态。需要更换 Token 时使用重新配置向导，不要把凭证发到聊天中，也不要反复更新 Skill 文件来代替凭证配置。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_uFIVH3j_TA"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "AI 已回复完成，正文却没有变化"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_EQNAu4fghS"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "确认 AI 完成的是执行写入，而非仅在聊天中给出方案或完成结构校验。提供需求链接和不含凭证的错误信息，让 AI 查询本轮执行状态。普通修改只更新草稿，正式版本号不变属于正常情况。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_32cgMuUzeu"
+        },
+        "content": [
+          {
+            "text": "锁还没到期，但 AI 已经停止工作",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_w6ywh9JOIi"
+        },
+        "content": [
+          {
+            "type": "text",
+            "text": "如果任务已经停止且不再继续，可让 AI 释放本轮锁，或由发起人、系统管理员点击“取消 AI 编辑”。需要重试响应丢失的请求时，应先核对执行结果；取消后重新开始需重新读取当前草稿。"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_TX_Mo4fpjr"
+        },
+        "content": [
+          {
+            "text": "九、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_WTaDIcu0h_"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_7YEkk_n9B1"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_zr28hMWFIY"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_pb6eWpUaBg"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 01｜快速入门",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_AesMxFEKIMbg",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：按完整流程体验创建、编辑、保存与比较。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_U5xvZJR4Hv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XAocbzRUfW"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：创建文档并维护名称、状态、负责人和优先级。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_HtSADmc39W"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_WN-8iIxPyN"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 03｜富文本编辑器指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_Z70DEAPyNSfx",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：直接调整格式、表格、图片和链接。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_J8x26bxUYn"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_q-9lbLBDTv"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 04｜共同编辑与草稿恢复",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_nnHYXgmeMyuY",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：理解同步状态，并处理锁定前未确认的本机修改。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_f5P6kLtAlo"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_L_USYdgi9Y"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 05｜版本管理与差异追踪",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_PnGYTL3Srr3_",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：阅读差异、保存正式版本、回退草稿更改与查看修改人。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_KU27psJrOn"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_p5uemjaw0D"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 07｜账号、成员与权限管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_5r3GdqPL-P5T",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：了解账号申请、加入项目、角色和管理员操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_lVy4Neb8Wb"
+        }
+      }
+    ]
+  }
+}

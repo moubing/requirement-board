@@ -1,0 +1,15 @@
+.git
+.nuxt
+.output
+node_modules
+.local-data
+dev-repos.local.json
+coverage
+public/uploads
+
+.env
+.env.*
+*.log
+
+deploy/secrets
+deploy/*.env

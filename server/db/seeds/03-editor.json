@@ -1,0 +1,3244 @@
+{
+  "id": "req_Z70DEAPyNSfx",
+  "title": "《使用手册 03｜富文本编辑器指南》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_O-cLBS68Si"
+        },
+        "content": [
+          {
+            "text": "本篇介绍文档正文的日常编写：组织标题与列表、设置文字格式和链接、使用表格与图片，以及复制粘贴和撤销重做。适用于已经进入需求详情并具备编辑权限的成员；共同编辑、草稿恢复和版本比较的完整流程分别见对应专题手册。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_HuDtfV1sT2"
+        },
+        "content": [
+          {
+            "text": "推荐顺序：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "先写清背景、目标和验收标准，再用标题、列表与表格整理内容，最后补充链接和图片。正文修改会进入共同草稿；需要留下阶段性历史时，仍要点击“保存版本”。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_ri04C42pKK"
+        },
+        "content": [
+          {
+            "text": "一、认识编辑器的操作入口",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_ATC6AvD12p"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_2afq_qOMid"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_bU5I2TQH8j"
+                },
+                "content": [
+                  {
+                    "text": "顶部工具栏：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "提供撤销、重做、H1/H2/H3、加粗、斜体、删除线、高亮、列表、引用、代码块、链接、图片、组件块、历史查询和表格。把鼠标停在图标上可查看名称。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Sly2hayZ0U"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_e6cmlvYMyk"
+                },
+                "content": [
+                  {
+                    "text": "选中文字后的快捷菜单：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "选区稳定后显示，可快速设置常用文字格式、链接或查看选区历史。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_MEsMWKPrh0"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_h9onREE_d7"
+                },
+                "content": [
+                  {
+                    "text": "右键菜单：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "根据点击位置切换功能。在表格、图片和链接上右键，可找到对应操作；普通正文菜单提供复制、剪切、粘贴纯文本和块格式等入口。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_E35ZGavhMs"
+        },
+        "content": [
+          {
+            "text": "长文可通过左侧“本页目录”跳到相应标题。正文拥有独立滚动区域，顶部工具栏保持可用；窗口较窄时目录会隐藏。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_m0gt7NoLU-"
+        },
+        "content": [
+          {
+            "text": "二、用标题、段落和列表组织正文",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_nb4vQlzO43"
+        },
+        "content": [
+          {
+            "text": "标题层级与目录",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Jv_yIi5QDm"
+        },
+        "content": [
+          {
+            "text": "把光标放在需要设置的段落中，点击 H1、H2 或 H3。一级标题用于文内大主题，二级标题用于主要章节，三级标题用于章节内的小主题。同一层级保持一致，便于目录导航。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_GYVrb91tuL"
+        },
+        "content": [
+          {
+            "text": "正文标题与右侧“文档名称”分别维护。点击当前已启用的同级标题按钮，可以切回普通段落；修改标题文字后，目录会随正文更新。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Q2OP_54ueK"
+        },
+        "content": [
+          {
+            "text": "新段落、软换行和空段落",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_nCMCMjw7A4"
+        },
+        "content": [
+          {
+            "text": "在普通正文中按 ",
+            "type": "text"
+          },
+          {
+            "text": "Enter",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 创建新段落；按 ",
+            "type": "text"
+          },
+          {
+            "text": "Shift+Enter",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 在同一段落内换行。标题、列表、代码块和图片题注会根据所在结构处理回车。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_-NR2cGBbd4"
+        },
+        "content": [
+          {
+            "text": "“¶ 空段落”表示这里存在一个没有文字的真实段落，便于看清留白位置。无需手动输入这几个字；需要减少留白时，直接编辑或删除对应空段落。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_XyFOfWIWhC"
+        },
+        "content": [
+          {
+            "text": "有序列表与无序列表",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_SI_3y506AT"
+        },
+        "content": [
+          {
+            "text": "步骤、操作顺序和验收流程使用“有序列表”；并列要点和范围清单使用“无序列表”。把光标放在段落内后点击相应按钮，即可切换当前块。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_5e8APPrIu5"
+        },
+        "content": [
+          {
+            "text": "在列表项末尾按 Enter 新建下一项；在空列表项中再按 Enter 可退出列表，继续写普通正文。用列表功能管理编号，便于插入和调整条目。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_pEzzYgKP8D"
+        },
+        "content": [
+          {
+            "text": "三、设置文字格式和超链接",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_BbJfpYpFEX"
+        },
+        "content": [
+          {
+            "text": "强调已有文字与控制后续输入",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_M7-dQuC76q"
+        },
+        "content": [
+          {
+            "text": "选中文字后，点击“加粗”“斜体”“删除线”或“高亮”即可应用格式，再次点击可取消。没有选区时，格式按钮通常控制接下来输入的文字。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Px9T5HdiXt"
+        },
+        "content": [
+          {
+            "text": "需要一次退出当前输入位置继承的全部文字格式时，先收起选区，再按 ",
+            "type": "text"
+          },
+          {
+            "text": "Ctrl+Alt+\\",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": "；macOS 使用 ",
+            "type": "text"
+          },
+          {
+            "text": "Cmd+Alt+\\",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": "。它只影响后续输入，已有文字、标题和列表保持原样。移动光标后，输入格式会按新位置重新判断。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_zZlNA4vIDS"
+        },
+        "content": [
+          {
+            "text": "中文输入法正在组词时，先确认或取消本次组词，再使用上述快捷键。需要取消已有文字的格式时，应选中文字并操作对应按钮。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_0lw3Cf6UM2"
+        },
+        "content": [
+          {
+            "text": "给文字添加链接",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_qcUdyHAV7Y"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_X-DdHf7Sqc"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_FlPn_lq8UB"
+                },
+                "content": [
+                  {
+                    "text": "选中要作为入口的文字，例如“查看快速入门”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_GqUqECXAPp"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_986h5jCQCq"
+                },
+                "content": [
+                  {
+                    "text": "点击工具栏或选区菜单中的“链接”，填写“链接地址”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_bnMZZyKvMR"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_dK-1PQ5C9m"
+                },
+                "content": [
+                  {
+                    "text": "点击“应用”。已有选中文字会成为链接，显示文字保留。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_SuYDoEWpeW"
+        },
+        "content": [
+          {
+            "text": "未选中文字时也可以点击“链接”，同时填写“显示文字”和“链接地址”，在光标处插入新链接。编辑已有链接时，把光标放在链接文字内，打开链接设置后修改地址并点击“更新”；点击“移除”可去掉链接并保留文字。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_eqDauJYBnP"
+        },
+        "content": [
+          {
+            "text": "链接支持网页、邮箱、电话和站内路径。网页地址建议填写完整的 https:// 地址；电话可使用 tel:，邮箱可直接填写邮箱地址。站内文档可使用 ",
+            "type": "text"
+          },
+          {
+            "text": "/requirements/需求ID",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 这样的路径，迁移域名时仍能指向同一站点。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_QgHMyU6buo"
+        },
+        "content": [
+          {
+            "text": "例如：",
+            "type": "text"
+          },
+          {
+            "text": "使用手册 01｜快速入门",
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "rel": "noopener noreferrer",
+                  "href": "/requirements/req_AesMxFEKIMbg",
+                  "class": null,
+                  "title": null,
+                  "target": "_blank"
+                }
+              },
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "。需要打开已有链接时，可使用链接设置中的“打开”，或在链接上右键选择打开；复制地址也可通过右键菜单完成。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_Nf1WldylVf"
+        },
+        "content": [
+          {
+            "text": "四、使用引用、代码块和提示说明",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_cUiy4TS4Xw"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_DqvebVc5NZ"
+                    },
+                    "content": [
+                      {
+                        "text": "表达内容",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_BolPrsiVS5"
+                    },
+                    "content": [
+                      {
+                        "text": "操作入口与用法",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_B3OdVHDhdV"
+                    },
+                    "content": [
+                      {
+                        "text": "外部原话或讨论结论",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_l-l0pYkn5L"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“引用”，将当前内容设为引用块。可在文字中补充来源，方便读者区分引用与本篇说明。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_J8U0DF2lWX"
+                    },
+                    "content": [
+                      {
+                        "text": "代码、日志或需要保留空格的文本",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_COopUvdrQF"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“代码块”，在块内输入或粘贴内容。长行可使用块内横向滚动条查看。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_lEx8cxnLcm"
+                    },
+                    "content": [
+                      {
+                        "text": "补充说明、边界或设计约束",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_9pL5HKFwCV"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“组件块”，插入带强调边框的提示块，再替换默认文字“补充说明或设计约束”。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "blockquote",
+        "attrs": {
+          "diffId": "blk_DzEpphZSB3"
+        },
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "diffId": "blk_CYgFnpbsKk"
+            },
+            "content": [
+              {
+                "text": "示例：评审结论——本次先完成需求创建和查询，后续再讨论批量操作。",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_Jqvy9nJO8J"
+        },
+        "content": [
+          {
+            "text": "提示块示例：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "本节列出的验收条件需要全部满足；尚未确定的事项请在正文中明确标注，方便评审时逐项确认。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_oOAdEA5Dbj"
+        },
+        "content": [
+          {
+            "text": "引用和提示块也属于正文，会参与共同编辑和版本比较。使用代码块时，粘贴的 Markdown 会作为代码文字保留；退出代码块可再次点击“代码块”按钮。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_g7z9Sp89p5"
+        },
+        "content": [
+          {
+            "text": "五、插入和编辑表格",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_M4C1Rph2eY"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Z9fBvVhgZ6"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Z_wrVLbhR0"
+                },
+                "content": [
+                  {
+                    "text": "把光标放在准备插入的位置，点击工具栏的“表格”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_73jS-O5z5U"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Livoi5bOUy"
+                },
+                "content": [
+                  {
+                    "text": "在网格中选择列数与行数，点击对应格子插入。新表格默认带首行表头。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_1u6B5_-9DW"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_xSed0DY_zl"
+                },
+                "content": [
+                  {
+                    "text": "在单元格中输入内容。需要改变结构时，先把光标放在目标单元格，再打开表格工具或右键菜单。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_gOKp_AqCkh"
+        },
+        "content": [
+          {
+            "text": "常用结构操作包括“在左侧插入列”“在右侧插入列”“删除当前列”“在上方插入行”“在下方插入行”“删除当前行”“切换首行为表头”和“删除整张表格”。这些操作以当前单元格为基准，按钮是否可用取决于当前选区。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_TlYKl7GcC-"
+        },
+        "content": [
+          {
+            "text": "在表格中按 ",
+            "type": "text"
+          },
+          {
+            "text": "Tab",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 移到下一单元格，按 ",
+            "type": "text"
+          },
+          {
+            "text": "Shift+Tab",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 移到上一单元格；在最后一个单元格按 Tab 会新增一行并继续移动。宽表格可通过表格下方的横向滚动条查看。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ASl0rRsgsw"
+        },
+        "content": [
+          {
+            "text": "建议用表格对齐“字段、规则、验收方式”等可以逐行比较的信息。例如：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_-lwvfZ1yUL"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_73esYkCDU_"
+                    },
+                    "content": [
+                      {
+                        "text": "检查项",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_xMpHc8L1JL"
+                    },
+                    "content": [
+                      {
+                        "text": "规则",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Y1vLcd0tBG"
+                    },
+                    "content": [
+                      {
+                        "text": "验收方式",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_G5AlyP0NXJ"
+                    },
+                    "content": [
+                      {
+                        "text": "文档名称",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_j5yMpE7amY"
+                    },
+                    "content": [
+                      {
+                        "text": "必填，清楚概括本次工作",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_WBfQPCD5Tu"
+                    },
+                    "content": [
+                      {
+                        "text": "留空时无法完成创建；填写后正常创建",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ND9PT8bVkM"
+                    },
+                    "content": [
+                      {
+                        "text": "需求负责人",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_1sbZvajc2W"
+                    },
+                    "content": [
+                      {
+                        "text": "选择当前主要推进人，也可以未指派",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_yDIEs9XCfc"
+                    },
+                    "content": [
+                      {
+                        "text": "在文档属性中核对所选成员",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_LPgFW3t5Hc"
+                    },
+                    "content": [
+                      {
+                        "text": "正文说明",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ArL-5T4c-x"
+                    },
+                    "content": [
+                      {
+                        "text": "写清背景、范围与验收标准",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_TiAZ0p5ww7"
+                    },
+                    "content": [
+                      {
+                        "text": "按对应章节逐项核对",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Hi8NDDBYzg"
+        },
+        "content": [
+          {
+            "text": "删除行、列或整表后，若需要恢复，可立即使用撤销。表格内的段落、列表和文字格式继续使用相同的编辑方式。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_dpThXkTLsI"
+        },
+        "content": [
+          {
+            "text": "六、上传、整理和复制图片",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_ibR2cVvU2Q"
+        },
+        "content": [
+          {
+            "text": "上传并等待完成",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_TCMDs9B4g0"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ScOX_9urA8"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_o81BXBJp2Q"
+                },
+                "content": [
+                  {
+                    "text": "先把光标放在图片需要出现的位置。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_n7BFUMeGPE"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_kwOuX32Zzt"
+                },
+                "content": [
+                  {
+                    "text": "点击“图片”选择本机图片，或直接粘贴剪贴板中的截图、图片。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_JVkdwehUjX"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_fXdo7faofz"
+                },
+                "content": [
+                  {
+                    "text": "观察原位置的预览和上传状态，等待图片上传并显示完成，再继续保存版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_b9-rgVsg1G"
+        },
+        "content": [
+          {
+            "text": "单张图片不能超过 5 MB。上传期间会先显示本地预览；出现失败提示时，在该任务上“重试”或“移除”。尚有上传中或失败未处理的图片时，页面会限制保存版本和切换到版本比较。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_RWJDN1PicB"
+        },
+        "content": [
+          {
+            "text": "布局、尺寸、题注和预览",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_oOJGmylhL7"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_VvPzq-LXkc"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_qaFdrWUBZ2"
+                },
+                "content": [
+                  {
+                    "text": "调整位置：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "把鼠标移到图片区域，使用“图片居左”“图片居中”或“图片居右”；右键菜单也提供这些入口。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_TikOxOQTFd"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_A5Crd_RNLY"
+                },
+                "content": [
+                  {
+                    "text": "调整尺寸：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "拖动图片可用的边缘或角部手柄，保持原始宽高比例；尺寸受当前正文区域限制。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_5NJmfD_yWd"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_1guGUWClbM"
+                },
+                "content": [
+                  {
+                    "text": "编写题注：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "点击图片下方“添加图片题注…”的位置，说明图片内容或用途。在题注内按 Enter，会转到图片后的正文段落继续输入。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_7xDWSiVAxn"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_NKF0kNcmX7"
+                },
+                "content": [
+                  {
+                    "text": "查看大图：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "点击图片打开预览，或在图片上右键选择“预览图片”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_nHvJp9KmlI"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_UBqrz17F7B"
+                },
+                "content": [
+                  {
+                    "text": "整理顺序：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "可在编辑器内拖动图片块调整位置。操作后检查相邻正文和题注，必要时使用撤销。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_hyFThBSJbZ"
+        },
+        "content": [
+          {
+            "text": "复制和删除",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_xfAu4wB5ps"
+        },
+        "content": [
+          {
+            "text": "图片工具栏中的“复制图片”会将图像写入系统剪贴板，使用原始像素尺寸并保留透明度；复制内容不包含题注，动图按静态图片复制。复制失败时，先查看提示并确认浏览器允许访问剪贴板、图片已正常加载。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_gfkisOQkY0"
+        },
+        "content": [
+          {
+            "text": "使用图片工具栏或右键菜单的“删除图片”可移除当前正文中的图片。需要恢复刚才的删除可使用撤销；已经保存的历史版本仍保留各自的正文快照。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_CF-w6sh6YF"
+        },
+        "content": [
+          {
+            "text": "七、复制、粘贴与 Markdown",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_aJXPqEXmYO"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_c1cnN871G6"
+                    },
+                    "content": [
+                      {
+                        "text": "场景",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_riJ43SjwCL"
+                    },
+                    "content": [
+                      {
+                        "text": "预期行为",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Esd3FdNst-"
+                    },
+                    "content": [
+                      {
+                        "text": "从本编辑器复制正文，再普通粘贴",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_5T4kFWr32C"
+                    },
+                    "content": [
+                      {
+                        "text": "尽量保留所选文字、列表、表格和文字格式，插入到当前选区。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_V1szLgtoRy"
+                    },
+                    "content": [
+                      {
+                        "text": "从网页或其他富文本工具普通粘贴",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_SFuz7wUbEW"
+                    },
+                    "content": [
+                      {
+                        "text": "优先读取富文本内容，保留当前编辑器支持的结构与样式；粘贴后检查标题、表格和图片。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3b8oZbwU6h"
+                    },
+                    "content": [
+                      {
+                        "text": "只粘贴没有富文本格式的 Markdown",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_KQaveHY233"
+                    },
+                    "content": [
+                      {
+                        "text": "识别标题、列表、引用、代码围栏、加粗、链接、表格等内容，转换成可编辑结构。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ur-sHj_Iae"
+                    },
+                    "content": [
+                      {
+                        "text": "使用“粘贴纯文本”或 Ctrl+Shift+V",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3jd9ytgchs"
+                    },
+                    "content": [
+                      {
+                        "text": "跳过富文本和 Markdown 转换；插入的文字可能继续继承当前光标处的文字格式。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_1x5GcvUj0Y"
+                    },
+                    "content": [
+                      {
+                        "text": "在代码块中粘贴",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_KLxmrq0wAY"
+                    },
+                    "content": [
+                      {
+                        "text": "保留代码文字，不按普通正文的 Markdown 规则转换。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_VzcBZWPlPB"
+        },
+        "content": [
+          {
+            "text": "例如，下面这段纯文本可从纯文本工具复制后，普通粘贴到正文中，观察标题、编号和加粗的转换结果：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "codeBlock",
+        "attrs": {
+          "diffId": "blk_oS44YOKEGe",
+          "language": "markdown"
+        },
+        "content": [
+          {
+            "text": "## 验收标准\n\n1. 空标题时显示校验提示。\n2. 填写必要信息后可以创建文档。\n\n**说明：** 创建后再次打开需求，核对正文内容。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_5Oy-kfv0_i"
+        },
+        "content": [
+          {
+            "text": "网页复制的内容可能同时携带富文本格式，此时会优先按富文本处理。若想把 ",
+            "type": "text"
+          },
+          {
+            "text": "**说明**",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 等符号原样保留，使用粘贴纯文本；若粘贴后仍带加粗或链接，先退出当前输入格式再操作。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_q6Ir4Rh7cv"
+        },
+        "content": [
+          {
+            "text": "连续粘贴同级有序列表时，相邻且编号样式一致的列表会接续编号。需要分成两组时，在两组列表之间保留说明段落或空段落。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_aw2wPGusHA"
+        },
+        "content": [
+          {
+            "text": "右键复制、剪切或粘贴失败时，可根据提示改用系统快捷键。剪贴板权限由浏览器控制，先确认内容确实已复制，再进行后续替换。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_D_n30AkhDw"
+        },
+        "content": [
+          {
+            "text": "八、撤销、重做与常用快捷键",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_mlBuNPCY4j"
+        },
+        "content": [
+          {
+            "text": "工具栏的撤销和重做用于当前编辑会话中的操作。共同编辑时，撤销主要针对自己的输入；不要把它当作回退整个共同文档或恢复某个历史版本的入口。跨页面切换、刷新后的恢复，以及按版本查看差异，请阅读对应专题。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_RbqT06a23q"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_lC4F1yPX6l"
+                    },
+                    "content": [
+                      {
+                        "text": "操作",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_a455MqQiY1"
+                    },
+                    "content": [
+                      {
+                        "text": "Windows / Linux",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ilCi6jpDMl"
+                    },
+                    "content": [
+                      {
+                        "text": "macOS",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_4qBDumq0pz"
+                    },
+                    "content": [
+                      {
+                        "text": "撤销",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_19rxeBO1b3"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+Z",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_fGTfKfGm8V"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+Z",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_R5lTBpdp1r"
+                    },
+                    "content": [
+                      {
+                        "text": "重做",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_lDQnGDafQI"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+Y 或 Ctrl+Shift+Z",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_VOWImVwnOK"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+Shift+Z",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_5RRvht7SSk"
+                    },
+                    "content": [
+                      {
+                        "text": "加粗 / 斜体",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Z_fxOIu2SW"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+B / Ctrl+I",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_eV-s9h8wdp"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+B / Cmd+I",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_O5o-K6wiA5"
+                    },
+                    "content": [
+                      {
+                        "text": "复制 / 剪切 / 粘贴",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_V4f9UJAGRu"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+C / Ctrl+X / Ctrl+V",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_zPwsluBpVg"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+C / Cmd+X / Cmd+V",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_p-S_1t7jau"
+                    },
+                    "content": [
+                      {
+                        "text": "粘贴纯文本",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_5_CsKfxDxO"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+Shift+V",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_WySTTwSzqL"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+Shift+V",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_rXRFslgwTG"
+                    },
+                    "content": [
+                      {
+                        "text": "停止后续输入的格式继承",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_brZ6mHCw50"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+Alt+\\",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_vJb2W2MBA6"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+Alt+\\",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_XLexD7q9yd"
+                    },
+                    "content": [
+                      {
+                        "text": "切换 H1 / H2 / H3",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_qUSV-GZuq-"
+                    },
+                    "content": [
+                      {
+                        "text": "Ctrl+Alt+1 / 2 / 3",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_v0Z69zz2-5"
+                    },
+                    "content": [
+                      {
+                        "text": "Cmd+Alt+1 / 2 / 3",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_H7tQNSqCPO"
+                    },
+                    "content": [
+                      {
+                        "text": "普通正文内换行，不另起段落",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2FppE7IGWA"
+                    },
+                    "content": [
+                      {
+                        "text": "Shift+Enter",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_46onuE4SIT"
+                    },
+                    "content": [
+                      {
+                        "text": "Shift+Enter",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3R0yE_VQcP"
+                    },
+                    "content": [
+                      {
+                        "text": "表格中向后 / 向前移动",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_8buqoIGs6z"
+                    },
+                    "content": [
+                      {
+                        "text": "Tab / Shift+Tab",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_zhhIoMN9pt"
+                    },
+                    "content": [
+                      {
+                        "text": "Tab / Shift+Tab",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_URvb_sjxxt"
+        },
+        "content": [
+          {
+            "text": "快捷键需要编辑器获得焦点；在搜索框、文档名称或其他输入框中，作用对象会随焦点变化。菜单置灰时，先检查当前选区、是否处于只读状态，以及该操作是否适用于所在块。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_DOKLSnwT9y"
+        },
+        "content": [
+          {
+            "text": "九、完成编辑前的检查",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_Q237IHzoWR"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_kCzb3_dpOo"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_LbW_QaSMv1"
+                },
+                "content": [
+                  {
+                    "text": "查看目录，确认章节层级清楚、标题与内容一致。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_qH5Fuf7mH6"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_wQPfFtROEG"
+                },
+                "content": [
+                  {
+                    "text": "核对列表顺序、表格行列、图片题注和链接目标，删除不需要的空段落。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_e7ORsVLyMj"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_H6V1jf853T"
+                },
+                "content": [
+                  {
+                    "text": "确认图片上传已经完成，失败任务已重试或移除。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_gTv555sbZQ"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_d5QeBdj6bb"
+                },
+                "content": [
+                  {
+                    "text": "查看右侧保存区和工作区提示，处理尚未完成的同步；需要留存阶段结果时点击“保存版本”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_WXoQq3w26L"
+        },
+        "content": [
+          {
+            "text": "正文变成只读，工具栏不能操作",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_tx7s236IQE"
+        },
+        "content": [
+          {
+            "text": "查看临时 AI 编辑提示。AI 编辑期间正文暂时锁定，完成或取消后可继续修改。若页面提示存在待恢复的本机输入，先保存副本再核对内容。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_4_c8cVUlV-"
+        },
+        "content": [
+          {
+            "text": "文字一直带着加粗、高亮或链接",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_b1AakWeItN"
+        },
+        "content": [
+          {
+            "text": "在需要继续输入的位置收起选区，按停止格式继承快捷键，再输入普通文字。它不会清除已经写好的格式，也不会把标题改为段落；结构变化应使用对应的标题、列表或代码块按钮。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_K8Ga-tPLpp"
+        },
+        "content": [
+          {
+            "text": "上传完成了，但仍不能保存",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_nxWqduLDrJ"
+        },
+        "content": [
+          {
+            "text": "同时检查保存区与“工作区提示”中的具体错误。正文同步、图片处理和正式版本保存是不同步骤；先处理显示的失败原因，再重试保存。需要排查断网与本机副本恢复时，阅读《使用手册 04｜共同编辑与草稿恢复》。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_588vmTxDPI"
+        },
+        "content": [
+          {
+            "text": "十、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_HWqVoXhRc9"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_4fms6lpJHi"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_j0nGY7-KKK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_COOJcgfdBZ"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 01｜快速入门",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_AesMxFEKIMbg",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：从进入项目到保存第一个正式版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_olhi7tS1bQ"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XQrAVodj4f"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：维护文档属性，使用列表、搜索和最近浏览。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_GBLZzFJYLh"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_y9aBkHaP4E"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 04｜共同编辑与草稿恢复",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_nnHYXgmeMyuY",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：理解多人同步、备份、断网和恢复提示。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_fv5Y2S7OZs"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_FrtmsfRWe7"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 05｜版本管理与差异追踪",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_PnGYTL3Srr3_",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：查看版本比较、草稿变更回退、选区历史与修改人。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_SEQhq2KIZ6"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_YeV_OgzQ0a"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 06｜AI 协作使用指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_fCtoq-Tut1w3",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：提出修改要求，直接完善共同草稿。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_eloqukxO0Y"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_IU4MRTOjMW"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 07｜账号、成员与权限管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_5r3GdqPL-P5T",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：了解申请、邀请、角色与管理员操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_ziVoWbtn5Y"
+        }
+      }
+    ]
+  }
+}

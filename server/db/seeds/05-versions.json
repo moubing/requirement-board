@@ -1,0 +1,2474 @@
+{
+  "id": "req_PnGYTL3Srr3_",
+  "title": "《使用手册 05｜版本管理与差异追踪》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_hOkbur7M2s"
+        },
+        "content": [
+          {
+            "text": "本篇介绍如何保存正式版本、比较正文差异、回退草稿中的某处更改，以及追踪一段文字的历史。适用于评审前核对修改、确认验收标准何时变化，或把当前内容恢复到某个已确认的写法。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_cGzb0wC_oi"
+        },
+        "content": [
+          {
+            "text": "使用顺序：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "先选清比较范围，再判断差异；需要回退时确认影响的正文块，最后回到正文核对并保存版本。共同草稿持续变化，正式版本记录的是某次保存时的历史快照。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_tQrdk39tsx"
+        },
+        "content": [
+          {
+            "text": "一、分清草稿、正式版本与比较结果",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_BVbOl96C6T"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_w18RhHG0BZ"
+                    },
+                    "content": [
+                      {
+                        "text": "对象或操作",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_FXBSnzdc_U"
+                    },
+                    "content": [
+                      {
+                        "text": "含义与使用方式",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Aso5-M04TI"
+                    },
+                    "content": [
+                      {
+                        "text": "当前草稿",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_L3jrZzFlOJ"
+                    },
+                    "content": [
+                      {
+                        "text": "正在共同编辑的文档名称和正文，包含已经同步的修改。自动同步与个人检查点用于延续编辑，不会每次都生成正式版本。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_tP_OAjIfH1"
+                    },
+                    "content": [
+                      {
+                        "text": "正式版本",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_KgYmwRP4db"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“保存版本”并确认后形成的历史快照，记录文档名称、正文、保存人、时间和版本说明，可作为后续比较依据。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_f6bYwxg7T7"
+                    },
+                    "content": [
+                      {
+                        "text": "版本比较",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_e3hZIhbbyb"
+                    },
+                    "content": [
+                      {
+                        "text": "把所选旧版本与比较目标的正文并列或上下展示。切换版本只改变查看范围，当前草稿不会随之被替换。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_HvWfKNXZZO"
+                    },
+                    "content": [
+                      {
+                        "text": "回退此更改",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_68yeUPMVYv"
+                    },
+                    "content": [
+                      {
+                        "text": "以所选旧版本为依据，修改当前共同草稿中对应的内容。回退后仍需保存版本，才能留下新的正式记录。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_56_46_iy4v"
+        },
+        "content": [
+          {
+            "text": "状态、负责人和优先级按文档属性单独保存。正文差异区域比较的是正文内容；不要把“正文没有差异”理解为文档名称或其他属性也完全相同。文档名称虽参与版本保存，当前正文差异区不会单独列出名称变化。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_AHri-h0kpV"
+        },
+        "content": [
+          {
+            "text": "页面左侧提供“正文”和“版本比较”两个入口；窗口较窄时通过工作区顶部的视图入口切换。历史内容通过版本比较和选区历史查看，已保存的历史快照不会因后续编辑而被改写。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_WZwYgqKjrX"
+        },
+        "content": [
+          {
+            "text": "二、为阶段性结果保存正式版本",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_QLYV8MTd2y"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_1EuH48pJQi"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_yBENVUNmv_"
+                },
+                "content": [
+                  {
+                    "text": "完成一轮编辑，等待当前修改同步；如有图片上传，先等上传完成，失败的图片应重试或移除。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_0S3ehmyvjV"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_OLx59iDthl"
+                },
+                "content": [
+                  {
+                    "text": "点击“保存版本”，打开“保存正式版本”弹窗。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_uJ6kyPW1Zm"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_hGpLfiDMYH"
+                },
+                "content": [
+                  {
+                    "text": "填写可选的“版本说明”，最多 500 个字符。建议写清本次调整和原因，例如“评审后将响应时间改为 5 秒，并补充超时提示”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_F7LpY3XdWN"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_gPO12-3ahz"
+                },
+                "content": [
+                  {
+                    "text": "点击“确认保存版本”，等待成功提示，再到版本选择中确认新版本和保存时间。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_if8338XRUr"
+        },
+        "content": [
+          {
+            "text": "一次保存包含所有成员已经同步到共同草稿的修改。评审需要以同一份内容为准时，先让参与者完成同步，再由一人保存并告知版本号；保存之后继续到达的修改留在草稿中，可纳入下一版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_6W10B92GL-"
+        },
+        "content": [
+          {
+            "text": "取消保存弹窗会保留已填写的版本说明，方便稍后继续。如果保存入口不可用，查看入口旁的状态及“工作区提示”，先处理同步、图片上传、AI 锁定或本机恢复问题。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_z6BsYYL-9H"
+        },
+        "content": [
+          {
+            "text": "三、选择需要比较的两个版本",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_HFSom-fnmn"
+        },
+        "content": [
+          {
+            "text": "查看最新正式版本之后的修改",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_-dp9FUVS_n"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_WdsVUZwo_M"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_oJTx4dfml3"
+                },
+                "content": [
+                  {
+                    "text": "进入“版本比较”，在左侧找到“旧版本”和“比较目标”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_BzyeLkVTe7"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_9sBWJpz-6H"
+                },
+                "content": [
+                  {
+                    "text": "保留默认勾选的“只比较相邻版本”，将“比较目标”选择为“当前草稿”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_O5H6vaHYrp"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_klx5c7veBz"
+                },
+                "content": [
+                  {
+                    "text": "核对“旧版本”已对应最新正式版本，再阅读右侧差异。这一范围适合保存前检查尚未形成新版本的修改。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_A_OtSyA_ud"
+        },
+        "content": [
+          {
+            "text": "至少有一个正式版本后才能进行版本比较。只有 v1 时，可以比较 v1 与当前草稿；不需要为了查看差异先额外保存一个版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_1lPO7dYEod"
+        },
+        "content": [
+          {
+            "text": "查看某次保存带来的变化",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_U0un8wsZVM"
+        },
+        "content": [
+          {
+            "text": "勾选“只比较相邻版本”时，选择一个比较目标，会自动配对它的前一正式版本；选择一个旧版本，会自动配对其后一版本。最新正式版本的后一项是“当前草稿”。例如查看 v3 这一轮的变化，应确认左侧是 v2，目标是 v3。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_oOZ6knAAzO"
+        },
+        "content": [
+          {
+            "text": "最早的正式版本没有更早版本可配对，因此在相邻比较的目标列表中不可选。需要查看最早一版的内容时，可以把它作为“旧版本”，与下一版本或当前草稿比较。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_KbKrFvncwd"
+        },
+        "content": [
+          {
+            "text": "跨多个版本核对累计变化",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_MQ3j3MdR1u"
+        },
+        "content": [
+          {
+            "text": "取消“只比较相邻版本”，即可自由选择两个版本。例如把“旧版本”设为 v1、“比较目标”设为 v4，查看两者之间最终保留下来的差异。重新勾选后，系统以当前旧版本为依据重新配对；操作后再核对两侧标签。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_VorX4lNZ1E"
+        },
+        "content": [
+          {
+            "text": "跨版本比较反映的是两个端点的差别。某段内容中途被修改、后来又改回原样，端点比较可能看不到变化；需要了解过程时，逐个比较相邻版本，或使用选区历史。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Ad0M8f0-Ea"
+        },
+        "content": [
+          {
+            "text": "版本选项显示版本号与保存时间。悬停或用键盘高亮选项，可查看“版本说明（Commit）”“保存人”和“本版编辑人”。空说明显示“未填写版本说明”；“当前草稿”尚未保存，没有正式提交信息。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_9x0Qo_lGcK"
+        },
+        "content": [
+          {
+            "text": "四、读懂正文差异并快速定位",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_aiLm7DAFWD"
+        },
+        "content": [
+          {
+            "text": "并排、统一与颜色含义",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_V4O64lgQXK"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_hMWH4kcfW-"
+                    },
+                    "content": [
+                      {
+                        "text": "显示方式或标记",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_-A0jFl-vLg"
+                    },
+                    "content": [
+                      {
+                        "text": "阅读方法",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_NHwtgPX7o2"
+                    },
+                    "content": [
+                      {
+                        "text": "并排",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_TekytTnO-i"
+                    },
+                    "content": [
+                      {
+                        "text": "左栏是旧版本，右栏是比较目标，中间显示变更类型与可用操作，适合逐段核对。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_aFP0QLNqca"
+                    },
+                    "content": [
+                      {
+                        "text": "统一",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Jy9CXovnn1"
+                    },
+                    "content": [
+                      {
+                        "text": "在一列中依次显示旧内容和新内容，适合窄屏或长段落。可通过顶部“并排 / 统一”手动切换。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2nWCWo7D8r"
+                    },
+                    "content": [
+                      {
+                        "text": "绿色 / +",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ML-xi3Viu6"
+                    },
+                    "content": [
+                      {
+                        "text": "比较目标中的新增内容。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_8ZQpyTlgAP"
+                    },
+                    "content": [
+                      {
+                        "text": "红色 / −",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk__ZsDzCQUYY"
+                    },
+                    "content": [
+                      {
+                        "text": "旧版本中存在、比较目标中已删除的内容。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_yEs5QU1YFz"
+                    },
+                    "content": [
+                      {
+                        "text": "黄色 / ~",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_X-J2CE6dCS"
+                    },
+                    "content": [
+                      {
+                        "text": "对应内容发生修改，继续查看块内的文字或格式差异。蓝色定位框表示当前导航到的变更。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_8mvIKbrCbN"
+        },
+        "content": [
+          {
+            "text": "除了增删文字，差异也可能来自加粗、链接目标、换行、列表结构、表格或图片属性。文字看起来一样时，可继续核对格式提示、表格结构，以及图片尺寸、对齐和题注。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_zvteRjn6Sg"
+        },
+        "content": [
+          {
+            "text": "“¶ 空段落”说明该侧确实有一个空段落；另一侧完全留白则可能表示该侧没有对应块。该标识只是帮助解释留白，不是正文中多出了一行提示文字。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_MnjjIbTvNQ"
+        },
+        "content": [
+          {
+            "text": "长文档中的定位方法",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_esWmjnHibD"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_eQPEQLmo-R"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_a7dYjZCwPz"
+                },
+                "content": [
+                  {
+                    "text": "仅变化：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "勾选后隐藏未变化的正文，便于集中核对；需要阅读上下文时取消勾选。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_aeJsadTBVh"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_VOVlkKGhQF"
+                },
+                "content": [
+                  {
+                    "text": "上一处变更 / 下一处变更：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "在变更之间移动，旁边数字显示当前位置和总数，到达首尾后可以循环定位。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_EYcMBk72SD"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_BDODYec7Rf"
+                },
+                "content": [
+                  {
+                    "text": "右侧变更小地图：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "点击彩色标记可跳转到对应变更，适合快速查看长文档中修改的分布。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_J-E-VQL2T_"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_X3MC6B715b"
+                },
+                "content": [
+                  {
+                    "text": "顶部 +、−、~ 统计：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "分别统计新增、删除和修改的变更处数。连续的新增块或删除块可能合并为一处，不代表字数、操作次数或参与人数。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ZEMwlBBy_H"
+        },
+        "content": [
+          {
+            "text": "比较目标为“当前草稿”时，结果会随共同编辑更新。若评审需要稳定范围，先保存正式版本，再选择两个正式版本进行比较。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_mCO_VcuAz-"
+        },
+        "content": [
+          {
+            "text": "五、把草稿中的某处更改回退",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_toQvBP-NAW"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_45paHR2xyu"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk__NNcb19ixS"
+                },
+                "content": [
+                  {
+                    "text": "在“版本比较”中，将“比较目标”设为“当前草稿”，并选择希望作为恢复依据的旧版本。必要时先取消“只比较相邻版本”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_XrKVDDSuth"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_FvmIWrm6qx"
+                },
+                "content": [
+                  {
+                    "text": "定位需要处理的变更，核对旧内容、当前内容及该处展示的范围。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_U_36FKwLLv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_3TllpLCI2d"
+                },
+                "content": [
+                  {
+                    "text": "点击该处的“回退此更改”。并排布局的操作位于中间变更区，统一布局位于该处变更标题附近。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_see5yPlSVF"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_DgaXULzWIs"
+                },
+                "content": [
+                  {
+                    "text": "查看更新后的差异，再切回“正文”核对结果；等待同步完成后保存版本，并在版本说明中记录恢复原因。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_2WOnzr2czL"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_OaqP8lI3cg"
+                    },
+                    "content": [
+                      {
+                        "text": "所回退的类型",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_xtqytOAWc-"
+                    },
+                    "content": [
+                      {
+                        "text": "对当前草稿的影响",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_g1s9PTTV7G"
+                    },
+                    "content": [
+                      {
+                        "text": "新增",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_R_9XRnS-dT"
+                    },
+                    "content": [
+                      {
+                        "text": "移除当前草稿中这一处新增的内容。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_-LAPQ4Kx8m"
+                    },
+                    "content": [
+                      {
+                        "text": "删除",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ziAXkpv_Kl"
+                    },
+                    "content": [
+                      {
+                        "text": "将旧版本中这一处被删除的内容补回草稿。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_wWFF_MDZFw"
+                    },
+                    "content": [
+                      {
+                        "text": "修改",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_8cRmGcgzRS"
+                    },
+                    "content": [
+                      {
+                        "text": "将对应正文块恢复为所选旧版本的内容，包括该块的文字和格式。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_VybKlkcpjM"
+        },
+        "content": [
+          {
+            "text": "先确认回退范围：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "“回退此更改”以界面展示的块或连续分组为单位。一个段落内多处文字变化可能一起恢复；连续新增或删除的多个块也可能共用一个按钮。如果只想改回某个词，切回正文手动调整更合适。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_vr1c_aWw8q"
+        },
+        "content": [
+          {
+            "text": "例如，某个段落同时修改了响应时间和提示文案，对该段执行回退会一起恢复这两项。所选旧版本如果早于最近一次保存，回退依据也会更早，操作前应再次核对版本标签。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_tGntPeMIRl"
+        },
+        "content": [
+          {
+            "text": "回退直接改变共同草稿，并会同步给其他成员；历史版本保持原样。两个正式版本之间的比较只供查看。AI 正在编辑、文档只读或页面正在保存等情况下，回退入口可能不可用。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_6jw5KarZRO"
+        },
+        "content": [
+          {
+            "text": "编辑器工具栏的撤销、重做用于自己的编辑历史；版本比较中的回退用于参照选定历史内容恢复草稿。两者的依据和影响范围不同，回退成功也不代表已经创建了新的正式版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_y2xcdiSzBx"
+        },
+        "content": [
+          {
+            "text": "六、追踪一段文字的历史",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_c4pBLYXsFA"
+        },
+        "content": [
+          {
+            "text": "从正文打开选区历史",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_XxSgKa1cMq"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_2-Es5ZBdbx"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_l-9ErSx7IT"
+                },
+                "content": [
+                  {
+                    "text": "回到“正文”，选中需要追踪的一段文字。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_f-apFPhlcK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_2NNpH-fzwU"
+                },
+                "content": [
+                  {
+                    "text": "通过工具栏、选区快捷菜单或右键菜单点击“查看选区历史”。未选中文字时，可使用“查看当前块历史”，追踪光标所在的完整文字块。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pVbGKVqGe2"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_6AYdkI8V-X"
+                },
+                "content": [
+                  {
+                    "text": "系统在新标签页打开“选区历史记录”。原正文页保留，便于继续编辑或对照。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ymgXWkfyMn"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_DtoZS_0UPU"
+                },
+                "content": [
+                  {
+                    "text": "在“版本记录”中选择一行，查看上方该轮变化；需要更多上下文时，点击正式版本行的“完整比较”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Yjxj9j8zlu"
+        },
+        "content": [
+          {
+            "text": "历史页中的“当前草稿（打开时）”保留打开那一刻的内容。之后在正文页继续编辑，不会让这个草稿快照实时变化；要看最新结果，应回正文重新打开选区历史。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_3IyehOUvjm"
+        },
+        "content": [
+          {
+            "text": "理解版本记录与追踪范围",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_GXL7nDwRZz"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_wX7kSOYJhM"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ZNjS5VFvWY"
+                },
+                "content": [
+                  {
+                    "text": "仅更改：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "默认勾选，只列出影响所选内容的版本。取消后可以查看追踪范围内“未影响选区”的版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_-dYQhpw-E0"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_WCL59DhveH"
+                },
+                "content": [
+                  {
+                    "text": "首次出现：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "表示追踪中找到这段内容首次出现的位置；如果同时提示无法可靠定位更早版本，应以页面提示为准。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_aNk2MLSnlW"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_dYAni0kURP"
+                },
+                "content": [
+                  {
+                    "text": "推断与停止追踪：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "内容经过拆分等调整后，页面可能提示通过唯一文本推断；更早内容无法可靠对应时，追踪会在此停止。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_kkq_CjYKlC"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_qzPoBpoJhS"
+                },
+                "content": [
+                  {
+                    "text": "完整比较：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "在历史标签页中进入该正式版本与相邻版本的全文比较，原来的正文标签页仍然保留；草稿行没有这个操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_-S6iP-cgeM"
+        },
+        "content": [
+          {
+            "text": "选区历史是只读视图，不提供回退按钮。表格、分隔线等内容如果无法可靠表示为连续文字范围，页面会提示重新选择文字；需要检查这类结构变化时，使用完整版本比较。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_y68MJpB9Qh"
+        },
+        "content": [
+          {
+            "text": "七、正确理解保存人与修改人",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_Y0f4iXPXrZ"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_FPrRmfucF9"
+                    },
+                    "content": [
+                      {
+                        "text": "名称",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Or6d3elWrn"
+                    },
+                    "content": [
+                      {
+                        "text": "表示什么",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_joyV3GifZV"
+                    },
+                    "content": [
+                      {
+                        "text": "保存人",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_OkTW-fPcUA"
+                    },
+                    "content": [
+                      {
+                        "text": "执行这次正式版本保存的成员。多人共同编辑时，保存人不一定写过所有内容。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_fFJxGwP6L_"
+                    },
+                    "content": [
+                      {
+                        "text": "本版编辑人",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk__W6okOtbv4"
+                    },
+                    "content": [
+                      {
+                        "text": "版本详情中汇总的已记录正文节点编辑人，用于了解这一版的参与者。没有记录时会显示“未记录”。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_pbiW0eQLQW"
+                    },
+                    "content": [
+                      {
+                        "text": "本版修改人",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ZxZ7Tv0ZVl"
+                    },
+                    "content": [
+                      {
+                        "text": "选区历史中，对应文字块自上一正式版本以来的已记录修改人，包含选区之外发生在同一块内的修改。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_YrPZEPvCu-"
+        },
+        "content": [
+          {
+            "text": "在选区历史中，并排布局把“本版修改人”放在两侧内容之间，统一布局放在对应内容上方。这个名单不能用来断定选中某个词的唯一作者；同一块中其他文字被编辑、或修改后又撤销，也可能留下参与记录。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_1bmG9u1jld"
+        },
+        "content": [
+          {
+            "text": "例如，甲修改段落前半句，乙修改后半句，你只选中前半句查看历史，该块仍可能列出甲和乙。判断选中文字实际发生了什么，先看差异；判断本轮有哪些人参与该块，再看修改人。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_yojdFFru5R"
+        },
+        "content": [
+          {
+            "text": "“仅更改”根据最终内容差异筛选，不根据修改人数量筛选。“修改人未记录”或“部分修改人未记录”表示归属信息不完整；不能把缺失的记录自动归给保存人。打开时若有待同步修改，名单也可能不完整，应等待正文同步后重新打开核对。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_x4cG9VGHtp"
+        },
+        "content": [
+          {
+            "text": "八、遇到问题时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_fL_1deQUjn"
+        },
+        "content": [
+          {
+            "text": "提示“至少保存一个版本后可以查看差异”",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_iYIKPp_hDo"
+        },
+        "content": [
+          {
+            "text": "这条需求还没有可用的正式版本。回到正文保存第一个版本，之后的修改即可与该版本比较。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_9rg2tI5yBQ"
+        },
+        "content": [
+          {
+            "text": "看不到差异，或某次操作没有出现在记录中",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_FA4g7WcKO9"
+        },
+        "content": [
+          {
+            "text": "先核对旧版本和比较目标是否正确，再检查“仅变化”或选区历史中的“仅更改”。两个端点内容相同、修改发生在选区之外，或一次修改在保存前已经撤销，都可能没有最终差异。正式版本与选区历史不能逐次重放每一次输入操作。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_-QaPFQriX4"
+        },
+        "content": [
+          {
+            "text": "没有“回退此更改”按钮",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ameyFTjO34"
+        },
+        "content": [
+          {
+            "text": "确认比较目标为“当前草稿”，当前位置确实有变更，且页面允许编辑。若存在 AI 锁定或保存中的提示，先按页面状态处理；查看两个历史版本时不会出现草稿回退操作。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_jyVYucd6wX"
+        },
+        "content": [
+          {
+            "text": "选区历史打不开，或提示上下文丢失、过期",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_gmkZiFdITl"
+        },
+        "content": [
+          {
+            "text": "如浏览器阻止新标签页，允许本站点打开弹出式窗口后重试。遇到上下文缺失或过期，应回文档正文重新选中文字并打开；直接复制历史页地址到另一个浏览器或标签页，可能无法恢复原选区。页面顶部的文档编号和名称可返回正文。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_rg0j2XdRjB"
+        },
+        "content": [
+          {
+            "text": "九、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_AS6g_McFOr"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_meQP7aEOAm"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_FeBgwwjt_N"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_iX57BCEjOj"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 01｜快速入门",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_AesMxFEKIMbg",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：按完整流程体验创建、编辑、保存与比较。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_FCrZNlQmKf"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_wLCJ8t4nsM"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：管理文档名称、状态、负责人和优先级，并通过列表找回需求。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_wATEsT6nK5"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_xK_VvPM1le"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 03｜富文本编辑器指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_Z70DEAPyNSfx",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：掌握格式、列表、表格、图片、链接及选区操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_lypJd9IPuG"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_5lmuh-Se_w"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 04｜共同编辑与草稿恢复",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_nnHYXgmeMyuY",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：理解共同同步、个人检查点、断网与恢复提示。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_OrD715qNU2"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_MuGG_5K18G"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 06｜AI 协作使用指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_fCtoq-Tut1w3",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：配置 Skill、直接修改草稿，并明确要求保存版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_cZie9c9EFy"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_r_ESSxcASn"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 07｜账号、成员与权限管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_5r3GdqPL-P5T",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：了解账号申请、项目加入、角色和管理员操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_Pj2MPGFOrR"
+        }
+      }
+    ]
+  }
+}

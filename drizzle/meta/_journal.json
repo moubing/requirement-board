@@ -1,0 +1,153 @@
+{
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1783230210578,
+      "tag": "0000_daily_tyrannus",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1784034029102,
+      "tag": "0001_lethal_eddie_brock",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1787486139693,
+      "tag": "0002_flashy_slyde",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1787489829777,
+      "tag": "0003_damp_sabretooth",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1788577024095,
+      "tag": "0004_concerned_patch",
+      "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "7",
+      "when": 1788678620051,
+      "tag": "0005_bitter_carnage",
+      "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "7",
+      "when": 1788683482417,
+      "tag": "0006_past_clint_barton",
+      "breakpoints": true
+    },
+    {
+      "idx": 7,
+      "version": "7",
+      "when": 1788696360669,
+      "tag": "0007_familiar_mikhail_rasputin",
+      "breakpoints": true
+    },
+    {
+      "idx": 8,
+      "version": "7",
+      "when": 1790415135432,
+      "tag": "0008_youthful_hedge_knight",
+      "breakpoints": true
+    },
+    {
+      "idx": 9,
+      "version": "7",
+      "when": 1790607186614,
+      "tag": "0009_good_dragon_lord",
+      "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "7",
+      "when": 1791093302900,
+      "tag": "0010_chunky_doorman",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "7",
+      "when": 1791109575508,
+      "tag": "0011_wet_frightful_four",
+      "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "7",
+      "when": 1791115707934,
+      "tag": "0012_icy_weapon_omega",
+      "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1791275833874,
+      "tag": "0013_requirement-assignees",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1791987016974,
+      "tag": "0014_zippy_molten_man",
+      "breakpoints": true
+    },
+    {
+      "idx": 15,
+      "version": "7",
+      "when": 1792161277753,
+      "tag": "0015_agent_annotation_receipts",
+      "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1792305771602,
+      "tag": "0016_independent_document_title",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1792310220237,
+      "tag": "0017_requirement_milestones",
+      "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1792416344619,
+      "tag": "20261019132544_document_write_receipts",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1794043373304,
+      "tag": "20261107092253_annotation_cell_identity",
+      "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1794113869323,
+      "tag": "20261108045749_simplify_document_states",
+      "breakpoints": true
+    }
+  ]
+}

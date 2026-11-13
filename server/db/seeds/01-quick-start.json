@@ -1,0 +1,2115 @@
+{
+  "id": "req_AesMxFEKIMbg",
+  "title": "《使用手册 01｜快速入门》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_sYifC-OAQi"
+        },
+        "content": [
+          {
+            "text": "文档看板用于管理需求、缺陷、说明和待办，共同完善正文，并通过版本比较追踪变化。本篇面向第一次使用的项目成员，带你完成创建、编辑、保存和比较一条需求的完整流程。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_Vo12OMtsH_"
+        },
+        "content": [
+          {
+            "text": "上手路线：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "登录并取得项目访问权限 → 新建文档 → 编写正文 → 保存正式版本 → 查看修改差异。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_NPwFUCPKbE"
+        },
+        "content": [
+          {
+            "text": "一、开始前的准备",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_kATZHc-k5R"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Yf1dxBLeD-"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_RBOUGbk8F-"
+                },
+                "content": [
+                  {
+                    "text": "登录账号。",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "在登录页使用用户名或邮箱和密码登录。没有账号时，可通过“注册账号”提交申请，或按管理员提供的邀请加入。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_IWO3SJrAmF"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_V-iBgacL2G"
+                },
+                "content": [
+                  {
+                    "text": "确认可以进入项目。",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "注册成功后仍需等待审批。若登录后只看到“我的账号”及加入申请，请先查看申请状态；管理员直接创建的账号或已接受有效邀请的账号可直接加入项目。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_nSrz368TzC"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_7kRtqdADk1"
+                },
+                "content": [
+                  {
+                    "text": "选择合适的练习内容。",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "项目成员共同使用文档正文，编辑会同步给其他成员。初次练习可创建标题带“练习”字样的需求，避免误改正在讨论的业务内容。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_lxDMxBJTZZ"
+        },
+        "content": [
+          {
+            "text": "当前应用使用一个固定项目。获准加入的启用成员可以查看、创建和编辑需求，无需先成为管理员，也无需被指定为该需求的负责人。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_MrkEAiY8DL"
+        },
+        "content": [
+          {
+            "text": "二、认识常用入口",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_2VovBUgeHY"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_mt4syhAPEb"
+                    },
+                    "content": [
+                      {
+                        "text": "入口",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_sAdqmzl1iL"
+                    },
+                    "content": [
+                      {
+                        "text": "可以做什么",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_OIvh3WoOvC"
+                    },
+                    "content": [
+                      {
+                        "text": "工作台",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_LqxvrBSU9D"
+                    },
+                    "content": [
+                      {
+                        "text": "查看全部需求、我负责的、未指派和项目成员数量，从最近更新的需求继续工作。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_fX_TjYvfFr"
+                    },
+                    "content": [
+                      {
+                        "text": "顶部“文档”",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_vtZxq57ccC"
+                    },
+                    "content": [
+                      {
+                        "text": "进入完整文档列表，按名称或编号搜索，按状态、负责人筛选，切换全部列表或按状态分组。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_oAnq0Xt6uu"
+                    },
+                    "content": [
+                      {
+                        "text": "顶部搜索与“最近浏览”",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_kCyQyleRmN"
+                    },
+                    "content": [
+                      {
+                        "text": "快速打开已知需求，或返回最近看过的需求。搜索匹配编号和名称，不检索正文。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_k8E9U7t_Hn"
+                    },
+                    "content": [
+                      {
+                        "text": "需求详情",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_1CI-cOaK92"
+                    },
+                    "content": [
+                      {
+                        "text": "在“正文”中编辑，在“版本比较”中查看差异；通过“文档属性”调整名称、状态、负责人和优先级。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_5vQmZXMCE7"
+                    },
+                    "content": [
+                      {
+                        "text": "顶部“设置”和用户菜单",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_k7DkZvu1Ph"
+                    },
+                    "content": [
+                      {
+                        "text": "调整个人显示偏好；从用户菜单进入“个人账号”、修改密码或退出登录。管理入口按权限显示。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_neK6_eUWah"
+        },
+        "content": [
+          {
+            "text": "宽屏下，详情页左侧是正文目录和视图切换，中间是正文，右侧是保存及文档属性等信息。窗口较窄时，部分侧栏会收起，可通过顶部视图切换和“文档属性”等入口打开相应内容。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_g8BJjuCkdL"
+        },
+        "content": [
+          {
+            "text": "三、完成一条需求的完整流程",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Ac0GUXPKeP"
+        },
+        "content": [
+          {
+            "text": "1. 新建一条需求",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_gdoNyXin7U"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_vFEpCFk3G2"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_IJNNaylMt4"
+                },
+                "content": [
+                  {
+                    "text": "在“工作台”或“文档”页面点击",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“新建文档”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_G7y_6CPnzi"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_0VKXnqyr4Y"
+                },
+                "content": [
+                  {
+                    "text": "填写文档标题，例如",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“练习｜整理每周需求评审材料”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "；选择文档类型，保留默认的空白模板，或选择其他正文模板并预览，再选择优先级和负责人。需求、缺陷、说明和待办均可多人负责；暂时没有负责人时，可以保留“未指派”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_BJV_fezIre"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_J_avIWYKSo"
+                },
+                "content": [
+                  {
+                    "text": "点击",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“创建并编辑”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "，成功后会自动进入这条需求的详情页。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_DxKXeVjz44"
+        },
+        "content": [
+          {
+            "text": "系统自动分配文档编号，记录创建人为报告人，所有类型从“草稿”开始。创建弹窗选择模板并预览正文；创建后可继续填写，并在“文档属性”中按当前类型的流程推进状态。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_g1It2_Y8bk"
+        },
+        "content": [
+          {
+            "text": "新建文档时，系统已经复制所选模板正文，并创建初始 ",
+            "type": "text"
+          },
+          {
+            "text": "v1",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "。后续手动保存会追加新版本，不会覆盖这个初始版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_I8TMeMoJlM"
+        },
+        "content": [
+          {
+            "text": "2. 写清背景、目标和验收标准",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_UelNz3pC3K"
+        },
+        "content": [
+          {
+            "text": "点击正文区域，按所选模板继续填写。以需求为例，可以补充背景、目标和验收标准，再使用工具栏调整小节格式。使用一至三级标题后，宽屏左侧目录会自动生成，方便跳转阅读。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk__QE5fJReu2"
+        },
+        "content": [
+          {
+            "text": "下面是一份练习内容，可以按团队的实际情况修改：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "blockquote",
+        "attrs": {
+          "diffId": "blk_Ke8uu6cq0P"
+        },
+        "content": [
+          {
+            "type": "paragraph",
+            "attrs": {
+              "diffId": "blk_bsd9jvzdHu"
+            },
+            "content": [
+              {
+                "text": "背景：",
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ]
+              },
+              {
+                "text": "每周评审前，需求说明和待确认事项分散在不同消息中，参与者需要反复查找。",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "diffId": "blk_EjLdWPyEde"
+            },
+            "content": [
+              {
+                "text": "目标：",
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ]
+              },
+              {
+                "text": "每条待评审需求都集中记录背景、目标、验收标准和待确认事项，方便成员提前阅读。",
+                "type": "text"
+              }
+            ]
+          },
+          {
+            "type": "paragraph",
+            "attrs": {
+              "diffId": "blk_JxpyFkCi6N"
+            },
+            "content": [
+              {
+                "text": "验收标准：",
+                "type": "text",
+                "marks": [
+                  {
+                    "type": "bold"
+                  }
+                ]
+              },
+              {
+                "text": "评审前补齐上述内容并指定负责人；待确认事项列出问题和对接人；评审结论补充到正文后保存版本。",
+                "type": "text"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_gg28wMl91P"
+        },
+        "content": [
+          {
+            "text": "选中文字可以加粗或添加链接，也可以继续插入列表、表格和图片。图片上传完成后才能保存正式版本；第一次练习先使用文字即可。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_73qcynlh0P"
+        },
+        "content": [
+          {
+            "text": "需要调整状态、负责人或优先级时，在“文档属性”中修改并等待保存成功；这些属性会单独保存，不会因此生成新的正文版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_EwAG5FN5k8"
+        },
+        "content": [
+          {
+            "text": "3. 保存一个正式版本",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_3NxzVOV0Gb"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_hpOU5EOLcA"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_6Aezd0YQep"
+                },
+                "content": [
+                  {
+                    "text": "检查正文和文档名称，点击",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“保存版本”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "。宽屏下按钮位于右侧保存区，窄屏时位于工具栏。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_lb5GoA2Kb5"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_oKCdIfDPug"
+                },
+                "content": [
+                  {
+                    "text": "在“保存正式版本”弹窗中填写版本说明，例如",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“补充评审材料的背景、目标和验收标准”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "。说明可留空，但写清本次变化更方便后续回看。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_4dStDDqSeK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_K2HqY8rizU"
+                },
+                "content": [
+                  {
+                    "text": "点击",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“确认保存版本”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "，等待成功提示，再检查“文档属性”中的正式版本号和保存时间。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Gi9oUCpDGi"
+        },
+        "content": [
+          {
+            "text": "在只有你操作这条新需求的情况下，本次保存会生成 v2，记录相对初始模板正文的修改。多人同时工作时，以页面实际显示的版本号为准。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_7I8SsvLBNA"
+        },
+        "content": [
+          {
+            "text": "保存的版本包含所有成员已经同步的修改。版本说明由点击保存的人填写，不能把一次保存理解为只保存这个人的输入。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Na51qMzZAu"
+        },
+        "content": [
+          {
+            "text": "4. 修改内容并查看差异",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_PrzBXAok-A"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ScVR6oZ2V3"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_p_INhee_aM"
+                },
+                "content": [
+                  {
+                    "text": "回到正文，在验收标准后补充一句",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“评审结束后由负责人确认待办事项。”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "，先保留为当前草稿。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_sUKou8hzWJ"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_sTqSmGm5yw"
+                },
+                "content": [
+                  {
+                    "text": "切换到",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“版本比较”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "，将“旧版本”选择为刚才保存的版本，“比较目标”选择为",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“当前草稿”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "。默认勾选“只比较相邻版本”时，选择最新正式版本会联动到当前草稿。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_gbornZ6P5F"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_N28rtaf5Hb"
+                },
+                "content": [
+                  {
+                    "text": "查看新增文字的差异标记。确认内容后，再点击“保存版本”，填写",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“补充评审后的确认要求”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "并保存。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_kXe9m9xdYk"
+        },
+        "content": [
+          {
+            "text": "保存成功后，这次补充也成为正式历史。你还可以选择两个已保存版本，回看当时的差异；继续编辑正文不会改写已经保存的历史版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Y6Wze7fXuM"
+        },
+        "content": [
+          {
+            "text": "5. 从其他页面找回这条需求",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_tRrFScqaoO"
+        },
+        "content": [
+          {
+            "text": "点击顶部“工作台”或“文档”离开详情，再使用顶部搜索输入“每周需求评审”或完整文档编号，即可再次打开。也可以通过“最近浏览”返回。Windows 使用 ",
+            "type": "text"
+          },
+          {
+            "text": "Ctrl + K",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": "、macOS 使用 ",
+            "type": "text"
+          },
+          {
+            "text": "Cmd + K",
+            "type": "text",
+            "marks": [
+              {
+                "type": "code"
+              }
+            ]
+          },
+          {
+            "text": " 可以聚焦搜索框。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_s3lnJWzEQ3"
+        },
+        "content": [
+          {
+            "text": "切换文档前，应用会尝试完成当前编辑的备份。如果出现“切换文档失败”或备份提示，请留在当前页面，按提示处理后重试。切换页面本身不会创建正式版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_o5frZVh-4i"
+        },
+        "content": [
+          {
+            "text": "四、分清三种保存状态",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_C1Nxl_pyqV"
+        },
+        "content": [
+          {
+            "text": "保存按钮旁的同步状态、“个人检查点”提示和文档属性中的正式版本，分别说明不同事情：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_fampIZh7CG"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Zkq3lYWFgJ"
+                    },
+                    "content": [
+                      {
+                        "text": "方式",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_T65kQWe65R"
+                    },
+                    "content": [
+                      {
+                        "text": "表示什么",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_jsOeRC7gSC"
+                    },
+                    "content": [
+                      {
+                        "text": "使用时如何判断",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3sDix7wH9f"
+                    },
+                    "content": [
+                      {
+                        "text": "共同文档保存",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3DsbwjQhLi"
+                    },
+                    "content": [
+                      {
+                        "text": "标题和正文的当前修改已同步到服务器，其他共同编辑者可以收到。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_tYN0_c2V2c"
+                    },
+                    "content": [
+                      {
+                        "text": "“草稿已同步”表示当前内容已写入共同文档。保存区的“已修改”表示标题或正文与最新正式版本不同；改回原内容或保存版本后恢复一致。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_33nYmVLUwC"
+                    },
+                    "content": [
+                      {
+                        "text": "本机备份与个人检查点",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Euyhl2Bh75"
+                    },
+                    "content": [
+                      {
+                        "text": "当前浏览器保存编辑副本，帮助恢复尚未完成的编辑、版本说明或图片任务。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_SF3-N3MABK"
+                    },
+                    "content": [
+                      {
+                        "text": "仅保存到本机的内容不能当作已经同步到其他设备；异常提示出现时按页面提示处理。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Yt_Gt0KpbU"
+                    },
+                    "content": [
+                      {
+                        "text": "正式版本",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_3x-BIMkeI4"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“保存版本”后，生成可回看和比较的历史快照。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_i5P_cVVxh4"
+                    },
+                    "content": [
+                      {
+                        "text": "以保存成功提示及正式版本号为准。阶段性内容确认后，主动保存一次版本。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_4BqECshknu"
+        },
+        "content": [
+          {
+            "text": "共同正文会持续变化，正式版本用于记录阶段性结果。多人协作时可以在侧栏查看“正在编辑”的成员，正文中的远端光标帮助你了解其他人的编辑位置。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_fjK4WEQD94"
+        },
+        "content": [
+          {
+            "text": "五、调整阅读与编辑体验",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_N_RpSEfT_0"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_WdhGTLMUKB"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_m221nQUF_P"
+                },
+                "content": [
+                  {
+                    "text": "点击顶部",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“设置”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_uguzynX_K3"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XMWv3DurUV"
+                },
+                "content": [
+                  {
+                    "text": "在",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“全局配置”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "中选择跟随系统、亮色或暗色主题，并按个人习惯开启或关闭自定义鼠标指针。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_BvgPWwycZu"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ytYbxnKUye"
+                },
+                "content": [
+                  {
+                    "text": "在",
+                    "type": "text"
+                  },
+                  {
+                    "text": "“编辑器配置”",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "中调整各级标题和段落的字号、文字颜色、正文行高与最大宽度，结合实时预览选择适合自己的排版。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_NREx59-Kf7"
+        },
+        "content": [
+          {
+            "text": "调整即时生效并自动保存在当前浏览器，只影响你的阅读和编辑显示，不改变文档内容，也不改变其他成员的显示。文字颜色分别按亮色、暗色主题保存；需要重置时点击“恢复默认”。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_fR4IJlmtNR"
+        },
+        "content": [
+          {
+            "text": "六、遇到问题时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_j0W84og2QK"
+        },
+        "content": [
+          {
+            "text": "已登录，却看不到文档列表",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Hta1R_TWe8"
+        },
+        "content": [
+          {
+            "text": "进入右上角用户菜单的“个人账号”，查看项目访问和申请状态。待审批账号需要等待管理员处理；被拒绝时可查看原因并重新申请。账号能够登录，不代表已经获得项目访问权限。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_Ank5pc5NP8"
+        },
+        "content": [
+          {
+            "text": "正文变成只读，显示 AI 正在编辑",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_8y-h4Ibodp"
+        },
+        "content": [
+          {
+            "text": "查看临时 AI 编辑提示中的发起人和到期时间。AI 编辑期间锁定需求，网页成员暂时只能查看；完成后自动恢复。发起人或系统管理员可取消本次 AI 编辑。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_w8TIjyH5yI"
+        },
+        "content": [
+          {
+            "text": "AI 默认直接更新共同草稿，需要留作历史记录时再点击“保存版本”，也可明确要求 AI 保存版本并编写提交信息。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_k4qBjTryuh"
+        },
+        "content": [
+          {
+            "text": "图片还没上传完成，或“保存版本”暂时不可用",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_EWxIiiuwi9"
+        },
+        "content": [
+          {
+            "text": "等待图片上传完成；上传失败时，在正文中重试或移除失败任务，再保存版本。也可以查看“工作区提示”和保存区的具体原因。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_mFTgpP4ZTp"
+        },
+        "content": [
+          {
+            "text": "网络中断，或页面提示存在待恢复的本机修改",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_wTz6vmF053"
+        },
+        "content": [
+          {
+            "text": "先保留当前页面和浏览器数据，按提示等待重连或重试。若出现“导出本机副本并载入最新内容”，按该入口保存副本，载入最新草稿后再核对需要补回的内容；不要通过清空浏览器数据处理未恢复的编辑。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_hcsJvucceA"
+        },
+        "content": [
+          {
+            "text": "工作台的统计图表为什么没有数据",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_TLpMv3WTM1"
+        },
+        "content": [
+          {
+            "text": "当前“文档状态分布”和“文档变化趋势”区域仍标注为图表占位。查看实际需求数量可使用顶部概览卡片，查看具体需求可进入文档列表。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_-JwQui9FeH"
+        },
+        "content": [
+          {
+            "text": "七、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_-X12k4-7v_"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_DuG7sWmB55"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_19NRdqvlVW"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_CKSzXrHVZS"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "了解属性含义、列表筛选、分组和快速切换。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ow8VZFFTin"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_g_GFj_sGql"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 03｜富文本编辑器指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_Z70DEAPyNSfx",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "掌握文字格式、表格、图片、粘贴和常用快捷键。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_wlU-sMmFqv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_JTF38BWadb"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 04｜共同编辑与草稿恢复",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_nnHYXgmeMyuY",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "理解多人同步、备份、断网和恢复提示。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_dZaRnFs9Bl"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_lO0Ozrv9Bp"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 05｜版本管理与差异追踪",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_PnGYTL3Srr3_",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "深入使用版本比较、草稿变更回退、选区历史和修改人信息。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_q36BSESSW-"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_qekVGrP0eP"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 06｜AI 协作使用指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_fCtoq-Tut1w3",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "配置 Skill、直接修改草稿并按要求保存版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_iyrNdA8RiS"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_IyrghL4h9-"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 07｜账号、成员与权限管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_5r3GdqPL-P5T",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "了解申请、邀请、角色和管理员操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_6FoLJbve4t"
+        }
+      }
+    ]
+  }
+}

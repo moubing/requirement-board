@@ -1,0 +1,52 @@
+diff --git a/dist/y-tiptap.cjs b/dist/y-tiptap.cjs
+index 8b341de0dc9875e8840099b1309fff1ebb0c5db2..ca9f9434f95dc27c03651e764ce58df05cef94df 100644
+--- a/dist/y-tiptap.cjs
++++ b/dist/y-tiptap.cjs
+@@ -830,7 +830,10 @@ class ProsemirrorBinding {
+         this.prosemirrorView.state.doc.content.size,
+         new PModel__namespace.Slice(PModel__namespace.Fragment.from(fragmentContent), 0, 0)
+       );
+-      restoreRelativeSelection(tr, this.beforeTransactionSelection, this, oldDoc);
++      // Undo/redo restores a historical selection whose absolute positions do not
++      // belong to oldDoc. Only remote edits can use the structural fallback.
++      restoreRelativeSelection(tr, this.beforeTransactionSelection, this,
++        transaction.origin instanceof Y.UndoManager ? undefined : oldDoc);
+       tr = tr.setMeta(ySyncPluginKey, { isChangeOrigin: true, isUndoRedoOperation: transaction.origin instanceof Y__namespace.UndoManager });
+       if (
+         this.beforeTransactionSelection !== null && this._isLocalCursorInView()
+@@ -2943,6 +2946,9 @@ const yUndoPlugin = ({ protectedNodes = defaultProtectedNodes, trackedOrigins =
+   view: view => {
+     const ystate = ySyncPluginKey.getState(view.state);
+     const undoManager = yUndoPluginKey.getState(view.state).undoManager;
++    // Plugin views can be recreated (e.g. Vue BubbleMenu registration) after
++    // destroy() removed this origin. Redo needs to capture our own undo again.
++    undoManager.trackedOrigins.add(undoManager);
+     undoManager.on('stack-item-added', ({ stackItem }) => {
+       const binding = ystate.binding;
+       if (binding) {
+diff --git a/dist/y-tiptap.js b/dist/y-tiptap.js
+index c6fdfa42dc346d31a3b4af91e0b3993ac3735a09..15dd88708d722d418eb749586ed926b22c7447d8 100644
+--- a/dist/y-tiptap.js
++++ b/dist/y-tiptap.js
+@@ -796,7 +796,10 @@ class ProsemirrorBinding {
+         this.prosemirrorView.state.doc.content.size,
+         new PModel.Slice(PModel.Fragment.from(fragmentContent), 0, 0)
+       );
+-      restoreRelativeSelection(tr, this.beforeTransactionSelection, this, oldDoc);
++      // Undo/redo restores a historical selection whose absolute positions do not
++      // belong to oldDoc. Only remote edits can use the structural fallback.
++      restoreRelativeSelection(tr, this.beforeTransactionSelection, this,
++        transaction.origin instanceof Y.UndoManager ? undefined : oldDoc);
+       tr = tr.setMeta(ySyncPluginKey, { isChangeOrigin: true, isUndoRedoOperation: transaction.origin instanceof Y.UndoManager });
+       if (
+         this.beforeTransactionSelection !== null && this._isLocalCursorInView()
+@@ -2909,6 +2912,9 @@ const yUndoPlugin = ({ protectedNodes = defaultProtectedNodes, trackedOrigins =
+   view: view => {
+     const ystate = ySyncPluginKey.getState(view.state);
+     const undoManager = yUndoPluginKey.getState(view.state).undoManager;
++    // Plugin views can be recreated (e.g. Vue BubbleMenu registration) after
++    // destroy() removed this origin. Redo needs to capture our own undo again.
++    undoManager.trackedOrigins.add(undoManager);
+     undoManager.on('stack-item-added', ({ stackItem }) => {
+       const binding = ystate.binding;
+       if (binding) {

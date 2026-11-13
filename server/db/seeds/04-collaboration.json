@@ -1,0 +1,2517 @@
+{
+  "id": "req_nnHYXgmeMyuY",
+  "title": "《使用手册 04｜共同编辑与草稿恢复》",
+  "contentJson": {
+    "type": "doc",
+    "content": [
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "p_5KWc1Nnq2q"
+        },
+        "content": [
+          {
+            "text": "本篇介绍多人如何在同一条需求中工作，以及离开页面、断网、图片上传中断或 AI 编辑后如何继续已有草稿。重点是看懂保存状态、确认可恢复的内容，并按页面提示处理异常。正文排版操作见《使用手册 03｜富文本编辑器指南》，版本比较见后续版本管理专题。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_mtBc8g02R3"
+        },
+        "content": [
+          {
+            "text": "先看保存状态：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "“草稿已同步”表示共同草稿已写入服务器；“个人检查点已备份”表示个人编辑状态已完成本机备份；正式历史以“保存版本”的成功反馈和版本记录为准。三项各有用途，协作时需要分别确认。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_AE2k63neky"
+        },
+        "content": [
+          {
+            "text": "一、分清共同草稿、个人检查点和正式版本",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_7ZFlugWW2l"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_MKKiSgutpa"
+                    },
+                    "content": [
+                      {
+                        "text": "内容",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_4PvdG7Lwk5"
+                    },
+                    "content": [
+                      {
+                        "text": "用于什么",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Fp5qmJBg1h"
+                    },
+                    "content": [
+                      {
+                        "text": "如何确认",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_BKI4nShajC"
+                    },
+                    "content": [
+                      {
+                        "text": "共同草稿",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Yt9lcKn2E_"
+                    },
+                    "content": [
+                      {
+                        "text": "所有有编辑权限的成员共同维护当前文档名称和正文。文字、格式、表格、链接与已插入的图片随编辑同步。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_IvvzBpamXr"
+                    },
+                    "content": [
+                      {
+                        "text": "查看保存区的“正在同步草稿”“草稿已同步”等状态。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ocHZljxRih"
+                    },
+                    "content": [
+                      {
+                        "text": "个人检查点",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_FMvE_4xRmf"
+                    },
+                    "content": [
+                      {
+                        "text": "记录自己的编辑状态、版本说明、待同步修改和图片任务，帮助重新打开后继续工作。本机还保存尚未上传的图片文件。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_hONcTe9f8O"
+                    },
+                    "content": [
+                      {
+                        "text": "查看“个人检查点待备份”“个人检查点已备份”及相关错误提示。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_9LnNozb5xD"
+                    },
+                    "content": [
+                      {
+                        "text": "正式版本",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_yRdg5COLIK"
+                    },
+                    "content": [
+                      {
+                        "text": "保存某个阶段的标题和正文快照，供团队回看、比较和追踪。版本说明由提交保存的人填写。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_AXDgFP7HbZ"
+                    },
+                    "content": [
+                      {
+                        "text": "点击“保存版本”，确认提交后出现“已保存版本”反馈，并在版本列表中核对新记录。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_IZE85Uiqyr"
+        },
+        "content": [
+          {
+            "text": "保存状态通常在右侧保存入口旁显示。出现同步或恢复问题时，这里会展开警告；“工作区提示”还会集中显示切换失败、图片处理和待恢复修改等信息。窄屏侧栏收起时，可通过页面上的“工作区提示”入口查看。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_OJSn7jzUSt"
+        },
+        "content": [
+          {
+            "text": "备份和同步都是自动进行的。输入完成后留意状态变化；异常退出、断电或强制关闭时，恢复依赖此前已经完成的备份，最后一段尚未写入的输入仍可能无法恢复。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_OGXWaMeSJN"
+        },
+        "content": [
+          {
+            "text": "二、与同事共同编辑一条需求",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_5I9c1NtEBe"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_QX7HguY9vF"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_DD_Fv0hfjs"
+                },
+                "content": [
+                  {
+                    "text": "各自登录具有项目访问权限的账号，打开同一条需求。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_CIeOtNr3Xg"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_SzgZUdxeup"
+                },
+                "content": [
+                  {
+                    "text": "等待共同文档恢复完成，查看右侧“正在编辑”面板和正文中的成员光标。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_OcM0DJRbPz"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_0iv7YzqsnK"
+                },
+                "content": [
+                  {
+                    "text": "约定各自负责的章节或检查项，直接在正文中修改；其他成员会在同步后看到更新。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_vqhzbATSWq"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_B80OxBRs69"
+                },
+                "content": [
+                  {
+                    "text": "准备形成阶段结果时，让参与者各自确认同步状态，再由一位成员保存正式版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_JEd8WJ4AG5"
+        },
+        "content": [
+          {
+            "text": "人数、成员光标与修改人记录",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_GtTXX398n1"
+        },
+        "content": [
+          {
+            "text": "“正在编辑”按账号统计成员，同一账号打开多个标签页仍只算一人，本人标为“我”。成员在正文或版本比较页面保持编辑会话时可以计入人数，不要求此刻正在打字。连接断开后，面板会提示暂时无法获取编辑人数。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_43iFrC4iDy"
+        },
+        "content": [
+          {
+            "text": "成员光标帮助判断对方正在查看或编辑的位置。版本中的修改人信息则记录哪些成员参与过对应节点的修改；单纯打开页面或移动光标，不会因此成为正文修改人。保存版本的人与参与编辑的人也可能不同。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_wyCfHRmvpa"
+        },
+        "content": [
+          {
+            "text": "哪些内容共同维护，哪些属于个人",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_fty4cOuKVF"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_RnDvCNoFDb"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ZygYKFRNYb"
+                },
+                "content": [
+                  {
+                    "text": "文档名称和正文：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "进入同一共同草稿。多人修改同一段内容时应沟通确认最终表达，章节分工有助于减少相互改写。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_8bQhud--Do"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_azofkGtdUB"
+                },
+                "content": [
+                  {
+                    "text": "版本说明：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "由当前准备保存版本的人填写，可随自己的个人检查点恢复。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_JWFkElNEcP"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XHqZX41588"
+                },
+                "content": [
+                  {
+                    "text": "待上传图片：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "由上传人继续处理；只存在其本机的原始文件，其他设备暂时无法取得。图片上传并插入正文后，随共同内容同步。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_7ooFtLvxzE"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_z1_ER3-Utr"
+                },
+                "content": [
+                  {
+                    "text": "状态、负责人和优先级：",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "在文档属性中保存，各自有保存反馈。修改这些属性不会自动生成正文版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_bi9m7fEwtZ"
+        },
+        "content": [
+          {
+            "text": "工具栏的撤销、重做用于自己的编辑记录；其他成员的输入继续保留。跨页面或刷新后应依靠草稿恢复继续工作，需要按版本查看或回退内容时，使用版本管理相关入口。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_7DOWemABHd"
+        },
+        "content": [
+          {
+            "text": "三、离开页面与重新打开",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_2ZS2fZf-bl"
+        },
+        "content": [
+          {
+            "text": "正常重新打开时如何恢复",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_l2rFov42QQ"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_px75Kk0xzV"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_jrtkQHZlTB"
+                },
+                "content": [
+                  {
+                    "text": "使用原账号，在原浏览器和相同站点地址中打开这条需求。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_fPsG5AVN6g"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_GFFV8X7Lb0"
+                },
+                "content": [
+                  {
+                    "text": "等待“正在恢复共同文档…”结束。页面会读取本机记录和服务器内容，自动恢复可用草稿。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Yxr-hOfxRM"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_bO5miLvL79"
+                },
+                "content": [
+                  {
+                    "text": "核对文档名称、正文、版本说明和未完成图片任务，再继续编辑。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_RNGQ8vacOp"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_NTMd5PV9Cz"
+                },
+                "content": [
+                  {
+                    "text": "观察同步与个人检查点状态，确认后续修改继续被保存。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_skTCDF_e_B"
+        },
+        "content": [
+          {
+            "text": "正常恢复不需要手动选择草稿，也不需要先新建一条需求。本机尚未同步的内容会被保留并参与正常恢复；如果存在 AI 锁定前的旧修改或无法读取的记录，页面会单独提示处理。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_hQMWcUw_i_"
+        },
+        "content": [
+          {
+            "text": "通过搜索、最近浏览或页面导航切换文档",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_fYblHDPKlc"
+        },
+        "content": [
+          {
+            "text": "离开当前需求前，页面会等待完整备份。若保存或恢复正在进行，或当前修改无法完整备份，切换会暂停并保留当前页面；处理提示后重新尝试。切换文档本身不会创建正式版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_yQZfypPetT"
+        },
+        "content": [
+          {
+            "text": "需要回到刚才的需求时，可以使用最近浏览、搜索或浏览器前进/后退。清空“最近浏览”只清理访问记录；草稿按自己的保存和恢复流程维护。关闭浏览器或强制结束进程的保护有限，离开前仍应查看保存状态。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_L3RC7Pm3-H"
+        },
+        "content": [
+          {
+            "text": "更换浏览器、设备或账号",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_im57LZ5N0i"
+        },
+        "content": [
+          {
+            "text": "共同草稿中已同步的内容可以由其他有权限的成员或设备读取。自己的个人检查点只有已同步到服务器的部分可以跨设备恢复；尚未上传的原始图片和未同步的本机输入，需要回到原浏览器处理。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_HZpeuguQMH"
+        },
+        "content": [
+          {
+            "text": "个人草稿按账号区分。更换账号不会读取另一个账号的个人检查点，系统管理员也没有查看他人个人草稿的专用入口。清理站点数据、更换浏览器用户配置或使用不同站点地址后，原本机备份可能无法继续读取。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_9AYBiXRHIh"
+        },
+        "content": [
+          {
+            "text": "四、断网和同步失败时继续工作",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_NB-NAW1xnh"
+        },
+        "content": [
+          {
+            "text": "已打开的页面发生断网",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_bE9LBgyNHX"
+        },
+        "content": [
+          {
+            "text": "已经完成加载、且仍处于可编辑状态的页面，可以继续输入并尝试保存到本机。此时查看“个人检查点已备份”和具体警告；服务器尚未确认的修改，其他成员暂时看不到。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_krsSONXkyJ"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Jll8rn7Ang"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_cjBvRSSdaM"
+                },
+                "content": [
+                  {
+                    "text": "保留当前页面，先确认本机备份是否完成。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_W99kzWR7bB"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_DtTrNrlWqU"
+                },
+                "content": [
+                  {
+                    "text": "恢复网络，等待页面重新连接和补交待同步修改。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Di6SEi_Fw1"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_dGIwfs4rti"
+                },
+                "content": [
+                  {
+                    "text": "若警告仍在且显示“重试”，点击重试后观察结果。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_IppzrFbbVm"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_ix4VulBZxj"
+                },
+                "content": [
+                  {
+                    "text": "同步完成后再保存正式版本；需要多人共同确认时，让各成员分别检查自己的状态。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_jd8I87RyzU"
+        },
+        "content": [
+          {
+            "text": "首次打开或重新加载需求仍需要读取服务器数据。当前页面正在离线保存时，优先保持页面和原浏览器数据，待网络恢复后继续同步。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_3O2NcvqyF7"
+        },
+        "content": [
+          {
+            "text": "看懂几种常见状态",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_jua8DsSRcN"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_j4sYtRvpoU"
+                    },
+                    "content": [
+                      {
+                        "text": "页面状态",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_-XX_XHMWFB"
+                    },
+                    "content": [
+                      {
+                        "text": "含义与下一步",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_HXcrR4ysKg"
+                    },
+                    "content": [
+                      {
+                        "text": "正在同步草稿",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_K8loleUFm3"
+                    },
+                    "content": [
+                      {
+                        "text": "仍有同步或确认工作进行中。稍候查看状态是否恢复正常。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_iv0mk8ONNE"
+                    },
+                    "content": [
+                      {
+                        "text": "草稿已同步",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_OWm2ZX4Qo0"
+                    },
+                    "content": [
+                      {
+                        "text": "当前共同草稿已获服务器确认。需要阶段性历史时，再保存正式版本。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_Qne66LupD7"
+                    },
+                    "content": [
+                      {
+                        "text": "连接中断，正在备份到本机",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_QKdeoGxE_C"
+                    },
+                    "content": [
+                      {
+                        "text": "正在尝试保留当前编辑。继续检查个人检查点是否完成及有无本地保存错误。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_dw6EsN25j-"
+                    },
+                    "content": [
+                      {
+                        "text": "编辑已备份到本机，等待重新连接",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_DVmTaNXow2"
+                    },
+                    "content": [
+                      {
+                        "text": "已有本机备份，等待网络恢复后继续同步。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_D99RfenRcM"
+                    },
+                    "content": [
+                      {
+                        "text": "编辑同步暂未完成，修改与作者记录保留在本机，联网后重试。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_13gjNSZ4uA"
+                    },
+                    "content": [
+                      {
+                        "text": "待确认修改仍在队列中。检查网络及页面给出的具体失败原因，然后重试。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_FOjKOJdxds"
+        },
+        "content": [
+          {
+            "text": "如果断网期间已有其他成员保存版本，你的离线修改将在恢复同步后进入当时的当前草稿；此前保存的历史版本保持原样。补交成功后，可以再保存一个包含这些修改的新版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_hW6XgTnYtI"
+        },
+        "content": [
+          {
+            "text": "五、恢复未完成的图片任务",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_gKLDa5hucu"
+        },
+        "content": [
+          {
+            "text": "上传中断后重新打开需求，页面会恢复已有任务，尝试复用本机文件或服务器已经收到的上传结果。先检查恢复出的预览和任务状态，再决定下一步。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_be2krXy6I3"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_UJQc3taVg4"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_axrNtabwrg"
+                },
+                "content": [
+                  {
+                    "text": "任务仍在上传时等待完成；任务失败时，查看图片旁的具体错误。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_5XD-HnEPyo"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_3qin_veaqV"
+                },
+                "content": [
+                  {
+                    "text": "能够恢复文件或已上传结果时，点击“重试”继续。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Rldo6k7-xH"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_XrmiLvrW7v"
+                },
+                "content": [
+                  {
+                    "text": "若原文件只在另一台设备或原浏览器中，回到那里继续处理；确实无法恢复时，移除失败任务后重新选择原图片上传。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_ffU_I7yON8"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_W9LrOPKLq7"
+                },
+                "content": [
+                  {
+                    "text": "核对图片只插入一次、题注和位置正确，待所有任务处理完再保存版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_WMWwx91q7S"
+        },
+        "content": [
+          {
+            "text": "图片上传中或失败未处理时，可以继续备份草稿，但正式版本保存受到限制。AI 锁定期间图片也可能等待插入；恢复编辑后按任务提示重试。图片操作细节可阅读 ",
+            "type": "text"
+          },
+          {
+            "text": "使用手册 03｜富文本编辑器指南",
+            "type": "text",
+            "marks": [
+              {
+                "type": "link",
+                "attrs": {
+                  "rel": "noopener noreferrer",
+                  "href": "/requirements/req_Z70DEAPyNSfx",
+                  "class": null,
+                  "title": null,
+                  "target": "_blank"
+                }
+              },
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_-0H00gWzYl"
+        },
+        "content": [
+          {
+            "text": "六、AI 编辑锁与待恢复的本机修改",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_zyxASR8wBv"
+        },
+        "content": [
+          {
+            "text": "正常的 AI 只读状态",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_K8KipLnz1i"
+        },
+        "content": [
+          {
+            "text": "AI 读取当前草稿后，网页会暂时只读，包括正文、文档名称、文档属性和正式版本保存。临时 AI 编辑提示显示发起人和到期时间；这期间个人检查点仍可备份。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_0zLldig3bJ"
+        },
+        "content": [
+          {
+            "text": "没有待同步输入的页面，会在 AI 执行完成后自动显示新草稿并恢复编辑。取消或锁自然到期也会解除对应锁；中断请求重新执行前会检查当前草稿与原基线是否一致。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_30QQBWi93X"
+        },
+        "content": [
+          {
+            "text": "发起人或系统管理员可通过“取消 AI 编辑”结束本轮任务。页面确认取消后，本轮尚未执行的请求会被终止；确实准备停止这轮编辑时再操作。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 3,
+          "diffId": "blk_hS9DGYo3rZ"
+        },
+        "content": [
+          {
+            "text": "出现“有待恢复的本机修改”时",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_ByJJY9zUoM"
+        },
+        "content": [
+          {
+            "text": "这种提示表示锁定前仍有未同步输入，或者旧备份的来源状态无法确认。页面会保留本机副本并暂停将这些修改写回共同草稿，需要先核对它们与最新内容的关系。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_e0qwj5_GBd"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_RF5hjGR5RD"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_sGj6euw-rQ"
+                },
+                "content": [
+                  {
+                    "text": "在“工作区提示”中找到“有待恢复的本机修改”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_Sj9X7pD7zG"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_SIjXJUZWQe"
+                },
+                "content": [
+                  {
+                    "text": "点击“导出本机副本并载入最新内容”。页面会发起恢复文件下载，并在保留本机归档后重新载入当前草稿。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_VdpPAVJL0o"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_wAjfDdr0s1"
+                },
+                "content": [
+                  {
+                    "text": "确认下载的恢复 JSON 已保存，再对照最新草稿核对原本机内容。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_hTolj24_iM"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_lKUjopARLK"
+                },
+                "content": [
+                  {
+                    "text": "参考副本手动补回仍需要的正文和版本说明，检查待上传图片；完成同步后再保存正式版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "callout",
+        "attrs": {
+          "tone": "note",
+          "diffId": "blk_u4g0_dsech"
+        },
+        "content": [
+          {
+            "text": "恢复文件的用途：",
+            "type": "text",
+            "marks": [
+              {
+                "type": "bold"
+              }
+            ]
+          },
+          {
+            "text": "当前版本没有一键导入恢复文件的入口。文件用于保留内容和辅助核对，旧本机归档也继续保留；需要按最新草稿逐项补回，避免覆盖其他成员或 AI 已确认的修改。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_HXCNHX1Ncd"
+        },
+        "content": [
+          {
+            "text": "若导出或本机归档失败，保持当前页面，按错误提示重试。正常 AI 编辑不要求每次导出；只在页面明确提示存在待恢复修改时使用这一流程。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_aiXCXwJ7k5"
+        },
+        "content": [
+          {
+            "text": "七、把团队阶段成果保存为正式版本",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "orderedList",
+        "attrs": {
+          "type": null,
+          "start": 1,
+          "diffId": "blk_Eh4LgMBFK8"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_5jQt-He0M_"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Pjk1yHTAT5"
+                },
+                "content": [
+                  {
+                    "text": "参与者分别确认自己的编辑已同步，图片上传已完成。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_9VW1rqkgu7"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_Qzw29LSFFu"
+                },
+                "content": [
+                  {
+                    "text": "保存人检查当前共同草稿，点击“保存版本”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_IEggWb_3jZ"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_39o9NwfR0T"
+                },
+                "content": [
+                  {
+                    "text": "在“保存正式版本”弹窗中填写可选的“版本说明”，点击“确认保存版本”。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_tg_3jamiOw"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_X9GP26V-sI"
+                },
+                "content": [
+                  {
+                    "text": "等待“已保存版本”反馈，并在版本记录中核对新版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_Adw1bkaRDM"
+        },
+        "content": [
+          {
+            "text": "保存会包含所有成员已经同步到共同草稿的修改。其他成员仍在离线或尚未同步的内容，需要等其补交后再形成新版本。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_s-bYeu_UuA"
+        },
+        "content": [
+          {
+            "text": "提交期间，当前页面的正文、名称和版本说明输入会暂时禁用。取消保存弹窗或提交失败时，草稿和已填写的说明会保留；处理错误后可继续保存。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_OjBRhQ2tBC"
+        },
+        "content": [
+          {
+            "text": "保存成功后，对应个人检查点结束，后续修改继续进入当前共同草稿。保存过程中收到的其他成员新修改也会保留，需要后续再次保存时再形成新的历史记录。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_4ce9AxNw8K"
+        },
+        "content": [
+          {
+            "text": "八、常见恢复提示与处理",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "table",
+        "attrs": {
+          "diffId": "blk_pfHGftfyIb"
+        },
+        "content": [
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_JIJg52TwGp"
+                    },
+                    "content": [
+                      {
+                        "text": "提示或现象",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableHeader",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2NOFxgnyIs"
+                    },
+                    "content": [
+                      {
+                        "text": "建议操作",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_LtyqtCuYn0"
+                    },
+                    "content": [
+                      {
+                        "text": "本地保存不可用",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_ZgeGMczcjK"
+                    },
+                    "content": [
+                      {
+                        "text": "保持联网并等待服务器同步，检查浏览器存储是否可用。若同时无法联网，先保留当前页面和重要内容，再排查。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_28XyLF5jHY"
+                    },
+                    "content": [
+                      {
+                        "text": "部分本地草稿格式无法读取，原数据已保留。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_6Pml-KA_a2"
+                    },
+                    "content": [
+                      {
+                        "text": "可用记录仍会尝试恢复；该提示可能来自某一份旧本机记录。核对当前正文，保留原浏览器数据和错误信息，必要时请项目维护者协助处理。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_RMF6bAIMWF"
+                    },
+                    "content": [
+                      {
+                        "text": "暂时无法读取服务器上的未保存内容",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_vIOSrktuJL"
+                    },
+                    "content": [
+                      {
+                        "text": "页面会尝试使用本机记录。恢复网络后重试，核对正文、说明和上传任务。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_DVXgv_nKC6"
+                    },
+                    "content": [
+                      {
+                        "text": "协作连接未通过验证 / 登录已过期 / 暂时无权同步",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_2IFGZ6E1_n"
+                    },
+                    "content": [
+                      {
+                        "text": "先确认本机备份，再检查登录状态和项目权限。重新登录原账号或恢复权限后继续同步。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_PnioOtxG25"
+                    },
+                    "content": [
+                      {
+                        "text": "切换文档失败，当前修改尚未完整备份",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_x42LELvYUC"
+                    },
+                    "content": [
+                      {
+                        "text": "保持当前需求，处理网络、本机存储或图片问题，再重试切换。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "tableRow",
+            "content": [
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk_cVLHCwiCNF"
+                    },
+                    "content": [
+                      {
+                        "text": "图片仍待上传或恢复",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "tableCell",
+                "attrs": {
+                  "align": null,
+                  "colspan": 1,
+                  "rowspan": 1,
+                  "colwidth": null
+                },
+                "content": [
+                  {
+                    "type": "paragraph",
+                    "attrs": {
+                      "diffId": "blk__6V5adaiAg"
+                    },
+                    "content": [
+                      {
+                        "text": "在原浏览器检查任务，重试或移除失败任务。正文同步完成不代表原图片已上传完成。",
+                        "type": "text"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_jFI5IrJv0E"
+        },
+        "content": [
+          {
+            "text": "遇到持续失败时，记录文档编号、操作步骤和页面上的具体错误，便于维护者定位。当前正文、正式历史与旧本机备份分别核对；处理完成前保留尚未同步的内容。",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "heading",
+        "attrs": {
+          "level": 2,
+          "diffId": "blk_mwZdbs0Oq8"
+        },
+        "content": [
+          {
+            "text": "九、继续阅读",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "blk_EpOKqPXQaF"
+        },
+        "content": [
+          {
+            "text": "本系列手册可按需要选择阅读：",
+            "type": "text"
+          }
+        ]
+      },
+      {
+        "type": "bulletList",
+        "attrs": {
+          "diffId": "blk_q2ZCebW6J8"
+        },
+        "content": [
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_a4I-uiHpOk"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_FTZdPVkDei"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 01｜快速入门",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_AesMxFEKIMbg",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：从进入项目到保存第一个正式版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_4cwr0T51zs"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_qb84b1mAwO"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 02｜文档创建与日常管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_MW_CUlyWq8Ke",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：维护文档属性，使用列表、搜索和最近浏览。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_RA4mZ3dgFw"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_vsm9oFLrZz"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 03｜富文本编辑器指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_Z70DEAPyNSfx",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：掌握文字格式、表格、图片、粘贴与快捷键。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_pZ_f3VZyMv"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_2YGJTByWIp"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 05｜版本管理与差异追踪",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_PnGYTL3Srr3_",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：比较版本、回退草稿变更，查看选区历史和修改人。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_XTTYrS52PK"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_-VyoQb3lRg"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 06｜AI 协作使用指南",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_fCtoq-Tut1w3",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：配置 Skill、直接修改草稿并按要求保存版本。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "listItem",
+            "attrs": {
+              "diffId": "blk_FTxS0VSon7"
+            },
+            "content": [
+              {
+                "type": "paragraph",
+                "attrs": {
+                  "diffId": "blk_jd8aaK2oxn"
+                },
+                "content": [
+                  {
+                    "text": "使用手册 07｜账号、成员与权限管理",
+                    "type": "text",
+                    "marks": [
+                      {
+                        "type": "link",
+                        "attrs": {
+                          "rel": "noopener noreferrer",
+                          "href": "/requirements/req_5r3GdqPL-P5T",
+                          "class": null,
+                          "title": null,
+                          "target": "_blank"
+                        }
+                      },
+                      {
+                        "type": "bold"
+                      }
+                    ]
+                  },
+                  {
+                    "text": "：了解申请、邀请、角色与管理员操作。",
+                    "type": "text"
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "type": "paragraph",
+        "attrs": {
+          "diffId": "para_EnbftO62wn"
+        }
+      }
+    ]
+  }
+}

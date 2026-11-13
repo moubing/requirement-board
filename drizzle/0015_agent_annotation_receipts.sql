@@ -1,0 +1,1 @@
+ALTER TABLE "agent_suggestions" ADD COLUMN "completed_annotations" jsonb;

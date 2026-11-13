@@ -1,0 +1,123 @@
+import { expect } from '@playwright/test'
+
+export async function verifyAppShell(page, screenshot) {
+  const viewport = page.viewportSize()
+  const header = page.locator('.app-header')
+  const content = page.locator('.app-page-scroll')
+  const toggle = page.locator('[data-shell-toggle]')
+  const drawer = page.getByRole('dialog', { name: '页面导航', exact: true })
+  const x = async () => Math.round((await content.boundingBox()).x)
+  const preserve = await page.evaluate(() => {
+    window.shellEditor = document.querySelector('.tiptap')
+    return { document: JSON.stringify(window.workspaceFixture.document()), requests: window.workspaceFixture.metadataRequests.length }
+  })
+  await page.setViewportSize({ width: 1440, height: 1000 })
+  await expect.poll(x).toBe(224)
+  expect((await header.boundingBox()).height).toBe(64)
+  const navigation = page.getByRole('navigation', { name: '主导航', exact: true })
+  const documentLink = navigation.getByRole('link', { name: '文档', exact: true })
+  await expect(documentLink).toHaveClass(/bing-button--ghost/)
+  await expect(documentLink).toHaveAttribute('aria-current', 'page')
+  expect(await documentLink.evaluate(node => node.tagName)).toBe('BUTTON')
+  expect(await navigation.locator('a button, button a').count()).toBe(0)
+  expect((await documentLink.boundingBox()).width).toBe((await navigation.boundingBox()).width)
+  for (const [theme, color] of [['light', 'rgb(255, 255, 255)'], ['dark', 'rgb(34, 40, 48)']]) {
+    await page.evaluate(value => document.documentElement.dataset.bingTheme = value, theme)
+    await expect(page.locator('#app-sidebar')).toHaveCSS('background-color', color)
+    await screenshot(`shell-sidebar-${theme}`)
+  }
+  await page.evaluate(() => document.documentElement.dataset.bingTheme = 'light')
+  await navigation.getByRole('link', { name: '工作台', exact: true }).press('Enter')
+  await navigation.getByRole('link', { name: '模板管理', exact: true }).press('Space')
+  await navigation.getByRole('link', { name: '成员管理', exact: true }).click()
+  expect(await page.evaluate(() => window.workspaceFixture.navigationRequests)).toEqual(['/', '/templates', '/members'])
+  for (const options of [{ modifiers: ['Control'] }, { button: 'middle' }]) {
+    const opened = page.context().waitForEvent('page')
+    await documentLink.click(options)
+    const tab = await opened
+    try { await tab.waitForURL('**/requirements') } finally { await tab.close() }
+  }
+  expect(await page.evaluate(() => window.workspaceFixture.navigationRequests)).toEqual(['/', '/templates', '/members'])
+  await toggle.click()
+  await expect.poll(x).toBe(0)
+  await expect(page.locator('#app-sidebar')).toHaveAttribute('inert', '')
+  expect((await header.boundingBox()).width).toBe(1440)
+  await expect(page.getByRole('navigation', { name: '主导航', exact: true })).toHaveCount(0)
+
+  // 快速反向使用当前进度；开合不重新挂载编辑器、不发数据请求。
+  await page.emulateMedia({ reducedMotion: 'no-preference' })
+  await toggle.click()
+  await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))))
+  expect(await x()).toBeGreaterThan(0)
+  expect(await x()).toBeLessThan(224)
+  await toggle.click()
+  await expect.poll(x).toBe(0)
+  await toggle.click()
+  await expect.poll(x).toBe(224)
+  expect(await page.evaluate(() => window.shellEditor === document.querySelector('.tiptap'))).toBe(true)
+  expect(await page.evaluate(() => JSON.stringify(window.workspaceFixture.document()))).toBe(preserve.document)
+  expect(await page.evaluate(() => window.workspaceFixture.metadataRequests.length)).toBe(preserve.requests)
+  expect(await content.evaluate(node => getComputedStyle(node).transform)).toBe('none')
+  await screenshot('shell-desktop')
+  await page.emulateMedia({ reducedMotion: 'reduce' })
+
+  const create = header.getByRole('button', { name: '新建文档', exact: true })
+  const settings = header.getByRole('button', { name: '设置', exact: true })
+  for (const width of [1001, 1000]) {
+    await page.setViewportSize({ width, height: 1000 })
+    for (const button of [create, settings]) {
+      const label = button.locator('.app-header-action-label')
+      if (width > 1000) await expect(label).toBeVisible()
+      else await expect(label).toBeHidden()
+    }
+    expect((await create.boundingBox()).height).toBe((await settings.boundingBox()).height)
+    expect((await create.boundingBox()).x).toBeLessThan((await settings.boundingBox()).x)
+  }
+  for (const width of [700, 390, 320]) {
+    await page.setViewportSize({ width, height: 500 })
+    await expect.poll(x).toBe(0)
+    await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1)).toBe(true)
+    await toggle.click()
+    await expect(drawer).toBeVisible()
+    expect((await drawer.boundingBox()).width).toBe(224)
+    await expect(drawer.getByRole('link', { name: '文档', exact: true })).toBeVisible()
+    await page.keyboard.press('Shift+Tab')
+    expect(await drawer.evaluate(node => node.contains(document.activeElement))).toBe(true)
+    for (let i = 0; i < 7; i++) {
+      await page.keyboard.press('Tab')
+      expect(await drawer.evaluate(node => node.contains(document.activeElement))).toBe(true)
+    }
+    await page.keyboard.press('Control+k')
+    await expect(page.getByRole('combobox', { name: '搜索文档号或名称', exact: true })).toBeHidden()
+    await screenshot(`shell-navigation-${width}`)
+    await page.keyboard.press('Escape')
+    await expect(drawer).toBeHidden()
+    await expect(toggle).toBeFocused()
+    await toggle.click()
+    await page.mouse.click(width - 8, 200)
+    await expect(drawer).toBeHidden()
+    await toggle.click()
+    await drawer.getByRole('link', { name: '文档', exact: true }).press('Enter')
+    await expect(drawer).toBeHidden()
+    await expect(toggle).toBeFocused()
+    expect(await page.evaluate(() => window.workspaceFixture.navigationRequests.at(-1))).toBe('/requirements')
+  }
+  await page.setViewportSize({ width: 701, height: 1000 })
+  await expect.poll(x).toBe(224)
+  await toggle.click()
+  await expect.poll(x).toBe(0)
+  await page.setViewportSize({ width: 390, height: 1000 })
+  await toggle.click()
+  await expect(drawer).toBeVisible()
+  await page.setViewportSize({ width: 701, height: 1000 })
+  await expect(drawer).toBeHidden()
+  await expect.poll(x).toBe(0)
+  await page.reload()
+  await expect(page.locator('.tiptap')).toBeVisible()
+  await expect.poll(x).toBe(0)
+  await toggle.click()
+  await expect.poll(x).toBe(224)
+  await page.setViewportSize(viewport)
+  console.log('外壳无头验证通过：固定 Header、白色侧栏、BingButton 路由与修饰键/中键、224→0、快速反向、编辑器保留、1000/700 边界、导航焦点与跨断点偏好、320px 矮屏。')
+}

@@ -1,0 +1,94 @@
+/* 工作台：灰色底上的圆角岛屿，岛屿之间只留缝隙，不再嵌套卡片。 */
+.desk-page, .app-page-scroll:has(.desk-page) { background: var(--ui-navigation); }
+.desk-page { container: workbench / inline-size; }
+.desk-page .workspace-text-link { flex-shrink: 0; color: var(--ui-accent); font-size: 13px; white-space: nowrap; }
+.desk-page .workspace-text-link:hover { text-decoration: underline; text-underline-offset: 3px; }
+.desk-page .workspace-feedback { margin: 0 0 12px; }
+.desk-page .workspace-empty { margin: 0; padding: 24px 0; color: var(--bing-muted); text-align: center; }
+
+.desk {
+  --desk-gap: 12px;
+  --desk-summary-height: 300px;
+  --flow-list-max: 440px;
+  --desk-activity-height: 100%;
+  display: grid; gap: var(--desk-gap); padding: var(--desk-gap);
+  grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) 360px;
+  /* 先留出下排实际高度，再由工作流吸收剩余空间，避免首屏只多出几像素。 */
+  max-height: calc(100dvh - var(--app-header-height));
+  grid-template-rows: minmax(380px, 1fr) max-content;
+  grid-template-areas: "flow flow activity" "load rhythm rhythm";
+}
+.desk-island {
+  display: flex; flex-direction: column; min-width: 0; min-height: 0;
+  border: 1px solid color-mix(in srgb, var(--bing-border) 70%, transparent); border-radius: 12px;
+  background: var(--bing-surface-solid);
+  transition: opacity 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+/* 拖动及收下阶段把注意力集中到工作流与底部投放区，不改变任何面板尺寸。 */
+.desk:has(.flow-board:is(.is-dragging, .is-receiving)) .desk-island--flow {
+  border-color: color-mix(in srgb, var(--ui-accent) 65%, var(--bing-border));
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ui-accent) 12%, transparent), 0 12px 32px -20px color-mix(in srgb, var(--ui-accent) 35%, transparent);
+}
+.desk:has(.flow-board:is(.is-dragging, .is-receiving)) .desk-island:not(.desk-island--flow) { opacity: 0.3; }
+/* 列表 440px，加标题、列头及内边距 114px；窗口不足时随网格收缩，卡片数量不参与外层定高。 */
+.desk-island--flow { grid-area: flow; height: calc(var(--flow-list-max) + 114px); max-height: 100%; min-height: 380px; }
+.desk-island--activity { grid-area: activity; }
+.desk-island--load { grid-area: load; align-self: start; }
+.desk-island--rhythm { grid-area: rhythm; }
+.desk-island__head { display: flex; align-items: center; justify-content: space-between; gap: 12px; min-height: 48px; padding: 8px 16px; }
+.desk-island__head h2 { flex: none; margin: 0; white-space: nowrap; color: var(--bing-heading); font-size: 15px; font-weight: 650; }
+.desk-island__body { position: relative; min-width: 0; min-height: 0; padding: 0 16px 16px; }
+.desk-island--flow .desk-island__body { display: flex; flex-direction: column; flex: 1; }
+.desk-island--flow .flow-board { flex: 1; }
+.desk-island--activity .desk-island__body { flex: 1; }
+.desk-island--load .desk-island__body, .desk-island--rhythm .desk-island__body { container-type: inline-size; }
+.desk-island--load .workspace-empty, .desk-island--rhythm .workspace-empty { height: var(--desk-summary-height); display: grid; place-content: center; }
+.desk-island--load .workspace-feedback, .desk-island--rhythm .workspace-feedback { position: absolute; inset: 0 16px auto; z-index: 3; padding: 12px; border: 1px solid var(--bing-border); border-radius: 8px; background: var(--bing-surface-solid); }
+@media (min-width: 1101px) {
+  /* 动态跟随首行，不能用自己的长列表撑高第一行。 */
+  .desk-island--activity .desk-island__body { contain: size; }
+}
+@container (max-width: 620px) {
+  .desk-island--rhythm .workspace-empty { height: calc(var(--desk-summary-height) + 192px); }
+}
+
+/* 需要立刻注意的两件事：放在「我的工作」标题旁，点击进入筛好的列表。 */
+.desk-focus { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px; }
+.desk-focus__chip {
+  --tone: #0891b2;
+  display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 6px 0 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--tone) 10%, transparent); color: color-mix(in srgb, var(--tone) 80%, var(--bing-heading));
+  font-size: 13px; font-weight: 600; white-space: nowrap; transition: background-color 120ms ease;
+}
+.desk-focus__chip.is-stale { --tone: var(--bing-warning-strong); }
+.desk-focus__chip:hover { background: color-mix(in srgb, var(--tone) 18%, transparent); }
+.desk-focus__chip b { display: inline-grid; place-items: center; min-width: 22px; height: 22px; padding: 0 6px; border-radius: 999px; background: var(--bing-surface-solid); font-variant-numeric: tabular-nums; }
+
+/* 1100px 以下单列排布，动态限定高度。 */
+@media (max-width: 1100px) {
+  .desk-island--flow { height: auto; max-height: none; min-height: 0; }
+  .desk {
+    --desk-activity-height: 420px;
+    max-height: none; grid-template-columns: minmax(0, 1fr); grid-template-rows: none;
+    grid-template-areas: "flow" "activity" "load" "rhythm";
+  }
+}
+/* 导航展开也会占用横向空间；临界桌面宽度不能把三列压成窄条。 */
+@container workbench (max-width: 1000px) {
+  .desk-island--flow { height: auto; max-height: none; min-height: 0; }
+  .desk-island--activity .desk-island__body { contain: none; }
+  .desk { --desk-activity-height: 420px; max-height: none; grid-template-columns: minmax(0, 1fr); grid-template-rows: none; grid-template-areas: "flow" "activity" "load" "rhythm"; }
+}
+@media (max-width: 760px) {
+  .desk { --desk-gap: 8px; }
+  .desk-island__head { padding-inline: 16px; }
+}
+@media (pointer: coarse) { .desk { --desk-summary-height: 316px; } }
+@media (prefers-reduced-motion: reduce) { .desk-island, .desk-focus__chip { transition: none; } }
+
+/* 浮层落位时把投影收回到卡片常态，交接那一帧不会突然丢掉阴影。 */
+.bing-drag-overlay[data-dnd-dropping] .flow-card.is-overlay {
+  border-color: color-mix(in srgb, var(--bing-border) 75%, transparent);
+  box-shadow: 0 1px 2px rgb(15 23 42 / 0.04);
+  transition: border-color 180ms ease, box-shadow 180ms ease;
+}

@@ -1,0 +1,210 @@
+.requirement-page { --requirement-document-width: 880px; --requirement-outline-width: 256px; container: requirement-workspace / inline-size; display: flex; flex-direction: column; width: 100%; max-width: none; height: calc(100dvh - var(--app-header-height)); min-height: 0; margin: 0; padding: 0; background: var(--bing-surface-solid); }
+.requirement-topbar { display: flex; align-items: center; gap: 12px; min-height: 64px; flex-shrink: 0; padding: 12px 16px; border-bottom: 1px solid var(--bing-border); }
+.requirement-topbar__actions { display: flex; align-items: center; flex-shrink: 0; gap: 4px; margin-left: auto; }
+.requirement-navigation { flex-shrink: 0; padding: 6px 10px 12px; border-bottom: 1px solid var(--bing-border); }
+.requirement-navigation__identity { display: flex; flex-shrink: 0; align-items: center; gap: 6px; min-height: 36px; min-width: 0; }
+.requirement-navigation__key { flex: none; width: 8ch; overflow: hidden; color: var(--bing-muted); font-size: 12px; font-variant-numeric: tabular-nums; text-overflow: ellipsis; white-space: nowrap; }
+.requirement-navigation__views { display: grid; gap: 4px; margin-top: 8px; }
+.requirement-navigation__views .bing-button { justify-content: flex-start; }
+.requirement-navigation--compact { display: flex; align-items: center; gap: 12px; padding: 0; border: 0; }
+.requirement-navigation--compact .bing-tabs { flex-shrink: 0; min-width: 0; }
+.requirement-back { display: inline-flex; justify-content: center; align-items: center; gap: 8px; min-width: 36px; height: 36px; padding-inline: 6px; border-radius: 6px; color: var(--bing-muted); font-size: 13px; white-space: nowrap; }
+.requirement-back:hover { background: var(--bing-surface-hover); }
+.requirement-back:focus-visible { outline: 2px solid var(--ui-accent); outline-offset: 2px; }
+.requirement-save-actions { display: grid; gap: 12px; min-width: 0; }
+.requirement-save-actions--compact { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; }
+.requirement-save-actions--compact > .bing-button { flex-shrink: 0; }
+.requirement-topbar .requirement-save-actions { flex-wrap: nowrap; }
+.requirement-collaborators-avatars { display: flex; align-items: center; }
+.requirement-collaborators-avatar { display: grid; place-items: center; width: 26px; height: 26px; border: 2px solid var(--bing-surface-solid); border-radius: 50%; color: var(--collaborator-color, var(--bing-accent-strong)); background: color-mix(in srgb, var(--collaborator-color, var(--bing-accent-strong)) 12%, var(--bing-surface-solid)); font-size: 12px; }
+.requirement-collaborators-avatar + .requirement-collaborators-avatar { margin-left: -6px; }
+.requirement-collaborators-overflow { margin-left: 4px; color: var(--bing-muted); font-size: 12px; }
+.requirement-page__workspace { flex: 1; min-height: 0; grid-template-rows: minmax(0, 1fr); align-items: stretch; gap: 0; overflow: clip; }
+.requirement-page__views { position: relative; flex: 1; min-height: 0; }
+.requirement-page__views > .requirement-page__workspace, .requirement-page__comparison { position: absolute; inset: 0; height: 100%; }
+.requirement-view--hidden { visibility: hidden; pointer-events: none; }
+.requirement-view--parked { display: none !important; }
+.requirement-main { position: relative; height: 100%; min-height: 0; }
+.requirement-document-error { position: absolute; inset: var(--requirement-loading-inset, 0px) 0 0; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 12px; padding: 24px; color: var(--bing-muted); font-size: 13px; text-align: center; }
+.requirement-document-error p { max-width: 480px; margin: 0; overflow-wrap: anywhere; }
+.requirement-propertybar { display: flex; align-items: center; flex-shrink: 0; gap: 8px; min-width: 0; }
+.requirement-propertybar__select { --bing-control-bg: var(--bing-surface-hover); --bing-control-border: transparent; --bing-control-shadow: none; flex: none; }
+.requirement-propertybar__priority-value { display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+.requirement-property-feedback { display: flex; flex-wrap: wrap; align-items: center; flex-shrink: 0; gap: 8px 16px; padding: 4px 16px; border-bottom: 1px solid var(--bing-border); }
+.requirement-property-feedback .requirement-meta-error { display: flex; align-items: center; gap: 8px; }
+/* 加载框架与正式工作区在首帧采用相同布局，不等待挂载后的宽度测量。 */
+@container requirement-workspace (width < 760px) {
+  .requirement-topbar { flex-wrap: wrap; padding: 8px; gap: 4px; }
+  .requirement-topbar .requirement-navigation { flex: 1; min-width: 0; gap: 8px; }
+  .requirement-topbar .requirement-back__label, .requirement-topbar .requirement-propertybar__label { display: none; }
+  .requirement-topbar .requirement-propertybar { margin-left: auto; }
+  .requirement-topbar .requirement-topbar__actions { justify-content: flex-end; width: 100%; }
+  .requirement-topbar .requirement-topbar__actions .bing-button { padding-inline: 8px; }
+  .requirement-topbar .requirement-collaborators-avatar:nth-child(n + 2), .requirement-topbar .requirement-collaborators-overflow { display: none; }
+}
+@container requirement-workspace (width < 360px) {
+  .requirement-navigation__key { width: 6ch; }
+}
+.requirement-side { position: static; display: block; min-width: 0; min-height: 0; height: 100%; border-left: 1px solid var(--bing-border); }
+.document-panel { display: flex; flex-direction: column; height: 100%; min-height: 0; background: var(--bing-surface-solid); }
+.document-panel__header { display: flex; flex-shrink: 0; align-items: center; justify-content: space-between; gap: 4px; height: 48px; padding: 4px 12px; border-bottom: 1px solid var(--bing-border); }
+.document-panel__tabs.bing-tabs { --tabs-tab-padding: 0 8px; --tabs-active-color: var(--ui-accent); --tabs-indicator-shadow: none; flex: 1; min-width: 0; }
+.document-panel__body { flex: 1; min-height: 0; }
+.requirement-side__content { display: grid; gap: 16px; min-width: 0; padding: 24px 16px; }
+.requirement-side__content .side-form { gap: 24px; }
+.requirement-meta-summary { display: grid; gap: 12px; margin: 0 0 24px; }
+.requirement-meta-summary div { display: grid; grid-template-columns: 64px minmax(0, 1fr); gap: 10px; font-size: 12px; }
+.requirement-meta-summary dt { color: var(--bing-muted); }
+.requirement-meta-summary dd { margin: 0; line-height: 1.5; overflow-wrap: anywhere; }
+.requirement-meta-status { margin: 0; font-size: 12px; color: var(--bing-muted); }
+.requirement-meta-error { color: var(--bing-danger-strong); font-size: 12px; line-height: 1.5; }
+.requirement-meta-error p { margin: 0 0 8px; }
+.requirement-editor { box-shadow: none; border-radius: 0; }
+.requirement-page .requirement-editor { border: 0; }
+.requirement-editor__layout { grid-template-columns: var(--requirement-outline-width, 256px) minmax(0, 1fr); }
+.requirement-editor--no-outline .requirement-editor__layout { grid-template-columns: minmax(0, 1fr); }
+.requirement-outline { display: flex; flex-direction: column; }
+.requirement-outline__header { flex-shrink: 0; min-height: 0; box-shadow: none; padding-inline: 16px; background: var(--bing-canvas); }
+.requirement-outline__scroll { flex: 1; min-height: 0; }
+.requirement-outline__body { min-height: 100%; padding: 16px 10px 24px; }
+.requirement-outline__list { gap: 4px; padding-left: 8px; }
+.requirement-outline__item { align-items: flex-start; padding-block: 8px; font-size: 14px; line-height: 1.65; }
+.requirement-outline__item--level-2 { padding-left: 10px; font-size: 14px; font-weight: 500; }
+.requirement-outline__item--level-3 { padding-left: 18px; font-size: 14px; font-weight: 400; }
+.requirement-outline__item-icon { margin-top: 4px; }
+.requirement-outline__item-label { display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3; white-space: normal; overflow-wrap: anywhere; }
+.requirement-outline--auxiliary { border: 0; }
+.requirement-outline--auxiliary .requirement-outline__body { padding: 20px 16px 24px; }
+.requirement-outline__caption { margin: 0 0 16px; color: var(--bing-muted); font-size: 12px; line-height: 20px; }
+.requirement-outline--auxiliary .requirement-outline__list { gap: 4px; padding-left: 0; }
+.requirement-outline--auxiliary .requirement-outline__rail { z-index: 1; background: transparent; }
+.requirement-outline--auxiliary .requirement-outline__track { background: var(--ui-accent); box-shadow: none; }
+.requirement-outline--auxiliary .requirement-outline__item { min-height: 40px; margin-top: 0; padding: 9px 14px; border-radius: 0; color: var(--bing-muted); font-size: 13px; font-weight: 400; }
+.requirement-outline--auxiliary .requirement-outline__item--level-2 { padding-left: 26px; }
+.requirement-outline--auxiliary .requirement-outline__item--level-3 { padding-left: 38px; }
+.requirement-outline--auxiliary .requirement-outline__item-icon { width: 18px; margin-top: 4px; opacity: .65; }
+.requirement-outline--auxiliary .requirement-outline__item:hover { color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 5%, transparent); }
+.requirement-outline--auxiliary .requirement-outline__item--active { color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 9%, transparent); }
+.requirement-editor__toolbar { min-height: 48px; padding: 5px 16px; gap: 4px; box-shadow: none; background: var(--bing-surface-solid); }
+.requirement-editor__format-tools { display: flex; flex-wrap: wrap; align-items: center; gap: 4px; min-width: 0; max-width: 100%; }
+.requirement-editor__paragraph-label { align-self: center; margin-right: 8px; color: var(--bing-muted); font-size: 12px; white-space: nowrap; }
+.requirement-editor__paragraph-style.bing-button { min-width: 108px; padding-inline: 10px; background: var(--bing-surface-hover); }
+.requirement-editor__paragraph-value { display: inline-flex; align-items: center; justify-content: space-between; gap: 8px; width: 100%; white-space: nowrap; }
+/* 正文是嵌套滚动区；滚动容器外层的设置不会关闭正文内部的浏览器滚动锚定。 */
+.requirement-editor__scroll, .requirement-editor__surface { overflow-anchor: none; }
+.requirement-editor__toolbar-group { flex-shrink: 0; }
+.requirement-editor__compact-navigation { display: none; }
+.requirement-editor__workspace-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-width: 0; margin-left: auto; }
+.requirement-editor__toolbar-group:has(+ .requirement-editor__upload) { border-right: 0; }
+.requirement-editor__tool--active { color: var(--ui-accent); background: var(--bing-surface-active); }
+.requirement-editor__document-heading { width: 100%; max-width: var(--requirement-document-width); margin-inline: auto; padding: 32px 32px 8px; }
+.requirement-document-title.bing-input { --bing-control-height: 48px; padding-inline: 0; border-color: transparent; background: transparent; box-shadow: none; }
+.requirement-document-title.bing-input:hover, .requirement-document-title.bing-input:focus-within { border-color: var(--bing-border); }
+.requirement-document-title .bing-input__field { font-size: 28px; line-height: 1.4; font-weight: 700; color: var(--bing-heading); }
+.requirement-document-byline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-bottom: 8px; color: var(--bing-muted); font-size: 12px; line-height: 20px; }
+.requirement-document-type { padding: 0 6px; border-radius: 3px; background: var(--bing-surface-hover); }
+.requirement-document-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; margin-top: 4px; color: var(--bing-muted); font-size: 12px; }
+.requirement-document-version { color: var(--ui-accent); }
+.requirement-document-modified { color: var(--bing-warning-strong); }
+.requirement-editor__surface { max-width: var(--requirement-document-width); margin-inline: auto; padding: 24px 32px 64px; min-height: 320px; font-size: 16px; line-height: 1.8; }
+.requirement-editor__content { position: relative; }
+/* 左右留白总和仍为 64px，正文宽度及换行不变；左侧容纳 # 和版本标记。 */
+@media (min-width: 701px) {
+  .requirement-editor--chapter-links :is(.requirement-editor__surface, .requirement-editor__document-heading) { padding-left: 44px; padding-right: 20px; }
+}
+.requirement-topbar .bing-button, .requirement-editor__tool { min-height: 36px; }
+.requirement-compare-panel { display: flex; flex: 1 1 600px; flex-wrap: wrap; align-items: center; gap: 8px 12px; min-width: 0; }
+.requirement-compare-panel__mode { display: flex; align-items: center; gap: 2px; }
+.requirement-compare-panel__mode .bing-button { min-width: 28px; padding-inline: 6px; color: var(--bing-muted); }
+.requirement-compare-versions { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; gap: 8px; min-width: 360px; flex: 1; }
+.requirement-compare-arrow { color: var(--bing-muted); }
+.rich-diff__options { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 16px; padding: 8px 18px; border-bottom: 1px solid var(--rb-border); background: var(--bing-canvas); border-radius: 8px 8px 0 0; }
+.rich-diff__header { flex-wrap: wrap; align-items: center; gap: 8px; padding: 6px 16px; }
+.requirement-main > .rich-diff { border: 0; border-radius: 0; box-shadow: none; }
+.rich-diff__header h2 { margin: 0; font-size: 16px; }
+.rich-diff__header-actions { flex-wrap: wrap; align-items: center; gap: 12px; min-height: 40px; margin-left: auto; }
+.rich-diff__labels { position: sticky; top: 0; z-index: 3; background: var(--bing-surface-hover); }
+.rich-diff__placeholder { height: 100%; overflow: auto; }
+.rich-diff--document { --diff-gutter-width: 40px; }
+.rich-diff--document .rich-diff__header { flex-direction: row; gap: 4px 12px; min-height: 48px; padding: 4px 16px; }
+.rich-diff--document .rich-diff__header-actions { flex-direction: row; gap: 8px; min-height: 40px; }
+.rich-diff--document .rich-diff__header-actions .bing-tabs { --tabs-active-color: var(--ui-accent); --tabs-indicator-shadow: none; }
+.rich-diff--document .rich-diff__nav { gap: 0; padding: 0; border: 0; border-radius: 0; background: transparent; }
+.rich-diff--document .rich-diff__nav .bing-button { min-width: 28px; padding-inline: 6px; }
+.rich-diff--document .rich-diff__nav-count { min-width: 44px; padding: 0 4px; font-weight: 400; }
+.rich-diff--document .rich-diff__summary { gap: 8px; font-size: 12px; }
+.rich-diff--document .rich-diff__summary-item { min-width: 0; padding: 0; border-radius: 0; background: transparent; font-weight: 400; }
+.rich-diff--document .rich-diff__content { padding-right: 16px; }
+.rich-diff--document:not(.rich-diff--unified) .rich-diff__body-content { min-width: 760px; }
+.rich-diff--document .rich-diff__labels { grid-template-columns: minmax(0, 1fr) var(--diff-gutter-width) minmax(0, 1fr); min-height: 30px; padding: 0; border: 0; font-size: 12px; font-weight: 400; }
+.rich-diff--document .rich-diff__labels > span { overflow: hidden; padding: 6px 20px; text-overflow: ellipsis; white-space: nowrap; }
+.rich-diff--document .rich-diff__labels > span:nth-child(2) { padding-inline: 0; }
+.rich-diff--document .rich-diff__row { grid-template-columns: minmax(0, 1fr) var(--diff-gutter-width) minmax(0, 1fr); min-height: 0; border-bottom: 0; scroll-margin-top: 40px; }
+.rich-diff--document .rich-diff__gutter { background: color-mix(in srgb, var(--bing-surface-hover) 50%, var(--bing-surface-solid)); font-size: 12px; }
+.rich-diff--document .rich-diff__row--active::after { border: 0; border-left: 3px solid var(--ui-accent); }
+.rich-diff--document .rich-diff__row--active::before { border: 0; border-left: 6px solid color-mix(in srgb, var(--ui-accent) 24%, transparent); }
+.rich-diff--document .rich-diff__row--active .rich-diff__gutter { color: var(--ui-accent); background: color-mix(in srgb, var(--ui-accent) 9%, var(--bing-surface-solid)); }
+.rich-diff--document .rich-diff__revert { min-width: 28px; min-height: 28px; padding: 4px; color: var(--bing-muted); }
+.rich-diff--document .rich-diff__revert:hover { color: var(--ui-accent); }
+.rich-diff--document .diff-block { padding: 0 20px 14px; font-size: 16px; }
+/* Diff 行不能折叠 margin，用行内留白维持正文的标题节奏及左右对齐。 */
+.rich-diff--document .diff-block:has(> h1) { padding-block: 26px 12px; }
+.rich-diff--document .diff-block:has(> h2) { padding-block: 18px 10px; }
+.rich-diff--document .diff-block:has(> h3) { padding-block: 10px 8px; }
+.rich-diff--document .diff-block > :is(h1, h2, h3).diff-block__text { margin: 0; }
+.rich-diff--document .rich-diff__rows > :first-child > .diff-block,
+.rich-diff--document .rich-diff__rows > :first-child .rich-diff__hunk-side > .diff-block:first-child { padding-top: 0; }
+.rich-diff--document .diff-block:has(> .diff-block__list-item) { padding-bottom: 4px; }
+.rich-diff--document .rich-diff__hunk-side > .diff-block + .diff-block { border-top: 0; }
+.rich-diff--document .rich-diff__map { top: 30px; width: 16px; background: var(--bing-surface-solid); }
+.rich-diff--document.rich-diff--unified .rich-diff__map { top: 0; }
+.rich-diff--document .rich-diff__map-mark::after { inset: 3px; }
+.rich-diff--document .rich-diff__map-mark--modified { color: var(--bing-warning-strong); }
+.rich-diff__body { --diff-viewport-height: calc(100dvh - var(--app-header-height) - 240px); }
+.rich-diff--unified .rich-diff__body-content { min-width: 0; }
+.rich-diff--unified .rich-diff__rows { min-width: 0; }
+.rich-diff--unified .rich-diff__row { display: block; background: var(--bing-surface-solid); }
+.rich-diff__unified-heading { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 16px; border-bottom: 1px solid var(--bing-border); background: var(--bing-canvas); color: var(--bing-muted); font-size: 12px; }
+.rich-diff__unified-heading .rich-diff__gutter { display: flex; border: 0; gap: 8px; }
+.rich-diff__unified-content--deleted { background: rgb(var(--bing-danger-rgb) / .07); }
+.rich-diff__unified-content--inserted { background: rgb(var(--bing-success-rgb) / .07); }
+.rich-diff__side-label { display: block; padding: 8px 16px 0; color: var(--bing-muted); font-size: 11px; }
+.revision-save-form { display: grid; gap: 12px; }
+.revision-save-form > p { color: var(--bing-muted); font-size: 13px; line-height: 1.6; }
+.revision-save-form label { font-size: 13px; font-weight: 500; }
+.revision-save-form small { color: var(--bing-muted); font-size: 12px; }
+.revision-save-form > .account-error { color: var(--bing-danger-strong); }
+/* 辅助面板复用 BingDialog 的焦点管理与遮罩；在窄屏显示为右侧抽屉。 */
+.bing-dialog-root:has(.document-panel--drawer) { justify-content: flex-end; padding: 0; }
+.bing-dialog:has(.document-panel--drawer) { height: 100dvh; max-height: 100dvh; max-width: calc(100vw - 16px); margin: 0; border-radius: 0; }
+.bing-dialog:has(.document-panel--drawer) > .bing-dialog__header { display: none; }
+.bing-dialog:has(.document-panel--drawer) .bing-dialog__body { padding: 0; height: 100%; }
+.bing-dialog:has(.document-panel--drawer) .bing-dialog__body-scroll { height: 100%; }
+.bing-dialog:has(.document-panel--drawer) .bing-dialog__body-scroll > .bing-scrollbar__viewport > .bing-scrollbar__content { height: 100%; }
+.document-panel--drawer { height: 100dvh; }
+@media (max-width: 1240px) {
+  .requirement-editor__layout { grid-template-columns: minmax(0, 1fr); }
+  .requirement-editor__layout > .requirement-outline { display: none; }
+  .requirement-editor__compact-navigation { display: block; }
+}
+@media (max-width: 600px) {
+  .requirement-editor__toolbar { padding: 4px 8px; }
+  .requirement-editor__document-heading { padding: 24px 16px 8px; }
+  .requirement-document-title .bing-input__field { font-size: 24px; }
+  .requirement-editor__surface { padding: 16px 16px 60px; font-size: 16px; }
+  .requirement-compare-panel { gap: 4px; flex-basis: 100%; }
+  .requirement-compare-versions { min-width: 0; gap: 4px; flex-basis: 100%; }
+  .rich-diff--document .rich-diff__header { padding: 4px 8px; }
+  .rich-diff--document .rich-diff__header-actions { flex-wrap: wrap; justify-content: flex-start; gap: 4px 8px; width: 100%; margin-left: 0; }
+  .rich-diff--document .diff-block { padding-inline: 16px; }
+  .rich-diff__header { align-items: stretch; padding: 12px; }
+  .rich-diff__header-actions { flex-direction: row; align-items: center; }
+  .rich-diff__summary { margin-left: auto; }
+  .rich-diff__body { --diff-viewport-height: max(280px, calc(100dvh - var(--app-header-height) - 320px)); }
+  .selection-history-page { padding: 16px 12px; }
+}
+@media (pointer: coarse) {
+  .requirement-navigation .bing-button, .requirement-topbar .bing-button, .requirement-editor__tool, .requirement-back { min-height: 44px; min-width: 44px; }
+  .rich-diff__revert { opacity: 1; }
+  .rich-diff__gutter--revertible .rich-diff__status { opacity: 0; }
+}

@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: requirement-board-postgres
+    restart: unless-stopped
+    ports:
+      - "5438:5432"
+    environment:
+      POSTGRES_USER: requirement
+      POSTGRES_PASSWORD: requirement
+      POSTGRES_DB: requirement_board
+    volumes:
+      - requirement_board_pg:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U requirement -d requirement_board"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  requirement_board_pg:

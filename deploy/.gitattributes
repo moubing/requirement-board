@@ -1,0 +1,3 @@
+# 从 Windows 检出并复制到 Linux 时，保持证书脚本与服务配置的 LF 换行。
+tls/* text eol=lf
+nginx/*.conf text eol=lf

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="340" viewBox="0 0 760 340">
+  <rect width="760" height="340" rx="12" fill="#edf3ff"/>
+  <rect x="28" y="28" width="704" height="284" rx="10" fill="#ffffff" stroke="#c6d5f0"/>
+  <g font-family="sans-serif" fill="#20242a">
+    <text x="56" y="76" font-size="24" font-weight="700">把不同节点写进一份文档</text>
+    <text x="56" y="108" font-size="14" fill="#56616f">文字说明、任务清单、代码、表格与图片可以自由组合</text>
+    <rect x="56" y="138" width="294" height="138" rx="8" fill="#edf3ff"/>
+    <text x="76" y="170" font-size="16" font-weight="700" fill="#315fc4">一段可以修改的内容</text>
+    <path d="M76 192H322M76 208H286" stroke="#a2b5d8" stroke-width="6" stroke-linecap="round"/>
+    <rect x="76" y="232" width="16" height="16" rx="3" fill="#315fc4"/>
+    <path d="m80 240 3 3 6-7" fill="none" stroke="white" stroke-width="2"/>
+    <text x="102" y="246" font-size="14">勾选一项任务</text>
+    <rect x="378" y="138" width="326" height="138" rx="8" fill="#f4f5f6" stroke="#d8dde3"/>
+    <path d="M378 182H704M378 229H704M518 138V276" stroke="#d8dde3"/>
+    <text x="398" y="167" font-size="14" font-weight="700">节点</text>
+    <text x="538" y="167" font-size="14" font-weight="700">表达内容</text>
+    <text x="398" y="212" font-size="14">标题与段落</text>
+    <text x="538" y="212" font-size="14">说明与层级</text>
+    <text x="398" y="258" font-size="14">图片与题注</text>
+    <text x="538" y="258" font-size="14">图示与解释</text>
+  </g>
+</svg>
