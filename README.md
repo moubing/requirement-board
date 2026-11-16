@@ -7,7 +7,7 @@
 <p align="center"><strong>共同编辑一份文档，保存正式版本，看清每一次变化。</strong></p>
 <p align="center">Nuxt 4 · Vue 3 · Tiptap · Yjs · PostgreSQL · Drizzle · Better Auth · Bing UI</p>
 
-**[在线体验](https://101.35.217.21/demo/)** · [宣传片](https://101.35.217.21/promo.html) · [功能与界面](#功能与界面) · [技术亮点](#技术亮点) · [本地运行](#本地运行) · [开发文档](docs/README.md) · [相关项目](#相关项目)
+**[在线体验](https://101.35.217.21/demo/)** · [宣传片](https://101.35.217.21/promo.html) · [Yjs 原理动画](https://101.35.217.21/crdt.html) · [功能与界面](#功能与界面) · [技术亮点](#技术亮点) · [本地运行](#本地运行) · [开发文档](docs/README.md) · [相关项目](#相关项目)
 
 Requirement Board 面向小团队，把需求、缺陷、说明和待办放进统一的文档工作流。成员可以实时编辑同一篇富文本，按需保存正式版本，比较文字、格式、表格和图片的变化，并从选中文字追溯历史；AI 助手也可以通过配套 Skill 读取文档、处理标注和提交修改。
 
@@ -16,6 +16,8 @@ Requirement Board 面向小团队，把需求、缺陷、说明和待办放进�
 > **在线体验**无需注册：使用虚构示例，可以编辑正文、比较预置版本、局部恢复和重置，刷新或离开后还原。多人协作、保存正式版本、图片上传、AI 标注和选区历史需要登录正式应用，范围见[游客体验说明](docs/demo.md)。
 >
 > **宣传片**[《谁动了开饭时间？》](https://101.35.217.21/promo.html)（96 秒）用一桩“猫粮失踪案”演示共同编辑、版本比较、选区历史、局部恢复和 AI 独占编辑锁。它是单个 HTML 文件 [`public/promo.html`](public/promo.html)，画面和配乐都在浏览器里实时生成，不依赖外部资源，也可以下载后直接打开。
+>
+> **原理动画**[《拆开 Yjs》](https://101.35.217.21/crdt.html)（4 分 32 秒）讲共同编辑底下的 Yjs 是怎么实现的：Item 链表、ID、插入与并发插入、合并存储、StructStore、删除和同步。同样是单个 HTML 文件 [`public/crdt.html`](public/crdt.html)，画面和配乐在浏览器里实时生成，可以下载后直接打开。
 
 [![生产工作台：个人工作流、项目动态、团队负载与完成节奏](docs/images/workbench-production.png)](docs/images/workbench-production.png)
 
