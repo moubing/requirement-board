@@ -1,0 +1,1050 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>长文档性能优化 · 文档看板怎么让打字跟手</title>
+<style>
+/* 单文件科普片：画面由 Canvas 2D 按时刻逐帧计算，配乐在本页逐采样合成；没有外部资源。 */
+:root { --paper: #f4efe3; --ink: #1b2233; --dim: #6d7486; --accent: #f0643c; --hi: #ffd84d;
+  --serif: "Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif;
+  --sans: "Noto Sans SC","Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif; }
+html, body { height: 100%; margin: 0; background: #12161f; overflow: hidden; font-family: var(--sans); color: var(--ink); -webkit-user-select: none; user-select: none; }
+#stage { position: fixed; inset: 0; display: grid; place-items: center; }
+#view { display: block; background: var(--paper); cursor: pointer; }
+body.playing.idle #view { cursor: none; }
+#start { position: fixed; inset: 0; display: grid; place-items: center; z-index: 5; transition: opacity .35s ease;
+  background-color: rgba(244,239,227,.94);
+  background-image: linear-gradient(rgba(40,70,120,.09) 1.5px, transparent 1.5px), linear-gradient(90deg, rgba(40,70,120,.09) 1.5px, transparent 1.5px);
+  background-size: 44px 44px; }
+#start.hide { opacity: 0; pointer-events: none; }
+#start .box { text-align: center; padding: 24px; }
+#start .kicker { display: inline-block; font: 700 clamp(13px, 1.4vw, 18px) var(--sans); letter-spacing: .2em; padding: .35em 1em; border: 3px solid var(--ink); border-radius: 999px; background: var(--hi); margin-bottom: 22px; }
+#start h1 { margin: 0 0 16px; font: 900 clamp(34px, 6.2vw, 84px)/1.15 var(--serif); letter-spacing: .02em; }
+#start p { margin: 0 0 34px; color: var(--dim); font-size: clamp(13px, 1.5vw, 18px); line-height: 1.9; }
+#go { font: 800 clamp(16px, 1.7vw, 21px) var(--sans); color: #fff; background: var(--accent); border: 3.5px solid var(--ink); border-radius: 16px; padding: .8em 2.2em; cursor: pointer; box-shadow: 6px 7px 0 rgba(27,34,51,.9); transition: transform .12s ease, box-shadow .12s ease, opacity .2s; }
+#go:hover { transform: translate(-1px, -2px); box-shadow: 8px 10px 0 rgba(27,34,51,.9); }
+#go:active { transform: translate(4px, 5px); box-shadow: 2px 2px 0 rgba(27,34,51,.9); }
+#go:disabled { opacity: .5; cursor: progress; }
+#status { margin-top: 24px; font-size: 13px; color: #8a8f9c; min-height: 1.4em; }
+#bar { position: fixed; left: 0; right: 0; bottom: 0; padding: 40px max(18px, env(safe-area-inset-left)) 14px; background: linear-gradient(transparent, rgba(18,22,31,.86)); display: flex; flex-direction: column; gap: 8px; transition: opacity .3s ease; z-index: 4; }
+body.playing.idle #bar { opacity: 0; pointer-events: none; }
+body:not(.started) #bar { display: none; }
+#chapters { display: flex; gap: 6px; flex-wrap: wrap; }
+#chapters button { font: 13px var(--sans); color: #c9cdd6; background: rgba(255,255,255,.1); border: 1px solid transparent; border-radius: 999px; padding: 4px 12px; cursor: pointer; }
+#chapters button.on { color: #1b2233; background: var(--hi); font-weight: 700; }
+#row { display: flex; align-items: center; gap: 12px; }
+#row button { font: 16px var(--sans); width: 40px; height: 34px; color: #f4efe3; background: rgba(255,255,255,.12); border: 0; border-radius: 9px; cursor: pointer; }
+#seek { flex: 1; accent-color: var(--hi); height: 4px; cursor: pointer; }
+#time { font-size: 14px; color: #c9cdd6; min-width: 92px; text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body class="idle">
+<div id="stage"><canvas id="view"></canvas></div>
+<div id="bar">
+  <div id="chapters"></div>
+  <div id="row"><button id="pp" title="播放 / 暂停（空格）">▶</button><input id="seek" type="range" min="0" max="238" step="0.01" value="0"><span id="time"></span><button id="fs" title="全屏（F）">⛶</button></div>
+</div>
+<div id="start"><div class="box">
+  <div class="kicker">原理科普 · 第四集</div>
+  <h1>长文档：<br>打一个字为什么要等？</h1>
+  <p>先量清楚 · 打字 · 滚动 · 比较与返回 · 3 分 58 秒<br>画面逐帧计算，配乐逐采样合成，全部在这一个文件里</p>
+  <button id="go" disabled>▶ 播放</button>
+  <div id="status">正在合成配乐…</div>
+</div></div>
+<script>
+(() => {
+'use strict';
+// ───────────────────────── 基础数学 ─────────────────────────
+const TAU = Math.PI * 2;
+const clamp = (x, a = 0, b = 1) => (x < a ? a : x > b ? b : x);
+const lerp = (a, b, k) => a + (b - a) * k;
+const seg = (t, a, b) => clamp((t - a) / (b - a));                    // t 在 [a,b] 内的线性进度
+const eOut = k => 1 - Math.pow(1 - k, 3);
+const eIn = k => k * k * k;
+const eIO = k => (k < 0.5 ? 4 * k * k * k : 1 - Math.pow(-2 * k + 2, 3) / 2);
+const eBack = k => { const c = 1.70158; return 1 + (c + 1) * Math.pow(k - 1, 3) + c * Math.pow(k - 1, 2); };
+const bump = (t, t0, d) => { const k = (t - t0) / d; return k < 0 || k > 1 ? 0 : Math.sin(k * Math.PI); };
+const decay = (t, t0, tau) => (t < t0 ? 0 : Math.exp(-(t - t0) / tau));
+const pop = (t, t0, d = 0.32) => eBack(seg(t, t0, t0 + d));           // 弹出
+const typeN = (t, t0, step, n) => clamp(Math.floor((t - t0) / step + 1e-6) + 1, 0, n);   // 到 t 时已经打出几个字
+function rng(seed) { let a = seed >>> 0; return () => { a = (a + 0x6D2B79F5) | 0; let t = Math.imul(a ^ (a >>> 15), 1 | a); t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t; return ((t ^ (t >>> 14)) >>> 0) / 4294967296; }; }
+const mmss = t => `${Math.floor(t / 60)}:${String(Math.floor(t % 60)).padStart(2, '0')}`;
+
+
+// ───────────────────────── 时间线（画面与声音共用） ─────────────────────────
+// 120 BPM：一拍 0.5 秒，一小节 2 秒。每一幕是方格纸上的一页，换幕时镜头往下翻一页。
+const DUR = 238, SW = 1920, SH = 1080, PAGE = 1240;
+const SC = [0, 14, 22, 48, 72, 108, 134, 152, 172, 200, 218, 230];   // 每一幕的开始时刻
+const CHAPTERS = [
+  { t: 0, n: '开场' }, { t: 22, n: '先量清楚' }, { t: 48, n: '打字为什么慢' }, { t: 72, n: '少做，晚做' }, { t: 108, n: '滚动' },
+  { t: 134, n: '先读后写' }, { t: 152, n: '比较视图' }, { t: 172, n: '离开再回来' }, { t: 200, n: '数字的边界' }, { t: 218, n: '小结' },
+];
+const K = {
+  // 〇 · 开场：长文档里打字跟不上
+  PAN: 0.5, STATS: 2.4, AP: 3.4, TY: 5.0, SLOW: 8.2, Q0: 10.4,
+  // 一 · 片名
+  TITLE: 14.5, ST1: 15.7, ST2: 16.3, ST3: 16.9, PROJ: 19.2,
+  // 二 · 先量清楚
+  H2: 22.4, SAMPLE: 22.9, REAL: 27.0, NOSTUB: 29.0, ENV: 29.8, RUL: 31.0, P95: 37.0, AVG: 39.6, ROUNDS: 42.0, ONE: 44.6,
+  // 三 · 一次按键做了多少事
+  H3: 48.4, KEY: 49.2, TXN: 50.0, BLK: 52.9, SYNC: 59.0, PAINT: 61.0, FRAME: 64.0, TOTAL: 66.4, LONG: 68.6,
+  // 四 · 少做，晚做
+  H4: 72.4, REF: 72.8, SHALLOW: 77.6, SWAP: 79.4, SKIPID: 82.4, GEN: 86.4, IDLE: 91.0, RUN: 91.6, DEADLINE: 93.8, REUSE: 96.0, BOUND: 97.6, RES: 100.0, RES2: 104.2,
+  // 五 · 滚动
+  H5: 108.4, SCROLL: 108.8, ALLC: 113.8, FLASH: 115.4, ON: 118.8, OBS: 121.2, CUR: 124.0, METER: 128.8,
+  // 六 · 先读后写
+  H6: 134.4, WID: 134.8, RW: 139.6, BATCH: 144.8, HIDE: 149.6,
+  // 七 · 比较视图
+  H7: 152.4, TABS: 152.8, SW1: 153.6, SW2: 155.2, SW3: 156.2, SW4: 157.0, CACHE: 157.6, HIT: 159.6, NOSER: 161.2, IMM: 163.0, SLICE: 167.8,
+  // 八 · 离开再回来
+  H8: 172.4, LEAVE0: 173.0, BACK0: 175.0, KA: 177.6, PARK: 178.2, CUT: 180.0, RET: 182.8, GATE8: 183.4, ASK: 184.8, SAME: 188.8, SMALL: 189.4, RECHK: 193.6, MERGE: 194.8, WAKE: 196.2, EVICT: 197.6,
+  // 九 · 数字的边界
+  H9: 200.4, ENV9: 200.8, OK9: 203.0, CPU6: 205.6, SWT9: 207.6, NOTYET: 210.8, SAY: 214.0,
+  // 十 · 小结
+  H10: 218.4, R1: 218.8, R2: 220.6, R3: 222.6, R4: 224.4, MEAS: 226.6,
+  // 十一 · 结尾
+  END: 230.4, TAG: 232.0, FADE: 236.4,
+};
+// 字幕：{…} 里是重点词
+const CAPS = [
+  [0.5, 4.6, '一篇真实的长文档：{4.9 万字、37 张图、16 张表}。'],
+  [4.8, 10.0, '在里面打字，字要过一会儿才出来。\n最慢的那 5%，按键到画面更新要 {60 多毫秒}。'],
+  [10.2, 13.6, '这一集看文档看板怎么{找到慢的地方}，再一处处改快。'],
+  [14.4, 17.8, '第四集：{长文档性能优化}。'],
+  [18.0, 21.6, '三个场景：{打字}、{滚动}、{切换页面}。'],
+  [22.6, 26.8, '先固定一篇真实长文档做样本，{每次都测同一篇}。'],
+  [27.0, 30.8, '跑真实的服务、数据库、协作连接和原图，{不用假接口}。'],
+  [31.0, 36.8, '量三样：{输入处理}、按键到{画面更新}、滚动时的{样式计算}。'],
+  [37.0, 41.8, '看 {P95}：一百次里第 95 慢的那次。\n平均数会把卡顿藏起来。'],
+  [42.0, 47.6, '优化前、优化后各跑 {3 轮}；\n{一次只动一处}，才知道是哪一处起作用。'],
+  [48.6, 52.6, '按下一个键，编辑器产生一个{事务}，后面跟着一串工作。'],
+  [52.8, 58.8, '导出整篇 JSON、扫描全部块 ID、把整棵树变成响应式、\n算指纹和签名……{每一步都要走一遍全文}。'],
+  [59.0, 63.8, '它们都挤在按键的{同一段同步代码}里，\n画面要等它们做完才能更新。'],
+  [64.0, 71.6, '一帧只有 {16.7 毫秒}。处理一次输入，P95 要 {52.3 毫秒}，\n超过三帧。'],
+  [72.6, 77.4, 'Vue 的 ref 会把整棵正文{逐层包成代理}，\n读写每个节点都要追踪。'],
+  [77.6, 82.2, '改用 {shallowRef}：只盯最外层。\n每次事务换一整棵新的、不可变的正文。'],
+  [82.4, 86.0, '段内打字不改结构，就{跳过全文块 ID 扫描}。'],
+  [86.6, 90.8, '输入时只做一件小事：{代次加一}，标成“待核对”。'],
+  [91.0, 95.8, '比较等 200 毫秒空闲、本机备份等 500 毫秒，{停手后统一做一次}；\n最长 1.5 秒也会做。'],
+  [96.0, 99.8, '同一代次算过的结果{直接复用}；离页、上传、保存时{立刻核对}。'],
+  [100.2, 104.0, '处理一次输入，P95：{52.3 → 5.8 毫秒}。'],
+  [104.2, 107.8, '按键到画面更新，P95：{63.5 → 26.4 毫秒}，进了 50 毫秒的预算。'],
+  [108.6, 113.6, '滚动时鼠标停在正文上，图片一张张从指针下经过。'],
+  [113.8, 118.6, '原来{每张图}都常驻工具条、缩放手柄和尺寸观察器，\n悬停一下就牵动一大片样式。'],
+  [118.8, 123.8, '现在只在{悬停、选中、聚焦、拖动}时才创建控件，\n观察器也跟着交互开关。'],
+  [124.0, 128.6, '自定义光标的样式也收到{编辑区里局部生效}。'],
+  [128.8, 133.6, '全文滚动的样式计算：{224 → 41.5 ms/s}，约少了 {81%}。'],
+  [134.6, 139.4, '阅读位置、目录、光标都要读元素坐标，再写回滚动或状态。'],
+  [139.6, 144.6, '读一下、写一下、再读：每次写完再读，\n浏览器都得{立刻重新排版}。'],
+  [144.8, 149.4, '现在每帧排一个队：{先把要读的都读完，再统一写}。'],
+  [149.6, 151.8, '编辑器隐藏时，这些任务{直接暂停}。'],
+  [152.6, 157.4, '正文和比较视图来回切。比较器{第一次打开才创建}，之后不拆。'],
+  [157.6, 162.8, '比较结果按正文的{对象身份}缓存，每个视图最多两组；\n不用序列化全文去比对。'],
+  [163.0, 167.6, '正文不可变：{对象没换，内容就没变}。\n这正是 shallowRef 带来的好处。'],
+  [167.8, 171.6, '边打字边算的比较，{切成 6 毫秒一片}，不堵住输入。'],
+  [172.6, 177.4, '离开文档去工作台，原来编辑器{整个销毁}；\n回来再下载、再重建。'],
+  [177.6, 182.6, '现在用 {KeepAlive} 留住最近两篇：编辑器和 Y.Doc 都在，\n协作连接先断开。'],
+  [182.8, 188.6, '回来时先过{权限检查}，再带上手里的版本号问一句：\n正式版本变了吗？'],
+  [188.8, 193.4, '没变，就{不再传正文}：详情响应从约 390 KB 降到{约 1 KB}。'],
+  [193.6, 199.6, '锁和 editEpoch 照样重新核对，远端增量合并进来再开放编辑。\n第三篇进来，{最早那篇被淘汰}。'],
+  [200.6, 205.4, '这些数字来自{本机无头 Chromium}，只说明这篇样本、这种测法。'],
+  [205.6, 210.6, 'CPU 降速 6 倍时，输入 P95 还有 {206 毫秒}；\n热切换和返回正文的代理值也{还没进预算}。'],
+  [210.8, 217.6, '公司电脑、真实输入法和实体屏幕{还没实测}。\n说清口径，数字才站得住。'],
+  [218.6, 222.4, '{少做}、{晚做}：输入路径上只留必要的工作。'],
+  [222.6, 226.4, '{按需做}、{只做一次}：用到才建，建了就留。'],
+  [226.6, 229.8, '前提是{先量清楚}：同一篇样本，同一套口径。'],
+  [230.6, 235.6, '长文档里，{打字也能跟手}。'],
+];
+
+
+// ───────────────────────── 画笔：颜色、字体、贴纸卡片 ─────────────────────────
+const INK = '#1b2233', PAPER = '#f4efe3', CARD = '#fffdf7', DIM = '#6d7486', FAINT = '#a9adb8';
+const CA = '#f0643c', CB = '#2f7de1', CC = '#8a5cf0', CY = '#f5b81f', OK = '#159a6c', BAD = '#e0364a', HI = '#ffd84d';
+const COL = { A: CA, B: CB, C: CC }, TINT = { A: '#fde4da', B: '#dce9fb', C: '#e8defc' };
+const FF = {
+  serif: '"Noto Serif SC","Source Han Serif SC","Songti SC","STSong","SimSun",serif',
+  sans: '"Noto Sans SC","Microsoft YaHei UI","Microsoft YaHei","PingFang SC","Noto Sans CJK SC",sans-serif',
+  mono: '"Maple Mono NF CN","Cascadia Mono","JetBrains Mono",Consolas,"Microsoft YaHei",monospace',
+};
+const serif = (px, w = 900) => `${w} ${px}px ${FF.serif}`;
+const sans = (px, w = 500) => `${w} ${px}px ${FF.sans}`;
+const mono = (px, w = 700) => `${w} ${px}px ${FF.mono}`;
+
+let MG = null;                                   // 量字宽用的 2D 上下文（播放器注入）
+const WC = new Map();
+function W(f, s) { if (!s) return 0; const k = f + '|' + s; let v = WC.get(k); if (v === undefined) { MG.font = f; v = MG.measureText(s).width; WC.set(k, v); } return v; }
+
+function rr(g, x, y, w, h, r) { g.beginPath(); g.roundRect(x, y, w, h, Math.max(0, Math.min(r, w / 2, h / 2))); }
+function circ(g, x, y, r) { g.beginPath(); g.arc(x, y, Math.max(0, r), 0, TAU); }
+function label(g, s, x, y, f, c, align = 'left') { g.font = f; g.fillStyle = c; g.textAlign = align; g.fillText(s, x, y); g.textAlign = 'left'; }
+function withAlpha(g, a, fn) { if (a <= 0.003) return; const p = g.globalAlpha; g.globalAlpha = p * clamp(a); fn(); g.globalAlpha = p; }
+function at(g, x, y, s, fn) { if (s <= 0.003) return; g.save(); g.translate(x, y); g.scale(s, s); fn(); g.restore(); }
+// 贴纸卡片：实心错位投影 + 墨线描边
+function card(g, x, y, w, h, r, fill = CARD, stroke = INK, lw = 4, sh = 9) {
+  if (sh) { g.fillStyle = 'rgba(27,34,51,.17)'; rr(g, x + sh * 0.7, y + sh, w, h, r); g.fill(); }
+  g.fillStyle = fill; rr(g, x, y, w, h, r); g.fill();
+  if (lw) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); }
+}
+function disc(g, x, y, r, fill, lw = 3.5, stroke = INK) { g.fillStyle = fill; circ(g, x, y, r); g.fill(); if (lw) { g.strokeStyle = stroke; g.lineWidth = lw; g.stroke(); } }
+// 荧光笔：从左往右刷出来
+function marker(g, x, y, w, h, k, col = HI) { if (k <= 0) return; const ww = w * k; g.fillStyle = col; g.beginPath(); g.moveTo(x - 6, y + 4); g.lineTo(x + ww + 4, y - 2); g.lineTo(x + ww + 9, y + h); g.lineTo(x - 2, y + h + 4); g.closePath(); g.fill(); }
+function chip(g, cx, cy, k, txt, o = {}) {
+  if (k <= 0.01) return; const px = o.px || 28, f = (o.mono ? mono : sans)(px, o.w || 700), w = W(f, txt) + (o.pad ?? px * 1.3), h = o.h || px * 1.85;
+  at(g, cx, cy, k, () => { if (o.rot) g.rotate(o.rot); card(g, -w / 2, -h / 2, w, h, o.r ?? h / 2, o.bg || CARD, o.stroke || INK, o.lw ?? 3.5, o.sh ?? 5); label(g, txt, 0, px * 0.36, f, o.fg || INK, 'center'); });
+  return w;
+}
+function okMark(g, x, y, s, col = OK) { at(g, x, y, s, () => { disc(g, 0, 0, 24, col); g.strokeStyle = '#fff'; g.lineWidth = 5.5; g.lineCap = 'round'; g.lineJoin = 'round'; g.beginPath(); g.moveTo(-10, 1); g.lineTo(-3, 9); g.lineTo(11, -8); g.stroke(); }); }
+// 箭头：沿一条二次曲线画到进度 k；bend 是弯的程度
+function arrow(g, x0, y0, x1, y1, k, col = INK, lw = 4, bend = 0, dash = null) {
+  if (k <= 0.01) return; const mx = (x0 + x1) / 2 - (y1 - y0) * bend, my = (y0 + y1) / 2 + (x1 - x0) * bend;
+  const q = u => [(1 - u) * (1 - u) * x0 + 2 * (1 - u) * u * mx + u * u * x1, (1 - u) * (1 - u) * y0 + 2 * (1 - u) * u * my + u * u * y1];
+  g.strokeStyle = col; g.lineWidth = lw; g.lineCap = 'round'; g.lineJoin = 'round'; if (dash) g.setLineDash(dash);
+  g.beginPath(); g.moveTo(x0, y0); for (let i = 1; i <= 20; i++) { const p = q(k * i / 20); g.lineTo(p[0], p[1]); } g.stroke(); g.setLineDash([]);
+  const a = q(k), b = q(Math.max(0, k - 0.08)), an = Math.atan2(a[1] - b[1], a[0] - b[0]), h = lw * 3.3 * Math.min(1, k * 4);
+  g.fillStyle = col; g.beginPath(); g.moveTo(a[0] + Math.cos(an) * h * 0.7, a[1] + Math.sin(an) * h * 0.7); g.lineTo(a[0] + Math.cos(an + 2.45) * h, a[1] + Math.sin(an + 2.45) * h); g.lineTo(a[0] + Math.cos(an - 2.45) * h, a[1] + Math.sin(an - 2.45) * h); g.closePath(); g.fill();
+}
+// 每一幕左上角的小标题
+function heading(g, t, t0, no, title) {
+  t0 -= 0.4;                                   // 标题跟着翻页一起进来，翻页途中画面不空
+  const k = pop(t, t0); if (k <= 0.01) return; const f = serif(46), w = W(f, title);
+  marker(g, 172, 100, w + 16, 40, eOut(seg(t, t0 + 0.15, t0 + 0.75)));
+  at(g, 118, 112, k, () => { disc(g, 0, 0, 31, INK, 0); label(g, no, 0, 13, serif(36), '#fff', 'center'); });
+  withAlpha(g, seg(t, t0 + 0.05, t0 + 0.3), () => label(g, title, 178, 129, f, INK));
+}
+
+// ── 副本小人：一个带天线的圆球。原点在身体中心。 ──
+// o = { who, s, look:[x,y], mood: neutral|happy|surprise|worried|sleep, squash, t }
+function buddy(g, x, y, o) {
+  const s = o.s ?? 1; if (s <= 0.01) return; const sq = o.squash || 0, c = COL[o.who], m = o.mood || 'neutral', t = o.t || 0;
+  const blink = m !== 'surprise' && (t * 0.9 + (o.who === 'A' ? 0 : 1.7)) % 3.4 < 0.12;
+  g.save(); g.translate(x, y + 42); g.scale(s * (1 + sq * 0.14), s * (1 - sq * 0.18)); g.translate(0, -42);
+  g.strokeStyle = INK; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(0, -40); g.quadraticCurveTo(4 * Math.sin(t * 3), -52, 6 * Math.sin(t * 3), -60); g.stroke(); disc(g, 6 * Math.sin(t * 3), -65, 7, m === 'sleep' ? FAINT : HI, 3);
+  disc(g, 0, 0, 42, m === 'sleep' ? '#c9c4b8' : c, 4);
+  const lx = (o.look ? o.look[0] : 0) * 5, ly = (o.look ? o.look[1] : 0) * 4;
+  for (const sx of [-15, 15]) {
+    if (m === 'happy') { g.strokeStyle = INK; g.lineWidth = 4.5; g.lineCap = 'round'; g.beginPath(); g.arc(sx, 0, 8, Math.PI * 1.12, Math.PI * 1.88); g.stroke(); continue; }
+    if (m === 'sleep' || blink) { g.strokeStyle = INK; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(sx - 8, -4); g.lineTo(sx + 8, -4); g.stroke(); continue; }
+    const big = m === 'surprise' ? 1.22 : 1;
+    g.fillStyle = '#fff'; g.beginPath(); g.ellipse(sx, -5, 10.5 * big, 12.5 * big, 0, 0, TAU); g.fill(); g.strokeStyle = INK; g.lineWidth = 2.5; g.stroke();
+    g.fillStyle = INK; circ(g, sx + lx, -5 + ly, m === 'surprise' ? 3.2 : 5); g.fill();
+    if (m === 'worried') { g.strokeStyle = INK; g.lineWidth = 3.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(sx - 9 * Math.sign(sx), -24); g.lineTo(sx + 7 * Math.sign(sx), -19); g.stroke(); }
+  }
+  g.strokeStyle = INK; g.lineWidth = 3.5; g.lineCap = 'round'; g.beginPath();
+  if (m === 'happy') g.arc(0, 12, 9, 0.15 * Math.PI, 0.85 * Math.PI);
+  else if (m === 'surprise') g.ellipse(0, 20, 5, 6.5, 0, 0, TAU);
+  else if (m === 'worried') g.arc(0, 27, 8, 1.2 * Math.PI, 1.8 * Math.PI);
+  else if (m === 'sleep') { g.moveTo(-4, 19); g.lineTo(4, 19); }
+  else g.arc(0, 13, 7, 0.2 * Math.PI, 0.8 * Math.PI);
+  g.stroke();
+  g.restore();
+}
+// 副本的设备卡片：页眉带名字
+function panel(g, cx, cy, w, h, who, k, sub) {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => {
+    const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 22);
+    g.save(); rr(g, x, y, w, h, 22); g.clip(); g.fillStyle = TINT[who]; g.fillRect(x, y, w, 64); g.restore();
+    g.fillStyle = INK; g.fillRect(x, y + 62, w, 3.5); g.strokeStyle = INK; g.lineWidth = 4; rr(g, x, y, w, h, 22); g.stroke();
+    label(g, '副本 ' + who, x + w - 26, y + 43, sans(28, 800), INK, 'right');
+    if (sub) label(g, sub, 0, y + 104, sans(23, 500), DIM, 'center');
+  });
+}
+// 信封：一条在路上的消息
+function envelope(g, x, y, k, n, rot = 0, col = CA) {
+  at(g, x, y, k, () => { g.rotate(rot); card(g, -36, -25, 72, 50, 9, CARD, INK, 3.5, 5);
+    g.strokeStyle = INK; g.lineWidth = 3; g.lineJoin = 'round'; g.beginPath(); g.moveTo(-33, -21); g.lineTo(0, 2); g.lineTo(33, -21); g.stroke();
+    if (n != null) { disc(g, 0, 7, 14, col, 3); label(g, String(n), 0, 14.5, mono(19), '#fff', 'center'); } });
+}
+
+// ───────────────────────── 这一集的部件 ─────────────────────────
+const CREAM = '#fdf6e3', HP = '#0e9aa7', HPT = '#d3f0ef', PALE = '#fff3c4', PINK = '#fde0e3', MINT = '#d6f3e6';
+TINT.S = MINT; TINT.N = '#e3ded1'; COL.S = OK;
+function fly(t, t0, d, x0, y0, x1, y1, lift = 0, side = 0) { const k = eIO(seg(t, t0, t0 + d)), s = Math.sin(k * Math.PI); return [lerp(x0, x1, k) + s * side, lerp(y0, y1, k) - s * lift, k]; }
+function code(g, cx, cy, k, txt, px = 34) { return chip(g, cx, cy, k, txt, { mono: true, px, bg: INK, fg: CREAM, r: px * 0.42, pad: px * 1.5, h: px * 2, w: 600 }); }
+function letterDisc(g, x, y, r, who) { disc(g, x, y, r, COL[who]); label(g, who, x, y + r * 0.36, mono(r * 1.05, 800), '#fff', 'center'); }
+function xMark(g, x, y, s) { at(g, x, y, s, () => { disc(g, 0, 0, 24, BAD); g.strokeStyle = '#fff'; g.lineWidth = 5.5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-8, -8); g.lineTo(8, 8); g.moveTo(8, -8); g.lineTo(-8, 8); g.stroke(); }); }
+// 一个字符块：颜色表示 ID 属于哪个客户端
+function cell(g, x, y, k, ch, who, sz = 44) { at(g, x, y, k, () => { card(g, -sz / 2, -sz / 2, sz, sz, sz * 0.2, TINT[who] || CARD, INK, 3, 3); label(g, ch, 0, sz * 0.19, mono(sz * 0.52, 800), INK, 'center'); }); }
+// 一排字符块。items 的每一项是 [字符, 谁, 出现时刻]；新块出现时其余块让出位置。返回每块的中心 x
+function cells(g, cx, cy, t, items, sz = 44, kAll = 1) {
+  const gap = sz * 0.14, ws = items.map(it => (it[2] ? eOut(seg(t, it[2], it[2] + 0.3)) : 1) * (sz + gap)), tot = ws.reduce((a, b) => a + b, 0) - gap, xs = [];
+  let x = cx - tot / 2;
+  items.forEach((it, i) => { const c = x + ws[i] * sz / (sz + gap) / 2; xs.push(c); if (ws[i] > 0.01 && kAll > 0.01) cell(g, c, cy, (it[2] ? pop(t, it[2], 0.32) : 1) * kAll, it[0], it[1], sz); x += ws[i]; });
+  return xs;
+}
+// 一份 Y.Doc：页眉写名字，下面一排字符块
+function docCard(g, cx, cy, k, t, o) {
+  if (k <= 0.01) return []; const w = o.w || 320, h = o.h || 136; let xs = [];
+  at(g, cx, cy, k * (1 + 0.06 * (o.pulse || 0)), () => {
+    card(g, -w / 2, -h / 2, w, h, 16, o.fill || CARD, INK, 3.5, 6);
+    g.save(); rr(g, -w / 2, -h / 2, w, h, 16); g.clip(); g.fillStyle = o.head || PALE; g.fillRect(-w / 2, -h / 2, w, 42); g.restore();
+    g.fillStyle = INK; g.fillRect(-w / 2, -h / 2 + 41, w, 3); g.strokeStyle = INK; g.lineWidth = 3.5; rr(g, -w / 2, -h / 2, w, h, 16); g.stroke();
+    label(g, o.title || 'Y.Doc', -w / 2 + 16, -h / 2 + 29, mono(20, 800), INK);
+    if (o.sub) label(g, o.sub, w / 2 - 16, -h / 2 + 29, sans(18, 700), DIM, 'right');
+    if (o.items) xs = cells(g, 0, 21, t, o.items, o.sz || 40).map(x => cx + x * k);
+  });
+  return xs;
+}
+// Hocuspocus 服务器：青色页眉的大卡片
+function serverBox(g, cx, cy, w, h, k, title = 'Hocuspocus Server', sub = 'Node.js') {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => { const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 22, '#f2fbfa');
+    g.save(); rr(g, x, y, w, h, 22); g.clip(); g.fillStyle = HP; g.fillRect(x, y, w, 58); g.restore();
+    g.fillStyle = INK; g.fillRect(x, y + 56, w, 3.5); g.strokeStyle = INK; g.lineWidth = 4; rr(g, x, y, w, h, 22); g.stroke();
+    label(g, title, x + 24, y + 39, sans(26, 800), '#fff'); if (sub) label(g, sub, x + w - 22, y + 38, mono(18, 700), '#e6fbf9', 'right'); });
+}
+// 浏览器窗口：左上三个圆点，页眉写标题
+function win(g, cx, cy, w, h, k, tint, title) {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => { const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 22);
+    g.save(); rr(g, x, y, w, h, 22); g.clip(); g.fillStyle = tint; g.fillRect(x, y, w, 54); g.restore();
+    g.fillStyle = INK; g.fillRect(x, y + 52, w, 3.5); g.strokeStyle = INK; g.lineWidth = 4; rr(g, x, y, w, h, 22); g.stroke();
+    for (let i = 0; i < 3; i++) disc(g, x + 28 + i * 24, y + 27, 7, '#fffdf7', 2.5);
+    label(g, title, x + w - 22, y + 36, sans(23, 800), INK, 'right'); });
+}
+// WebSocket 管道：一根描了边的粗管子，从 (x0,y0) 长到进度 k
+function tube(g, x0, y0, x1, y1, k, glow = 0) {
+  if (k <= 0.01) return; const x = lerp(x0, x1, k), y = lerp(y0, y1, k);
+  g.lineCap = 'round'; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x, y); g.strokeStyle = INK; g.lineWidth = 30 + 8 * glow; g.stroke(); g.strokeStyle = glow > 0.01 ? '#a8e6e2' : HPT; g.lineWidth = 22 + 8 * glow; g.stroke();
+}
+// 一条在路上的消息：t0 出发，d 秒后到达，到了就缩进去
+function msg(g, t, t0, d, x0, y0, x1, y1, txt, bg, o = {}) {
+  if (t < t0 - 0.25 || t > t0 + d + 0.3) return;
+  const k = eIO(seg(t, t0, t0 + d)), s = pop(t, t0 - 0.25, 0.25) * (1 - eIn(seg(t, t0 + d, t0 + d + 0.3)));
+  chip(g, lerp(x0, x1, k), lerp(y0, y1, k) - Math.sin(k * Math.PI) * (o.lift || 0), s, txt, { mono: o.mono ?? true, px: o.px || 22, bg, w: 700, sh: 4 });
+}
+// 一包 update：贴纸上写字，左上角标出是谁的
+function updPkt(g, x, y, k, who, txt = 'update') { if (k <= 0.01) return; const f = mono(24, 700), w = W(f, txt) + 24 * 1.3; chip(g, x, y, k, txt, { mono: true, px: 24, bg: PALE }); at(g, x - w / 2 * k, y - 22 * k, k, () => letterDisc(g, 0, 0, 17, who)); }
+function dbCyl(g, cx, cy, k, pulse = 0, w = 150, h = 120, lbl = 'PostgreSQL') {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k * (1 + 0.08 * pulse), () => { const rx = w / 2, ry = w * 0.14, top = -h / 2, bot = h / 2;
+    g.fillStyle = 'rgba(27,34,51,.17)'; g.beginPath(); g.moveTo(-rx + 7, top + 9); g.lineTo(-rx + 7, bot + 9); g.ellipse(7, bot + 9, rx, ry, 0, Math.PI, 0, true); g.lineTo(rx + 7, top + 9); g.closePath(); g.fill();
+    g.fillStyle = '#dfe7f5'; g.strokeStyle = INK; g.lineWidth = 4; g.beginPath(); g.moveTo(-rx, top); g.lineTo(-rx, bot); g.ellipse(0, bot, rx, ry, 0, Math.PI, 0, true); g.lineTo(rx, top); g.closePath(); g.fill(); g.stroke();
+    g.lineWidth = 3; for (const yy of [top + h / 3, top + 2 * h / 3]) { g.beginPath(); g.ellipse(0, yy, rx, ry, 0, 0, Math.PI); g.stroke(); }
+    g.fillStyle = '#eef3fb'; g.lineWidth = 4; g.beginPath(); g.ellipse(0, top, rx, ry, 0, 0, TAU); g.fill(); g.stroke();
+    if (lbl) label(g, lbl, 0, bot + ry + 30, sans(Math.round(w * 0.15), 800), INK, 'center'); });
+}
+function padlock(g, x, y, s) { at(g, x, y, s, () => { g.strokeStyle = INK; g.lineWidth = 5; g.lineCap = 'round'; g.beginPath(); g.moveTo(-12, 0); g.lineTo(-12, -12); g.arc(0, -12, 12, Math.PI, 0); g.lineTo(12, 0); g.stroke(); card(g, -20, -4, 40, 32, 7, CY, INK, 3.5, 0); disc(g, 0, 10, 4.5, INK, 0); }); }
+// 左对齐的代码条：返回右端 x
+function codeL(g, x, y, k, txt, px = 28) { const w = W(mono(px, 600), txt) + px * 1.5; code(g, x + w / 2, y, k, txt, px); return x + w; }
+
+// ───────────────────────── 这一集新加的部件 ─────────────────────────
+COL.D = '#7c8696'; TINT.D = '#e3e5ea';
+const TERMBG = '#222a3a', GREEN_T = '#9fe0b8', RED_T = '#ff9aa6', GREY_T = '#aab1c2';
+const fall = (t, t0, d = 0.8) => eIn(seg(t, t0, t0 + d));            // t0 之后往下掉的进度
+function bar(g, x, y, w, col = '#dcd6c8', h = 16) { if (w <= 1) return; g.fillStyle = col; rr(g, x, y - h / 2, w, h, h / 2); g.fill(); }
+// 终端：深色窗口；lines 的每一项是 [出现时刻, 文字, 颜色]，按时刻逐字打出
+function term(g, cx, cy, w, h, k, t, title, lines, px = 21) {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => { const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 18, TERMBG);
+    g.save(); rr(g, x, y, w, h, 18); g.clip(); g.fillStyle = '#323d55'; g.fillRect(x, y, w, 42); g.restore();
+    g.strokeStyle = INK; g.lineWidth = 4; rr(g, x, y, w, h, 18); g.stroke();
+    [CA, CY, OK].forEach((c, i) => disc(g, x + 24 + i * 20, y + 21, 6, c, 0));
+    if (title) label(g, title, x + w - 18, y + 28, mono(16, 700), GREY_T, 'right');
+    lines.forEach(([t0, s, c], i) => { if (t < t0) return; const ch = Array.from(s), n = typeN(t, t0, 0.03, ch.length); label(g, ch.slice(0, n).join(''), x + 22, y + 80 + i * px * 1.7, mono(px, 600), c || CREAM); });
+  });
+}
+// 一页文档：标题 + 若干行灰条；o.draw(x, y) 在页内坐标里补画
+function docPage(g, cx, cy, w, h, k, title, rows, o = {}) {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => { const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 18, o.fill || CARD);
+    label(g, title, x + 30, y + 50, serif(o.tpx || 28), INK); g.fillStyle = INK; g.fillRect(x + 30, y + 68, w - 60, 3);
+    rows.forEach((r, i) => bar(g, x + 30, y + 108 + i * (o.gap || 40), (w - 60) * r[0], r[1] || '#dcd6c8', o.bh || 16));
+    if (o.draw) o.draw(x, y);
+  });
+}
+// 标注编号
+function badge(g, x, y, s, n, bg = HI) { at(g, x, y, s, () => { disc(g, 0, 0, 20, bg, 3); label(g, String(n), 0, 8, mono(22, 800), INK, 'center'); }); }
+// 关卡：竖着的门柱。state 0 待查，1 通过，2 拦下
+function gate(g, x, y, h, k, state, txt, px = 19) {
+  at(g, x, y, k, () => card(g, -14, -h / 2, 28, h, 9, state === 1 ? OK : state === 2 ? BAD : HPT, INK, 3.5, 0));
+  if (txt) withAlpha(g, k, () => label(g, txt, x, y - h / 2 - 16, sans(px, 800), state === 2 ? BAD : INK, 'center'));
+}
+// 文件图标：右上角折角
+function fileIcon(g, x, y, s, name, bg = CARD) {
+  at(g, x, y, s, () => {
+    const P = (dx, dy) => { g.beginPath(); g.moveTo(-30 + dx, -38 + dy); g.lineTo(14 + dx, -38 + dy); g.lineTo(30 + dx, -22 + dy); g.lineTo(30 + dx, 38 + dy); g.lineTo(-30 + dx, 38 + dy); g.closePath(); };
+    g.fillStyle = 'rgba(27,34,51,.17)'; P(5, 7); g.fill(); g.fillStyle = bg; g.strokeStyle = INK; g.lineWidth = 3.5; g.lineJoin = 'round'; P(0, 0); g.fill(); g.stroke();
+    g.beginPath(); g.moveTo(14, -38); g.lineTo(14, -22); g.lineTo(30, -22); g.stroke(); for (let i = 0; i < 3; i++) bar(g, -18, -6 + i * 14, 34 - i * 8, '#cfc9ba', 6);
+    if (name) label(g, name, 0, 66, mono(18, 700), INK, 'center');
+  });
+}
+function shield(g, x, y, s, col = OK) {
+  at(g, x, y, s, () => { g.fillStyle = col; g.strokeStyle = INK; g.lineWidth = 4; g.lineJoin = 'round'; g.beginPath(); g.moveTo(0, -46); g.lineTo(38, -32); g.quadraticCurveTo(38, 22, 0, 48); g.quadraticCurveTo(-38, 22, -38, -32); g.closePath(); g.fill(); g.stroke();
+    g.strokeStyle = '#fff'; g.lineWidth = 6; g.lineCap = 'round'; g.beginPath(); g.moveTo(-14, 0); g.lineTo(-3, 11); g.lineTo(16, -12); g.stroke(); });
+}
+function thinking(g, x, y, t, k) {
+  if (k <= 0.01) return;
+  at(g, x, y, k, () => { card(g, -54, -30, 108, 60, 30, CARD, INK, 3, 3); disc(g, -46, 42, 8, CARD, 3); for (let i = 0; i < 3; i++) disc(g, -24 + i * 24, 0, 6 + 2.5 * Math.max(0, Math.sin(t * 6 - i)), INK, 0); });
+}
+// 一张单据：深色页眉 + 若干行
+function sheet(g, cx, cy, w, h, k, title, head = PALE) {
+  if (k <= 0.01) return;
+  at(g, cx, cy, k, () => { const x = -w / 2, y = -h / 2; card(g, x, y, w, h, 16);
+    g.save(); rr(g, x, y, w, h, 16); g.clip(); g.fillStyle = head; g.fillRect(x, y, w, 46); g.restore();
+    g.fillStyle = INK; g.fillRect(x, y + 45, w, 3); g.strokeStyle = INK; g.lineWidth = 3.5; rr(g, x, y, w, h, 16); g.stroke();
+    label(g, title, x + 18, y + 31, sans(20, 800), INK); });
+}
+// 删除线：从左往右划过去
+function strike(g, x, y, w, k, col = BAD) { if (k <= 0.01) return; g.strokeStyle = col; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(x, y); g.lineTo(x + w * k, y); g.stroke(); }
+// 左对齐贴纸：返回右端 x
+function chipL(g, x, y, k, txt, o = {}) { const px = o.px || 22, f = (o.mono ? mono : sans)(px, o.w || 700), w = W(f, txt) + (o.pad ?? px * 1.3); chip(g, x + w / 2, y, k, txt, o); return x + w; }
+function ellipsize(s, f, max) { if (W(f, s) <= max) return s; const ch = Array.from(s); while (ch.length && W(f, ch.join('') + '…') > max) ch.pop(); return ch.join('') + '…'; }
+
+// ───────────────────────── 这一集新加的部件 ─────────────────────────
+const SKY = '#cfe2f7', HILL = '#7fb59a', LAYOUT = '#ff8d7a';
+// 图片块：天空、远山、太阳
+function imgTile(g, x, y, w, h) {
+  g.save(); rr(g, x, y, w, h, 10); g.clip(); g.fillStyle = SKY; g.fillRect(x, y, w, h);
+  disc(g, x + w * 0.78, y + h * 0.3, h * 0.12, CY, 0);
+  g.fillStyle = HILL; g.beginPath(); g.moveTo(x, y + h); g.lineTo(x + w * 0.3, y + h * 0.45); g.lineTo(x + w * 0.55, y + h * 0.8); g.lineTo(x + w * 0.72, y + h * 0.58); g.lineTo(x + w, y + h); g.closePath(); g.fill(); g.restore();
+  g.strokeStyle = INK; g.lineWidth = 3; rr(g, x, y, w, h, 10); g.stroke();
+}
+// 表格块：表头加网格
+function tableTile(g, x, y, w, h, cols = 4, rows = 3) {
+  g.fillStyle = CARD; rr(g, x, y, w, h, 8); g.fill(); g.save(); rr(g, x, y, w, h, 8); g.clip(); g.fillStyle = PALE; g.fillRect(x, y, w, h / rows); g.restore();
+  g.strokeStyle = INK; g.lineWidth = 2.5; rr(g, x, y, w, h, 8); g.stroke(); g.lineWidth = 1.8; g.beginPath();
+  for (let i = 1; i < cols; i++) { g.moveTo(x + w * i / cols, y); g.lineTo(x + w * i / cols, y + h); } for (let j = 1; j < rows; j++) { g.moveTo(x, y + h * j / rows); g.lineTo(x + w, y + h * j / rows); } g.stroke();
+}
+// 一篇长文档的正文：按固定的段落 / 图片 / 表格序列铺开，scroll 是向下滚过的像素。返回可见图片的位置
+const DOCSEQ = [['h', 0.5], ['p', 0.92], ['p', 0.78], ['p', 0.86], ['img', 0.72], ['p', 0.7], ['p', 0.82], ['tbl', 0.9], ['p', 0.6], ['h', 0.42], ['p', 0.9], ['p', 0.66], ['img', 0.64], ['p', 0.8], ['p', 0.5]];
+const DOCH = { h: 58, p: 34, img: 196, tbl: 148 };
+const DOCCYC = DOCSEQ.reduce((a, it) => a + DOCH[it[0]], 0);
+function longDoc(g, x, y, w, h, scroll, o = {}) {
+  const imgs = [], pad = o.pad ?? 34, iw = w - pad * 2;
+  g.save(); g.beginPath(); g.rect(x, y, w, h); g.clip();
+  let cyc = Math.floor(scroll / DOCCYC), yy = y - (scroll - cyc * DOCCYC), i = 0;
+  while (yy < y + h) {
+    const [type, f] = DOCSEQ[i % DOCSEQ.length], hh = DOCH[type];
+    if (yy + hh > y) {
+      if (type === 'h') bar(g, x + pad, yy + hh / 2 + 4, iw * f, '#3a4256', 20);
+      else if (type === 'p') bar(g, x + pad, yy + hh / 2, iw * f, '#dcd6c8', 14);
+      else if (type === 'img') { const r = { x: x + pad, y: yy + 14, w: iw * f, h: hh - 34 }; imgTile(g, r.x, r.y, r.w, r.h); imgs.push(r); }
+      else tableTile(g, x + pad, yy + 12, iw * f, hh - 30);
+    }
+    yy += hh; i++;
+  }
+  g.restore();
+  return imgs;
+}
+// 图片控件：右上角工具条 + 四角缩放手柄（k 是出现进度）
+function imgControls(g, r, k) {
+  if (k <= 0.02) return;
+  withAlpha(g, k, () => {
+    const tw = 150, th = 36, tx = r.x + r.w - tw - 10, ty = r.y + 10;
+    card(g, tx, ty, tw, th, 10, INK, INK, 0, 3); for (let i = 0; i < 4; i++) { g.fillStyle = i === 0 ? HI : CREAM; rr(g, tx + 14 + i * 34, ty + 9, 20, 18, 4); g.fill(); }
+    g.strokeStyle = CB; g.lineWidth = 3.5; g.setLineDash([10, 7]); rr(g, r.x - 4, r.y - 4, r.w + 8, r.h + 8, 12); g.stroke(); g.setLineDash([]);
+    for (const [hx, hy] of [[r.x, r.y], [r.x + r.w, r.y], [r.x, r.y + r.h], [r.x + r.w, r.y + r.h]]) { g.fillStyle = '#fff'; g.strokeStyle = CB; g.lineWidth = 3; rr(g, hx - 8, hy - 8, 16, 16, 4); g.fill(); g.stroke(); }
+  });
+}
+// 鼠标指针
+function pointer(g, x, y, s = 1) {
+  at(g, x, y, s, () => { g.fillStyle = '#fff'; g.strokeStyle = INK; g.lineWidth = 3; g.lineJoin = 'round'; g.beginPath(); g.moveTo(0, 0); g.lineTo(0, 38); g.lineTo(10, 29); g.lineTo(17, 44); g.lineTo(24, 41); g.lineTo(17, 26); g.lineTo(30, 26); g.closePath(); g.fill(); g.stroke(); });
+}
+// 键帽：down 是按下的程度
+function keycap(g, x, y, s, ch, down = 0, bg = CARD) {
+  at(g, x, y, s, () => { const d = 7 * down; g.fillStyle = INK; rr(g, -34, -30, 68, 68, 12); g.fill();
+    card(g, -34, -34 + d, 68, 64 - d * 0.4, 12, bg, INK, 3.5, 0); label(g, ch, 0, 9 + d, mono(30, 800), INK, 'center'); });
+}
+// 横向柱：从 x 开始，长 w；o.ghost 画一段虚线框表示原来的长度
+function hbar(g, x, y, w, h, col, o = {}) {
+  if (o.ghost) { g.strokeStyle = o.gcol || BAD; g.lineWidth = 3; g.setLineDash([10, 8]); rr(g, x, y - h / 2, o.ghost, h, 10); g.stroke(); g.setLineDash([]); }
+  if (w > 1) card(g, x, y - h / 2, w, h, 10, col, INK, 3.5, 5);
+}
+// 一棵正文树：根、三个子节点、每个子节点三个孙节点。返回各节点坐标（根在前）
+function treeNodes(cx, cy, s = 1) {
+  const n = [[cx, cy - 120 * s]];
+  for (let i = 0; i < 3; i++) { const x = cx + (i - 1) * 190 * s; n.push([x, cy]); for (let j = 0; j < 3; j++) n.push([x + (j - 1) * 58 * s, cy + 120 * s]); }
+  return n;
+}
+function treeDraw(g, cx, cy, s, k, fills = []) {
+  if (k <= 0.01) return; const n = treeNodes(cx, cy, s);
+  withAlpha(g, k, () => { g.strokeStyle = INK; g.lineWidth = 3; g.beginPath();
+    for (let i = 0; i < 3; i++) { const c = n[1 + i * 4]; g.moveTo(n[0][0], n[0][1]); g.lineTo(c[0], c[1]); for (let j = 1; j <= 3; j++) { g.moveTo(c[0], c[1]); g.lineTo(n[1 + i * 4 + j][0], n[1 + i * 4 + j][1]); } }
+    g.stroke(); n.forEach((p, i) => disc(g, p[0], p[1], (i ? 17 : 22) * s, fills[i] || CARD, 3)); });
+  return n;
+}
+// 一格时间：带字的小块，左对齐
+function tblock(g, x, y, w, h, k, txt, bg, o = {}) {
+  if (k <= 0.01 || w <= 2) return; const ww = w * (o.grow ? eOut(k) : 1);
+  at(g, x, y, o.grow ? 1 : k, () => { card(g, 0, -h / 2, ww, h, 10, bg, INK, 3.5, 4); if (txt && ww > W(sans(o.px || 22, 800), txt) + 12) label(g, txt, ww / 2, (o.px || 22) * 0.36, sans(o.px || 22, 800), o.fg || INK, 'center'); });
+}
+// 计数：从 a 过渡到 b，保留 d 位小数
+const tween = (a, b, k, d = 1) => (a + (b - a) * k).toFixed(d);
+
+
+// ───────────────────────── 〇 · 开场：长文档里打字跟不上 ─────────────────────────
+const KEYS0 = ['h', 'e', 'l', 'l', 'o'], KT0 = KEYS0.map((_, i) => K.TY + i * 0.62), LAG0 = 0.55;
+function s0(g, t) {
+  const DX = 640, DY = 450, DW = 620, DH = 640, kd = pop(t, K.PAN, 0.4), sc = 2600 * eIO(seg(t, K.PAN + 0.3, K.TY - 0.5));
+  const LX = DX - DW / 2 + 34, LY = DY + DH / 2 - 70, LW = DW - 68;
+  at(g, DX, DY, kd, () => { g.translate(-DX, -DY); card(g, DX - DW / 2, DY - DH / 2, DW, DH, 20); longDoc(g, DX - DW / 2 + 4, DY - DH / 2 + 4, DW - 8, DH - 8, sc); });
+  chip(g, DX, 80, pop(t, K.STATS), '4.9 万字 · 37 张图 · 16 张表', { px: 26, bg: HI, w: 800 });
+  // 正在输入的那一行：字比按键晚到
+  const kl = pop(t, K.AP + 0.6, 0.3);
+  if (kl > 0.01) at(g, LX + LW / 2, LY, kl, () => { card(g, -LW / 2 - 8, -32, LW + 16, 64, 12, CARD, CA, 4, 0);
+    const n = KT0.filter(k => t >= k + LAG0).length, s = KEYS0.slice(0, n).join(''), f = mono(34, 700), tw = W(f, s);
+    label(g, s, -LW / 2 + 12, 12, f, INK); if ((t * 2) % 1 < 0.6) { g.fillStyle = CA; g.fillRect(-LW / 2 + 16 + tw, -18, 4, 36); } });
+  // 键盘与人
+  const KX = 1330, KY = 720, kk = pop(t, K.AP + 0.3);
+  KEYS0.forEach((ch, i) => keycap(g, KX - 168 + i * 84, KY, kk, ch.toUpperCase(), KT0.reduce((m, k, j) => (KEYS0[j] === ch ? Math.max(m, bump(t, k, 0.25)) : m), 0)));
+  KT0.forEach((k, i) => { if (t < k || t > k + LAG0) return; const n = KT0.filter(q => q < k).length, tx = LX + 14 + W(mono(34, 700), KEYS0.slice(0, n).join('')) + 10;
+    const [x, y] = fly(t, k, LAG0, KX - 168 + i * 84, KY - 50, tx, LY, 120); disc(g, x, y, 10, CA, 3); });
+  const press = KT0.reduce((m, k) => Math.max(m, bump(t, k, 0.22)), 0);
+  buddy(g, KX, 520, { who: 'A', s: 1.2 * pop(t, K.AP), t, look: t > K.TY - 0.4 ? [-1, 0.5] : [-0.6, 0], mood: t > K.SLOW ? 'worried' : 'neutral', squash: press * 0.4 });
+  chip(g, LX + LW - 120, LY - 74, pop(t, K.SLOW), '最慢 5%：60+ ms', { px: 22, bg: PINK, w: 800, rot: 0.03 });
+  chip(g, KX, 360, pop(t, K.Q0, 0.4), '慢在哪？', { px: 30, bg: CARD, w: 800, rot: -0.03 });
+}
+
+// ───────────────────────── 一 · 片名 ─────────────────────────
+function s1(g, t) {
+  const f = serif(120), a = '长文档', b = ' × ', c = '性能优化', wa = W(f, a), wb = W(f, b), wc = W(f, c), x = 960 - (wa + wb + wc) / 2;
+  at(g, 960, 290, pop(t, K.TITLE, 0.45), () => { g.translate(-960, -290);
+    marker(g, x + wa + wb - 4, 268, wc + 8, 50, eOut(seg(t, K.TITLE + 0.4, K.TITLE + 0.9)));
+    label(g, a, x, 330, f, INK); label(g, b, x + wa, 330, f, DIM); label(g, c, x + wa + wb, 330, f, INK); });
+  const sticker = (cx, k, rot, bg, name, line, draw) => at(g, cx, 600, k, () => { g.rotate(rot); card(g, -230, -130, 460, 260, 26, bg); label(g, name, 0, -54, serif(52), INK, 'center'); label(g, line, 0, 98, sans(25, 700), INK, 'center'); draw(); });
+  sticker(470, pop(t, K.ST1, 0.4), -0.03, PALE, '打字', '少做 · 晚做', () => keycap(g, 0, 16, 1, 'A', 0.5 + 0.5 * Math.sin(t * 6)));
+  sticker(960, pop(t, K.ST2, 0.4), 0.02, TINT.B, '滚动', '按需创建', () => { imgTile(g, -66, -14, 132, 70); pointer(g, 16 + 6 * Math.sin(t * 2), 14, 0.8); });
+  sticker(1450, pop(t, K.ST3, 0.4), -0.02, MINT, '切换', '缓存 · 复用', () => { card(g, -78, -16, 92, 70, 10, CARD, INK, 3.5, 4); card(g, -14, -6, 92, 70, 10, TINT.A, INK, 3.5, 4); });
+  chip(g, 960, 815, pop(t, K.PROJ, 0.4), '以文档看板 Requirement Board 的实现为例', { px: 28, bg: CARD, w: 700 });
+}
+
+// ───────────────────────── 二 · 先量清楚 ─────────────────────────
+const P95V = (() => { const r = rng(95), v = []; for (let i = 0; i < 40; i++) { const u = r(); v.push(14 + 20 * u * u + (r() < 0.12 ? 22 + 20 * r() : 0)); } return v.sort((a, b) => a - b); })();
+function s2(g, t) {
+  heading(g, t, K.H2, '1', '先量清楚');
+  const ks = pop(t, K.SAMPLE, 0.4);
+  sheet(g, 400, 520, 480, 520, ks, '样本 · REQ-8《ui改版》v7', PALE);
+  [['197', '个顶层块'], ['64', '个标题'], ['37', '张图片 · 原图 5.3 MB'], ['16', '张表格'], ['48,915', '字（文本节点合计）']].forEach(([n, s], i) =>
+    withAlpha(g, ks * seg(t, K.SAMPLE + 0.5 + i * 0.4, K.SAMPLE + 0.75 + i * 0.4), () => { label(g, n, 330, 384 + i * 70, mono(32, 800), INK, 'right'); label(g, s, 346, 382 + i * 70, sans(23, 700), INK); }));
+  withAlpha(g, ks * seg(t, K.SAMPLE + 2.8, K.SAMPLE + 3.1), () => label(g, '正文哈希固定：每轮都是同一篇', 400, 744, sans(19, 700), DIM, 'center'));
+  // 右半边一：真实环境 + 三把尺子
+  const aA = 1 - seg(t, K.P95 - 0.5, K.P95);
+  if (aA > 0.01) withAlpha(g, aA, () => {
+    const st = ['生产模式 Nuxt', 'PostgreSQL', 'WebSocket 协作', '37 张原图'], fw = sans(22, 700), ws = st.map(s => W(fw, s) + 22 * 1.3), tot = ws.reduce((a, b) => a + b, 0) + 16 * (st.length - 1);
+    let x = 1290 - tot / 2; st.forEach((s, i) => { chip(g, x + ws[i] / 2, 250, pop(t, K.REAL + i * 0.3), s, { px: 22, bg: MINT }); x += ws[i] + 16; });
+    at(g, 1290, 330, pop(t, K.NOSTUB), () => { chip(g, 0, 0, 1, '接口桩 · 假数据', { px: 22, bg: CARD }); strike(g, -96, 0, 192, eOut(seg(t, K.NOSTUB + 0.3, K.NOSTUB + 0.6))); xMark(g, 120, -4, 0.7); });
+    chip(g, 1290, 410, pop(t, K.ENV), '无头 Chromium 148 · i5-14600KF · 1732×942', { px: 21, bg: CARD });
+    [['输入处理', 'beforeinput → input', '事件处理跑了多久', TINT.A], ['画面更新', '按键 → 下一次呈现', 'Chromium EventTiming', TINT.B], ['样式计算', '滚动时每秒几毫秒', 'CDP 累计 CPU', TINT.C]].forEach(([a, b, c, bg], i) =>
+      at(g, 960 + i * 330, 650, pop(t, K.RUL + i * 1.6, 0.4), () => { card(g, -150, -120, 300, 240, 20);
+        g.save(); rr(g, -150, -120, 300, 240, 20); g.clip(); g.fillStyle = bg; g.fillRect(-150, -120, 300, 56); g.restore(); g.fillStyle = INK; g.fillRect(-150, -65, 300, 3); g.strokeStyle = INK; g.lineWidth = 4; rr(g, -150, -120, 300, 240, 20); g.stroke();
+        label(g, a, 0, -81, sans(27, 800), INK, 'center');
+        disc(g, 0, -10, 30, CARD, 3.5); g.fillStyle = INK; g.fillRect(-6, -48, 12, 8); const an = (t - K.RUL) * 3 + i; g.strokeStyle = CA; g.lineWidth = 4; g.lineCap = 'round'; g.beginPath(); g.moveTo(0, -10); g.lineTo(Math.cos(an) * 20, -10 + Math.sin(an) * 20); g.stroke();
+        label(g, b, 0, 56, (/^[ -~→]+$/.test(b) ? mono(19, 700) : sans(20, 700)), INK, 'center'); label(g, c, 0, 90, sans(18, 600), DIM, 'center'); }));
+  });
+  // 右半边二：P95
+  const aB = seg(t, K.P95 - 0.2, K.P95 + 0.2);
+  if (aB > 0.01) withAlpha(g, aB, () => {
+    const X = 840, BW = 18, GAP = 6, BASE = 700, S = 6.2;
+    chip(g, 1320, 230, pop(t, K.P95 + 0.2), '把 40 次按耗时从小到大排好', { px: 22, bg: CARD });
+    P95V.forEach((v, i) => { const k = eOut(seg(t, K.P95 + 0.3 + i * 0.03, K.P95 + 0.6 + i * 0.03)), h = v * S * k, x = X + i * (BW + GAP);
+      const hot = i === 37 && t > K.P95 + 2.0, tail = i > 37 && t > K.P95 + 2.6;
+      card(g, x, BASE - h, BW, h, 4, hot ? HI : tail ? PINK : TINT.B, INK, 2.5, 0); });
+    g.strokeStyle = INK; g.lineWidth = 3.5; g.beginPath(); g.moveTo(X - 12, BASE); g.lineTo(X + 40 * (BW + GAP) + 6, BASE); g.stroke();
+    const hx = X + 37 * (BW + GAP) + BW / 2, hy = BASE - P95V[37] * S;
+    chip(g, hx - 70, hy - 40, pop(t, K.P95 + 2.0), 'P95', { px: 26, mono: true, bg: HI, w: 800 });
+    withAlpha(g, seg(t, K.P95 + 2.6, K.P95 + 3.0), () => label(g, '最慢的 5%', X + 39 * (BW + GAP) + BW, BASE + 36, sans(20, 800), BAD, 'right'));
+    const avg = P95V.reduce((a, b) => a + b, 0) / P95V.length, ay = BASE - avg * S, ka = eOut(seg(t, K.AVG, K.AVG + 0.6));
+    if (ka > 0.01) { g.strokeStyle = DIM; g.lineWidth = 3; g.setLineDash([12, 9]); g.beginPath(); g.moveTo(X - 12, ay); g.lineTo(X - 12 + (40 * (BW + GAP) + 18) * ka, ay); g.stroke(); g.setLineDash([]);
+      withAlpha(g, ka, () => label(g, '平均', X - 22, ay + 8, sans(22, 800), DIM, 'right')); }
+    chip(g, 1060, 340, pop(t, K.ONE), '一次只动一处', { px: 26, bg: HI, w: 800, rot: -0.04 });
+    const r3 = [['优化前 × 3 轮', PINK], ['优化后 × 3 轮', MINT], ['合并样本再算 P95', CARD]];
+    r3.forEach(([s, bg], i) => chip(g, 1000 + i * 330, 790, pop(t, K.ROUNDS + i * 0.5), s, { px: 22, bg }));
+    withAlpha(g, seg(t, K.ROUNDS + 0.6, K.ROUNDS + 0.9), () => { label(g, '+', 1165, 798, sans(30, 800), INK, 'center'); });
+    withAlpha(g, seg(t, K.ROUNDS + 1.1, K.ROUNDS + 1.4), () => arrow(g, 1440, 790, 1478, 790, 1, INK, 4));
+  });
+}
+
+// ───────────────────────── 三 · 一次按键做了多少事 ─────────────────────────
+const BLK3 = [[12, '导出整篇 JSON', TINT.A], [9, '扫描全部块 ID', PALE], [14, '整棵树变成响应式', TINT.C], [17.3, '算指纹 · 比较 · 签名', PINK]];
+function s3(g, t) {
+  heading(g, t, K.H3, '2', '一次按键做了多少事');
+  const X0 = 420, PX = 22, AY = 690, BY = 560, ka = eOut(seg(t, K.H3 + 0.3, K.H3 + 1.0));
+  buddy(g, 230, 380, { who: 'A', s: 0.9 * pop(t, K.H3 + 0.1), t, look: [0.4, 1], mood: t > K.TOTAL ? 'worried' : 'neutral', squash: bump(t, K.KEY, 0.25) * 0.4 });
+  keycap(g, 230, BY, pop(t, K.H3 + 0.2), 'A', bump(t, K.KEY, 0.3), TINT.A);
+  // 时间轴：毫秒
+  if (ka > 0.01) { g.strokeStyle = INK; g.lineWidth = 3.5; g.beginPath(); g.moveTo(X0, AY); g.lineTo(X0 + 60 * PX * ka, AY); g.stroke();
+    withAlpha(g, ka, () => { for (let m = 0; m <= 60; m += 10) { const x = X0 + m * PX; g.beginPath(); g.moveTo(x, AY - 8); g.lineTo(x, AY + 8); g.stroke(); label(g, String(m), x, AY + 34, mono(18, 700), DIM, 'center'); } label(g, 'ms', X0 + 60 * PX + 18, AY + 34, mono(18, 700), DIM); }); }
+  arrow(g, 280, BY, X0 - 16, BY, eOut(seg(t, K.TXN, K.TXN + 0.4)), INK, 4);
+  chip(g, (280 + X0) / 2 - 8, BY - 46, pop(t, K.TXN + 0.2), '事务', { px: 20, bg: CARD });
+  // 一段段排在同一段同步代码里
+  let x = X0; BLK3.forEach(([ms, s, bg], i) => { const t0 = K.BLK + i * 1.4; tblock(g, x, BY, ms * PX - 4, 84, seg(t, t0, t0 + 0.5), s, bg, { grow: true, px: 21 }); x += ms * PX; });
+  const kS = eOut(seg(t, K.SYNC, K.SYNC + 0.5));
+  if (kS > 0.01) withAlpha(g, kS, () => { g.strokeStyle = INK; g.lineWidth = 3; g.setLineDash([12, 9]); rr(g, X0 - 12, BY - 62, 52.3 * PX + 20, 124, 18); g.stroke(); g.setLineDash([]); label(g, '按键的同一段同步代码', X0, BY - 78, sans(22, 800), INK); });
+  // 画面：等全部做完才更新
+  const MX = X0 + 52.3 * PX + 96, km = pop(t, K.PAINT);
+  at(g, MX, BY - 6, km, () => { card(g, -60, -46, 120, 84, 10, CARD); g.fillStyle = INK; g.fillRect(-8, 38, 16, 18); g.fillRect(-30, 54, 60, 6);
+    if (t > K.PAINT + 1.2) label(g, 'A', 0, 12, mono(40, 800), INK, 'center'); else { const s = (t * 2) % 1 < 0.5; label(g, s ? '…' : '', 0, 6, sans(34, 800), DIM, 'center'); } });
+  withAlpha(g, km, () => label(g, '画面更新', MX, BY + 86, sans(20, 800), INK, 'center'));
+  arrow(g, X0 + 52.3 * PX + 6, BY, MX - 66, BY - 6, eOut(seg(t, K.PAINT + 0.6, K.PAINT + 1.1)), INK, 4);
+  // 一帧有多长
+  [16.7, 33.3, 50].forEach((ms, i) => { const k = eOut(seg(t, K.FRAME + i * 0.4, K.FRAME + i * 0.4 + 0.4)); if (k <= 0.01) return; const xx = X0 + ms * PX;
+    g.strokeStyle = OK; g.lineWidth = 3; g.setLineDash([8, 8]); g.beginPath(); g.moveTo(xx, AY); g.lineTo(xx, AY - (AY - BY + 120) * k); g.stroke(); g.setLineDash([]);
+    withAlpha(g, k, () => label(g, `${i + 1} 帧`, xx, BY - 128, sans(19, 800), OK, 'center')); });
+  chip(g, X0 + 16.7 * PX / 2, BY - 168, pop(t, K.FRAME + 0.2), '一帧 16.7 ms', { px: 20, bg: MINT });
+  at(g, X0 + 52.3 * PX, AY, pop(t, K.TOTAL), () => { g.fillStyle = BAD; g.beginPath(); g.moveTo(0, -10); g.lineTo(-12, -30); g.lineTo(12, -30); g.closePath(); g.fill(); });
+  chip(g, X0 + 52.3 * PX, AY + 84, pop(t, K.TOTAL + 0.1), 'P95 52.3 ms', { px: 24, mono: true, bg: PINK, w: 800 });
+  withAlpha(g, seg(t, K.LONG, K.LONG + 0.4), () => label(g, '各段长短为示意，总长是实测 P95', X0, AY + 92, sans(19, 700), DIM));
+}
+
+// ───────────────────────── 四 · 少做，晚做 ─────────────────────────
+const KT4 = [0, 1, 2, 3, 4, 5].map(i => K.GEN + 0.4 + i * 0.5);
+function s4(g, t) {
+  heading(g, t, K.H4, '3', '少做，晚做');
+  // A：ref 与 shallowRef
+  const aA = 1 - seg(t, K.GEN - 0.5, K.GEN - 0.1);
+  if (aA > 0.01) withAlpha(g, aA, () => {
+    const kl = pop(t, K.REF, 0.4), kr = pop(t, K.SHALLOW, 0.4);
+    sheet(g, 520, 470, 700, 520, kl, 'ref(正文) · 深层响应式', TINT.C);
+    if (kl > 0.01) { const n = treeDraw(g, 520, 500, 1, kl);
+      n.forEach(([x, y], i) => { const k = pop(t, K.REF + 0.7 + i * 0.13, 0.25); if (k <= 0.01) return; g.strokeStyle = CC; g.lineWidth = 4; circ(g, x, y, (i ? 26 : 32) * k); g.stroke(); });
+      chip(g, 520, 690, pop(t, K.REF + 2.6), '每个节点都包一层代理', { px: 22, bg: TINT.C }); }
+    sheet(g, 1400, 470, 700, 520, kr, 'shallowRef(正文)', MINT);
+    if (kr > 0.01) { const sw = eIO(seg(t, K.SWAP, K.SWAP + 0.8));
+      withAlpha(g, 1 - sw, () => treeDraw(g, 1400 - 80 * sw, 500, 1, kr));
+      if (sw > 0.01) withAlpha(g, sw, () => treeDraw(g, 1400 + 80 * (1 - sw), 500, 1, 1, [0, 0, 0, HI, 0, 0, 0, 0, 0, 0, 0, 0, 0].map(c => c || null)));
+      const kb = eOut(seg(t, K.SHALLOW + 0.6, K.SHALLOW + 1.1)); if (kb > 0.01) withAlpha(g, kb, () => { g.strokeStyle = CC; g.lineWidth = 4; g.setLineDash([14, 10]); rr(g, 1110, 340, 580, 320, 26); g.stroke(); g.setLineDash([]); });
+      chip(g, 1400, 300, pop(t, K.SWAP + 0.4), '整棵换新 · 旧的不再改', { px: 21, bg: HI, w: 800 });
+      const late = t > K.SWAP + 1.4; chip(g, 1400, 690, late ? pop(t, K.SWAP + 1.4) : pop(t, K.SHALLOW + 1.0), late ? '比一下引用，就知道变没变' : '只追踪 .value', { px: 22, bg: MINT }); }
+    at(g, 960, 800, pop(t, K.SKIPID), () => { chip(g, 26, 0, 1, '段内打字 → 跳过全文块 ID 扫描', { px: 24, bg: CARD, w: 800 }); okMark(g, -196, 0, 0.8); });
+  });
+  // B：修改代次 + 延后派生
+  const aB = seg(t, K.GEN - 0.3, K.GEN + 0.1) * (1 - seg(t, K.RES - 0.5, K.RES - 0.1));
+  if (aB > 0.01) withAlpha(g, aB, () => {
+    const n = KT4.filter(k => t >= k).length, AX = 480, AYY = 330, PXS = 200, px = k => AX + (k - KT4[0]) * PXS, head = AX + clamp(t - KT4[0], 0, 6.1) * PXS;
+    at(g, 260, 330, 1 + 0.12 * KT4.reduce((m, k) => Math.max(m, bump(t, k, 0.25)), 0), () => { card(g, -92, -70, 184, 140, 20, PALE); label(g, '代次', 0, -32, sans(22, 800), DIM, 'center'); label(g, String(8 + n), 0, 44, mono(64, 800), INK, 'center'); });
+    const pend = n > 0 && t < K.RUN + 0.2; chip(g, 260, 448, pend ? pop(t, KT4[0]) : 1 - seg(t, K.RUN + 0.2, K.RUN + 0.5), '待核对', { px: 22, bg: HI, w: 800 });
+    g.strokeStyle = INK; g.lineWidth = 3; g.beginPath(); g.moveTo(AX - 20, AYY + 40); g.lineTo(1780, AYY + 40); g.stroke();
+    label(g, '时间（示意）', 1780, AYY + 74, sans(18, 700), DIM, 'right');
+    KT4.forEach((k, i) => keycap(g, px(k), AYY - 6, 0.62 * pop(t, k, 0.25), 'abcdef'[i], bump(t, k, 0.25), TINT.A));
+    g.strokeStyle = CA; g.lineWidth = 3; g.beginPath(); g.moveTo(head, AYY - 50); g.lineTo(head, AYY + 52); g.stroke();
+    // 停手
+    const ki = eOut(seg(t, K.IDLE, K.IDLE + 0.5)), x0 = px(KT4[5]) + 40, x1 = px(K.RUN);
+    if (ki > 0.01) withAlpha(g, ki, () => { g.strokeStyle = OK; g.lineWidth = 4; g.beginPath(); g.moveTo(x0, AYY + 62); g.lineTo(x0, AYY + 74); g.lineTo(lerp(x0, x1, ki), AYY + 74); g.lineTo(lerp(x0, x1, ki), AYY + 62); g.stroke(); label(g, '停手 · 空闲', (x0 + x1) / 2, AYY + 104, sans(20, 800), OK, 'center'); });
+    // 重活
+    [['指纹 · 比较', '空闲 200 ms 后'], ['本机备份', '空闲 500 ms 后'], ['Yjs 编码', '同一代次只编一次']].forEach(([a, b], i) => {
+      const done = t >= K.RUN + [0, 0.9, 1.1][i], kd = pop(t, K.RUN + [0, 0.9, 1.1][i], 0.3);
+      at(g, 700 + i * 360, 600, pop(t, K.GEN + 0.2 + i * 0.15), () => { card(g, -150, -60, 300, 120, 18, done ? MINT : '#ebe8e0', INK, 3.5, done ? 6 : 3);
+        label(g, a, 0, -8, sans(26, 800), done ? INK : DIM, 'center'); label(g, b, 0, 30, sans(18, 700), DIM, 'center'); });
+      okMark(g, 700 + i * 360 + 140, 548, kd * 0.8);
+      if (!done) withAlpha(g, seg(t, K.GEN + 0.5, K.GEN + 0.8), () => label(g, 'z', 700 + i * 360 + 128, 560 - 6 * Math.sin(t * 3 + i), mono(22, 800), FAINT));
+    });
+    chip(g, 1060, 470, pop(t, K.RUN + 1.5), `按代次 ${8 + 6} 各做一次`, { px: 22, bg: HI, w: 800 });
+    chip(g, 700, 712, pop(t, K.DEADLINE), '一直在打？最长 1.5 s 也会做', { px: 20, bg: CARD });
+    at(g, 1420, 712, pop(t, K.REUSE), () => { chip(g, 18, 0, 1, '再要一次 → 直接复用', { px: 20, bg: MINT }); okMark(g, -118, 0, 0.6); });
+    const bw = ['离页', '上传', '保存'];
+    bw.forEach((s, i) => chip(g, 700 + i * 120, 800, pop(t, K.BOUND + i * 0.2), s, { px: 22, bg: CARD }));
+    withAlpha(g, seg(t, K.BOUND + 0.7, K.BOUND + 1.0), () => arrow(g, 990, 800, 1060, 800, 1, INK, 4));
+    chip(g, 1160, 800, pop(t, K.BOUND + 1.0), '立刻核对', { px: 22, bg: HI, w: 800 });
+  });
+  // C：结果
+  const aC = seg(t, K.RES - 0.3, K.RES + 0.1);
+  if (aC > 0.01) withAlpha(g, aC, () => {
+    const BX = 640, S = 15;
+    [[K.RES, 380, '处理一次输入', 'beforeinput → input · P95', 52.3, 5.8, '−89%'], [K.RES2, 620, '按键到画面更新', 'EventTiming · P95', 63.5, 26.4, '−58%']].forEach(([t0, y, a, b, v0, v1, pct]) => {
+      const kin = seg(t, t0, t0 + 0.4); if (kin <= 0.01) return;
+      withAlpha(g, kin, () => { label(g, a, 200, y - 4, sans(30, 800), INK); label(g, b, 200, y + 32, mono(18, 700), DIM); });
+      const grow = eOut(seg(t, t0 + 0.1, t0 + 0.6)), sh = eIO(seg(t, t0 + 1.2, t0 + 2.2)), v = lerp(v0, v1, sh), w = v0 * S * grow - (v0 - v1) * S * sh;
+      hbar(g, BX, y, w, 60, sh > 0.5 ? MINT : PINK, { ghost: sh > 0.01 ? v0 * S : 0 });
+      withAlpha(g, grow, () => label(g, `${v.toFixed(1)} ms`, BX + w + 20, y + 11, mono(30, 800), INK));
+      if (sh > 0.01) withAlpha(g, sh, () => label(g, `${v0} ms`, BX + v0 * S + 16, y - 40, mono(20, 700), BAD));
+      chip(g, BX + v0 * S + 160, y + 2, pop(t, t0 + 2.3), pct, { px: 26, bg: HI, w: 800, rot: -0.04 }); });
+    const kb = eOut(seg(t, K.RES2 + 2.6, K.RES2 + 3.1)), bx = BX + 50 * S;
+    if (kb > 0.01) { g.strokeStyle = OK; g.lineWidth = 4; g.setLineDash([10, 8]); g.beginPath(); g.moveTo(bx, 690); g.lineTo(bx, 690 - 150 * kb); g.stroke(); g.setLineDash([]);
+      withAlpha(g, kb, () => label(g, '预算 50 ms', bx, 728, sans(21, 800), OK, 'center')); }
+  });
+}
+
+// ───────────────────────── 五 · 滚动：图片控件按需创建 ─────────────────────────
+const PTR5 = [700, 520];
+function s5(g, t) {
+  heading(g, t, K.H5, '4', '滚动：图片控件按需创建');
+  const kw = pop(t, K.H5 + 0.1, 0.4), sc = 600 + 260 * Math.max(0, t - K.SCROLL), after = t >= K.ON;
+  win(g, 640, 500, 760, 660, kw, TINT.B, '正文 · 滚动中');
+  let imgs = [];
+  if (kw > 0.98) {
+    imgs = longDoc(g, 264, 228, 752, 598, sc);
+    imgs.forEach(r => { const inside = PTR5[0] > r.x && PTR5[0] < r.x + r.w && PTR5[1] > r.y && PTR5[1] < r.y + r.h, enter = clamp((PTR5[1] - r.y) / 40), leave = clamp((r.y + r.h - PTR5[1]) / 40);
+      const hov = inside ? Math.min(enter, leave) : 0, kc = after ? Math.max(hov, 1 - seg(t, K.ON, K.ON + 0.6)) : 1;
+      imgControls(g, r, kc); });
+    // 原来：指针一进图片，整页样式一起重算
+    if (!after && t > K.FLASH) { let f = 0; imgs.forEach(r => { if (PTR5[0] > r.x && PTR5[0] < r.x + r.w && PTR5[1] > r.y && PTR5[1] < r.y + r.h) f = Math.max(f, Math.exp(-(PTR5[1] - r.y) / 110)); });
+      f *= seg(t, K.FLASH, K.FLASH + 0.3);
+      if (f > 0.02) { g.save(); g.beginPath(); g.rect(264, 228, 752, 598); g.clip(); withAlpha(g, f * 0.3, () => { g.fillStyle = LAYOUT; g.fillRect(264, 228, 752, 598); }); g.restore();
+        chip(g, PTR5[0] + 150, PTR5[1] - 40, Math.min(1, f * 1.6), '整页样式重算', { px: 20, bg: PINK, w: 800 }); } }
+    pointer(g, PTR5[0], PTR5[1], 1.1);
+  }
+  chip(g, 900, 140, after ? pop(t, K.ON) : pop(t, K.SCROLL + 0.4), after ? '现在' : '原来', { px: 22, bg: after ? MINT : PINK, w: 800 });
+  // 右侧
+  const kA = pop(t, K.ALLC); chip(g, 1470, 232, kA, '37 张图 × 工具条 · 手柄 · 观察器', { px: 21, bg: PINK });
+  if (kA > 0.01) strike(g, 1282, 232, 376, eOut(seg(t, K.ON + 0.2, K.ON + 0.6)), INK);
+  const cs = ['悬停', '选中', '聚焦', '拖动'], fw = sans(22, 800), ws = cs.map(s => W(fw, s) + 22 * 1.3), tot = ws.reduce((a, b) => a + b, 0) + 14 * 3; let x = 1470 - tot / 2;
+  cs.forEach((s, i) => { chip(g, x + ws[i] / 2, 305, pop(t, K.ON + 0.6 + i * 0.25), s, { px: 22, bg: MINT, w: 800 }); x += ws[i] + 14; });
+  chip(g, 1470, 375, pop(t, K.OBS), '尺寸观察器 · 随交互开关', { px: 21, bg: CARD });
+  chip(g, 1470, 445, pop(t, K.CUR), '自定义光标 · 编辑区内局部生效', { px: 21, bg: CARD });
+  // 结果
+  const km = seg(t, K.METER, K.METER + 0.3);
+  if (km > 0.01) withAlpha(g, km, () => {
+    const BASE = 800, S = 1.1, b0 = eOut(seg(t, K.METER + 0.1, K.METER + 0.7)), b1 = eOut(seg(t, K.METER + 0.9, K.METER + 1.5));
+    chip(g, 1470, 500, 1, '全文滚动 · 样式计算 ms/s', { px: 20, bg: CARD });
+    card(g, 1300, BASE - 224.2 * S * b0, 120, 224.2 * S * b0, 10, PINK, INK, 3.5, 5); card(g, 1520, BASE - 41.5 * S * b1, 120, 41.5 * S * b1, 10, MINT, INK, 3.5, 5);
+    withAlpha(g, b0, () => label(g, '224.2', 1360, BASE - 224.2 * S + 40, mono(28, 800), INK, 'center')); withAlpha(g, b1, () => label(g, '41.5', 1580, BASE - 41.5 * S - 16, mono(28, 800), INK, 'center'));
+    label(g, '优化前', 1360, 836, sans(21, 800), INK, 'center'); label(g, '优化后', 1580, 836, sans(21, 800), INK, 'center');
+    chip(g, 1600, 640, pop(t, K.METER + 1.8), '约 −81%', { px: 28, bg: HI, w: 800, rot: -0.05 });
+  });
+}
+
+// ───────────────────────── 六 · 先读后写 ─────────────────────────
+const RW6 = [['R'], ['W'], ['L'], ['R'], ['W'], ['L'], ['R'], ['W']], RWW = { R: 140, W: 120, L: 124 }, RWS = { R: ['读坐标', TINT.B], W: ['写回', PALE], L: ['强制排版', LAYOUT] };
+function s6(g, t) {
+  heading(g, t, K.H6, '5', '测量：先读后写');
+  [['阅读位置', 560], ['目录高亮', 960], ['平滑光标', 1360]].forEach(([s, x], i) => chip(g, x, 250, pop(t, K.WID + i * 0.3), s, { px: 26, bg: TINT.B, w: 800 }));
+  const lane = (y, name, bg, k) => { if (k <= 0.01) return; withAlpha(g, k, () => { chip(g, 240, y, 1, name, { px: 24, bg, w: 800 }); g.strokeStyle = 'rgba(27,34,51,.25)'; g.lineWidth = 3; g.beginPath(); g.moveTo(340, y + 44); g.lineTo(1760, y + 44); g.stroke(); }); };
+  lane(450, '原来', PINK, seg(t, K.RW - 0.4, K.RW)); lane(680, '现在', MINT, seg(t, K.BATCH - 0.4, K.BATCH));
+  let x = 380; RW6.forEach(([c], i) => { const w = RWW[c], t0 = K.RW + i * 0.42; tblock(g, x, 450, w, 64, pop(t, t0, 0.28), RWS[c][0], RWS[c][1], { px: 21 }); x += w + 12; });
+  chip(g, x + 120, 450, pop(t, K.RW + 8 * 0.42), '排版 × 2（多出来的）', { px: 20, bg: PINK });
+  const seq = ['R', 'R', 'R', 'W', 'W', 'W'];
+  x = 380; seq.forEach((c, i) => { const w = RWW[c]; tblock(g, x, 680, w, 64, pop(t, K.BATCH + 0.3 + i * 0.25, 0.28), RWS[c][0], RWS[c][1], { px: 21 }); x += w + 12; });
+  const kb = eOut(seg(t, K.BATCH + 2.0, K.BATCH + 2.5));
+  if (kb > 0.01) withAlpha(g, kb, () => { g.strokeStyle = OK; g.lineWidth = 4; g.beginPath(); g.moveTo(370, 620); g.lineTo(370, 606); g.lineTo(x - 2, 606); g.lineTo(x - 2, 620); g.stroke(); label(g, '同一帧 · requestAnimationFrame', (370 + x) / 2, 592, sans(20, 800), OK, 'center'); });
+  chip(g, x + 120, 680, pop(t, K.BATCH + 2.6), '读完再写', { px: 22, bg: MINT, w: 800 });
+  at(g, 960, 806, pop(t, K.HIDE), () => { chip(g, 0, 0, 1, '编辑器隐藏 → 这些任务暂停', { px: 24, bg: CARD, w: 800 }); label(g, 'z', 220, -18 - 4 * Math.sin(t * 3), mono(26, 800), DIM); label(g, 'z', 240, -34 - 4 * Math.sin(t * 3 + 1), mono(20, 800), FAINT); });
+}
+
+// ───────────────────────── 七 · 比较视图：缓存与复用 ─────────────────────────
+function s7(g, t) {
+  heading(g, t, K.H7, '6', '比较视图：缓存与复用');
+  const kw = pop(t, K.TABS, 0.4), cmp = (t >= K.SW1 && t < K.SW2) || (t >= K.SW3 && t < K.SW4), WX = 560, WY = 540, WW = 720, WH = 560;
+  chip(g, 300, 222, kw, '正文', { px: 22, bg: cmp ? CARD : HI, w: 800 }); chip(g, 410, 222, kw, '比较', { px: 22, bg: cmp ? HI : CARD, w: 800 });
+  at(g, WX, WY, kw, () => { card(g, -WW / 2, -WH / 2, WW, WH, 20); });
+  if (kw > 0.98) {
+    if (!cmp) { for (let i = 0; i < 9; i++) bar(g, WX - WW / 2 + 40, WY - WH / 2 + 60 + i * 52, (WW - 80) * [0.9, 0.7, 0.85, 0.6, 0.8, 0.75, 0.5, 0.88, 0.66][i], i === 0 ? '#3a4256' : '#dcd6c8', i === 0 ? 20 : 14); }
+    else { const first = t < K.SW2, built = first ? seg(t, K.SW1 + 0.2, K.SW1 + 1.2) : 1;
+      g.strokeStyle = 'rgba(27,34,51,.3)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(WX, WY - WH / 2 + 30); g.lineTo(WX, WY + WH / 2 - 30); g.stroke();
+      for (let i = 0; i < 9; i++) { if (i / 9 > built) continue; const y = WY - WH / 2 + 60 + i * 52, dl = i === 2 || i === 6, ad = i === 3 || i === 6;
+        bar(g, WX - WW / 2 + 30, y, (WW / 2 - 60) * [0.9, 0.7, 0.85, 0.6, 0.8, 0.75, 0.5, 0.88, 0.66][i], dl ? '#f6a6ae' : '#dcd6c8', 14);
+        bar(g, WX + 30, y, (WW / 2 - 60) * [0.9, 0.7, 0.6, 0.8, 0.8, 0.75, 0.7, 0.88, 0.66][i], ad ? '#8fd8b4' : '#dcd6c8', 14); }
+      if (first) chip(g, WX, WY, pop(t, K.SW1 + 0.1) * (1 - seg(t, K.SW1 + 1.3, K.SW1 + 1.6)), '第一次打开 · 创建比较器', { px: 24, bg: HI, w: 800 });
+      else chip(g, WX, WY + WH / 2 - 40, pop(t, K.SW3, 0.25), '比较器保留 · 直接显示', { px: 22, bg: MINT, w: 800 }); }
+  }
+  // 缓存
+  const kc = pop(t, K.CACHE, 0.4), CX = 1440;
+  sheet(g, CX, 440, 600, 300, kc, 'diff 缓存 · 每个视图最多 2 组', PALE);
+  const tok = (x, y, s, n, bg) => at(g, x, y, s, () => { disc(g, 0, 0, 30, bg, 3.5); label(g, n, 0, 7, mono(20, 800), INK, 'center'); });
+  const ke = pop(t, K.CACHE + 0.5);
+  const RY = 400, QY = 500;
+  tok(CX - 220, RY, ke, 'v6', TINT.B); tok(CX - 150, RY, ke, 'v7', TINT.C); withAlpha(g, ke, () => arrow(g, CX - 104, RY, CX - 10, RY, 1, INK, 4)); chip(g, CX + 110, RY, ke, 'diff 结果', { px: 22, bg: MINT });
+  const hk = t > K.HIT ? seg(t, K.HIT + 0.6, K.HIT + 0.8) : 0;
+  withAlpha(g, kc * seg(t, K.CACHE + 0.8, K.CACHE + 1.1), () => { g.strokeStyle = FAINT; g.lineWidth = 3; g.setLineDash([10, 8]); rr(g, CX - 260, QY - 34, 520, 68, 14); g.stroke(); g.setLineDash([]); withAlpha(g, 1 - hk, () => label(g, '空位', CX, QY + 7, sans(20, 700), FAINT, 'center')); });
+  // 再来一次：同样的两个对象 → 命中
+  if (t > K.HIT - 0.1) { const [x1, y1, k] = fly(t, K.HIT, 0.8, WX + WW / 2 - 60, WY - 120, CX - 220, QY, 60); tok(x1, y1, pop(t, K.HIT - 0.1, 0.2), 'v6', TINT.B); tok(x1 + 70, y1, pop(t, K.HIT - 0.1, 0.2), 'v7', TINT.C);
+    if (k >= 1) { const ke2 = eOut(seg(t, K.HIT + 0.8, K.HIT + 1.1)); g.strokeStyle = OK; g.lineWidth = 4; for (const xx of [CX - 220, CX - 150]) for (const d of [-5, 5]) { g.beginPath(); g.moveTo(xx + d, QY - 34); g.lineTo(xx + d, QY - 34 - 32 * ke2); g.stroke(); } } }
+  chip(g, CX + 50, QY, pop(t, K.HIT + 1.0), '同一对象 · 命中', { px: 21, bg: MINT, w: 800 });
+  okMark(g, CX + 200, QY, pop(t, K.HIT + 1.1) * 0.75);
+  at(g, CX, 650, pop(t, K.NOSER), () => { chip(g, 0, 0, 1, 'JSON.stringify(全文)', { px: 22, mono: true, bg: CARD }); strike(g, -150, 0, 300, eOut(seg(t, K.NOSER + 0.3, K.NOSER + 0.6))); xMark(g, 176, -4, 0.7); });
+  chip(g, CX, 725, pop(t, K.IMM), 'shallowRef · 正文不可变：引用没变 = 内容没变', { px: 21, bg: HI, w: 800 });
+  // 边打字边算：切片
+  const ks = seg(t, K.SLICE, K.SLICE + 0.3);
+  if (ks > 0.01) withAlpha(g, ks, () => { for (let i = 0; i < 6; i++) { const x = 1130 + i * 108, k = pop(t, K.SLICE + 0.2 + i * 0.3, 0.25);
+      tblock(g, x, 790, 70, 46, k, i ? '' : '6ms', TINT.C, { px: 16 }); if (i < 5) keycap(g, x + 89, 790, 0.42 * pop(t, K.SLICE + 0.35 + i * 0.3, 0.25), 'abcde'[i], 0, TINT.A); } });
+}
+
+// ───────────────────────── 八 · 离开再回来：KeepAlive ─────────────────────────
+function miniEd(g, x, y, s, name, tint, o = {}) {
+  at(g, x, y, s, () => { card(g, -120, -96, 240, 192, 16, o.fill || CARD, o.stroke || INK, o.lw || 4, 5);
+    g.save(); rr(g, -120, -96, 240, 192, 16); g.clip(); g.fillStyle = tint; g.fillRect(-120, -96, 240, 42); g.restore(); g.fillStyle = INK; g.fillRect(-120, -55, 240, 3);
+    g.strokeStyle = o.stroke || INK; g.lineWidth = o.lw || 4; rr(g, -120, -96, 240, 192, 16); g.stroke(); label(g, name, -104, -66, mono(20, 800), INK);
+    const rows = o.rows ?? 1; [0.85, 0.6, 0.75, 0.5].forEach((f, i) => { if (i / 4 < rows) bar(g, -100, -22 + i * 30, 200 * f, '#dcd6c8', 12); });
+    if (o.sleep) withAlpha(g, o.sleep, () => { g.fillStyle = 'rgba(27,34,51,.18)'; rr(g, -120, -96, 240, 192, 16); g.fill(); label(g, 'Zz', 84, -66, mono(22, 800), INK); }); });
+}
+function s8(g, t) {
+  heading(g, t, K.H8, '7', '离开再回来：KeepAlive');
+  // 路线
+  const rt = [['REQ-8', 900, K.LEAVE0 - 0.4], ['工作台', 1150, K.LEAVE0], ['REQ-8', 1400, K.BACK0]];
+  rt.forEach(([s, x, t0], i) => { chip(g, x, 205, pop(t, t0), s, { px: 22, mono: i !== 1, bg: i === 1 ? CARD : TINT.A, w: 800 }); if (i) withAlpha(g, seg(t, t0, t0 + 0.3), () => arrow(g, rt[i - 1][1] + 70, 205, x - 70, 205, 1, INK, 4)); });
+  const back = bump(t, K.RET, 0.8); if (back > 0.01) withAlpha(g, back, () => { g.strokeStyle = HI; g.lineWidth = 8; rr(g, 1330, 180, 140, 50, 25); g.stroke(); });
+  const ks = pop(t, K.H8 + 0.2, 0.4);
+  serverBox(g, 1500, 540, 460, 400, ks, '服务端', '');
+  // 原来：销毁、整包下载、重建
+  const aB = 1 - seg(t, K.KA - 0.4, K.KA);
+  if (aB > 0.01) withAlpha(g, aB, () => {
+    chip(g, 560, 300, pop(t, K.H8 + 0.3), '原来', { px: 22, bg: PINK, w: 800 });
+    dbCyl(g, 1500, 580, pop(t, K.H8 + 0.4), bump(t, K.BACK0 - 0.2, 0.5), 170, 140, '文档详情');
+    if (t < K.LEAVE0 + 1.4) { const f = fall(t, K.LEAVE0 + 0.3, 0.9); withAlpha(g, 1 - seg(t, K.LEAVE0 + 0.8, K.LEAVE0 + 1.3), () => { g.save(); g.translate(560 - 40 * f, 540 + 300 * f); g.rotate(-0.5 * f); g.translate(-560, -540); miniEd(g, 560, 540, 1.4 * pop(t, K.H8 + 0.3), 'REQ-8', TINT.A, { rows: 1 }); g.restore(); }); }
+    if (t > K.BACK0 - 0.2) { const [x, y, k] = fly(t, K.BACK0, 1.0, 1400, 560, 560, 540, 80); if (k < 1) chip(g, x, y, pop(t, K.BACK0 - 0.2, 0.25), '397,705 B', { px: 30, mono: true, bg: PINK, w: 800 });
+      if (t > K.BACK0 + 1.0) miniEd(g, 560, 540, 1.4, 'REQ-8', TINT.A, { rows: seg(t, K.BACK0 + 1.0, K.BACK0 + 2.2) });
+      chip(g, 560, 740, pop(t, K.BACK0 + 1.1), '重新下载 · 重建编辑器', { px: 22, bg: PINK }); }
+  });
+  // 现在：KeepAlive 留住两篇
+  const aN = seg(t, K.KA - 0.1, K.KA + 0.3);
+  if (aN > 0.01) withAlpha(g, aN, () => {
+    chip(g, 560, 300, pop(t, K.KA), 'KeepAlive · 最多 2 篇', { px: 22, bg: MINT, w: 800 });
+    g.strokeStyle = INK; g.lineWidth = 3.5; g.setLineDash([14, 10]); rr(g, 260, 340, 600, 400, 26); g.stroke(); g.setLineDash([]);
+    const conn = t < K.CUT ? 1 : 1 - seg(t, K.CUT, K.CUT + 0.4), recon = seg(t, K.WAKE, K.WAKE + 0.4);
+    tube(g, 870, 610, 1266, 610, eIO(seg(t, K.KA + 0.2, K.KA + 0.7)) * conn + recon * (1 - conn));
+    if (t > K.CUT && t < K.WAKE + 0.4) withAlpha(g, Math.min(seg(t, K.CUT, K.CUT + 0.4), 1 - recon), () => { g.strokeStyle = FAINT; g.lineWidth = 4; g.setLineDash([10, 10]); g.beginPath(); g.moveTo(870, 610); g.lineTo(1266, 610); g.stroke(); g.setLineDash([]); xMark(g, 1068, 610, 0.7); });
+    chip(g, 1068, 670, pop(t, K.CUT + 0.2) * (1 - seg(t, K.RET, K.RET + 0.3)), '协作连接断开', { px: 20, bg: CARD });
+    // 槽 1：REQ-8 停进来
+    const [px1, py1, kp] = fly(t, K.PARK, 0.8, 560, 540, 410, 540, 40), wake = seg(t, K.WAKE, K.WAKE + 0.4);
+    miniEd(g, px1, py1, lerp(1.4, 1, kp), 'REQ-8', TINT.A, { sleep: seg(t, K.PARK + 0.6, K.PARK + 1.0) * (1 - seg(t, K.RET, K.RET + 0.4)), stroke: wake > 0.5 ? OK : INK, lw: wake > 0.5 ? 6 : 4 });
+    chip(g, 410, 680, pop(t, K.PARK + 0.8), 'Y.Doc 还在', { px: 19, mono: false, bg: PALE });
+    chip(g, 410, 422, pop(t, K.WAKE + 0.2), '可以编辑', { px: 20, bg: MINT, w: 800 });
+    // 槽 2：较早的一篇；第三篇进来时被淘汰
+    const ev = fall(t, K.EVICT + 0.4, 0.9);
+    if (ev < 1) withAlpha(g, 1 - seg(t, K.EVICT + 0.9, K.EVICT + 1.3), () => miniEd(g, 710 + 40 * ev, 540 + 360 * ev, pop(t, K.KA + 0.3), 'REQ-54', TINT.C, { sleep: 1 }));
+    if (t > K.EVICT) { const [x, y] = fly(t, K.EVICT, 0.8, 710, 160, 710, 540, -40); miniEd(g, x, y, pop(t, K.EVICT, 0.3), 'REQ-67', TINT.B, { sleep: 1 }); }
+    chip(g, 860, 780, pop(t, K.EVICT + 1.0), '最早那篇被淘汰', { px: 20, bg: PINK });
+    // 回来：权限 → 问版本 → 1 KB
+    gate(g, 960, 470, 150, pop(t, K.GATE8 - 0.3), t > K.GATE8 + 0.4 ? 1 : 0, t > K.GATE8 - 0.3 ? '权限' : '');
+    msg(g, t, K.ASK, 1.0, 900, 410, 1290, 410, '详情 ?knownRevisionId', CARD, { px: 19 });
+    at(g, 1500, 460, pop(t, K.ASK + 1.1), () => { chip(g, 0, 0, 1, '最新版本 = 你手里的？', { px: 21, bg: CARD }); okMark(g, 150, -6, pop(t, K.ASK + 1.9) * 0.7); });
+    msg(g, t, K.SAME, 0.8, 1290, 520, 900, 520, '1,020 B', MINT, { px: 22 });
+    at(g, 1500, 540, pop(t, K.SMALL), () => { chip(g, 0, 0, 1, 'currentRevisionUnchanged', { px: 18, mono: true, bg: MINT }); });
+    chip(g, 1500, 695, pop(t, K.SAME + 0.8), '这次只回 1,020 B', { px: 22, bg: MINT, w: 800 });
+    at(g, 1500, 630, pop(t, K.SMALL + 0.3), () => { chip(g, 0, 0, 1, '397,705 B 正文', { px: 21, mono: true, bg: PINK }); strike(g, -100, 0, 200, eOut(seg(t, K.SMALL + 0.6, K.SMALL + 0.9))); });
+    // 照样重新核对，再合并远端增量
+    let x = 290; ['锁', 'editEpoch'].forEach((s, i) => { const k = pop(t, K.RECHK + i * 0.4); x = chipL(g, x, 820, k, s, { px: 20, mono: i === 1, bg: CARD }); okMark(g, x + 24, 820, k * 0.55); x += 60; });
+    if (t > K.MERGE - 0.2 && t < K.MERGE + 1.2) { const [x2, y2] = fly(t, K.MERGE, 0.9, 1290, 600, 470, 590, 60); updPkt(g, x2, y2, pop(t, K.MERGE - 0.2, 0.25) * (1 - seg(t, K.MERGE + 0.8, K.MERGE + 1.0)), 'B', 'update'); }
+  });
+}
+
+// ───────────────────────── 九 · 数字的边界 ─────────────────────────
+function s9(g, t) {
+  heading(g, t, K.H9, '8', '数字的边界');
+  const ks = pop(t, K.ENV9, 0.4);
+  sheet(g, 480, 500, 600, 400, ks, '这些数字的来历', PALE);
+  ['本机 Windows 11 · i5-14600KF', '无头 Chromium 148', '视口 1732 × 942 · DPR 1', '同一篇样本 · 各 3 轮'].forEach((s, i) =>
+    withAlpha(g, ks * seg(t, K.ENV9 + 0.4 + i * 0.35, K.ENV9 + 0.65 + i * 0.35), () => { disc(g, 220, 380 + i * 66, 7, INK, 0); label(g, s, 242, 388 + i * 66, sans(24, 700), INK); }));
+  const rows = [[K.OK9, MINT, 'ok', '正常速度：按键到画面更新 P95 26.4 ms，进预算'], [K.CPU6, PINK, 'x', 'CPU 降速 6 倍：按键到画面更新 P95 206 ms'],
+    [K.SWT9, PINK, 'x', '热切换、返回正文（代理值）：仍超预算'], [K.NOTYET, '#e9e6de', '?', '公司电脑 · 搜狗输入法 · 实体屏幕：未实测']];
+  rows.forEach(([t0, bg, ic, s], i) => { const y = 330 + i * 120, k = pop(t, t0, 0.4);
+    at(g, 1380, y, k, () => { card(g, -400, -44, 800, 88, 22, bg); label(g, s, -300, 9, sans(23, 700), INK); });
+    if (ic === 'ok') okMark(g, 1030, y, k * 0.85); else if (ic === 'x') xMark(g, 1030, y, k * 0.85); else at(g, 1030, y, k * 0.85, () => { disc(g, 0, 0, 24, FAINT); label(g, '?', 0, 9, mono(26, 800), '#fff', 'center'); }); });
+  chip(g, 960, 810, pop(t, K.SAY, 0.4), '说清口径，数字才站得住', { px: 30, bg: HI, w: 800 });
+}
+
+// ───────────────────────── 十 · 小结 ─────────────────────────
+function s10(g, t) {
+  heading(g, t, K.H10, '9', '四个办法');
+  chip(g, 1600, 120, pop(t, K.MEAS), '前提：先量清楚', { px: 26, bg: HI, w: 800, rot: 0.04 });
+  const L = [
+    [K.R1, PALE, '少做', '只做这一次必要的', ['shallowRef', '段内跳过 ID 扫描', '先读后写']],
+    [K.R2, TINT.A, '晚做', '重活等空闲，按代次合并', ['修改代次', '延后派生', '6 ms 分片']],
+    [K.R3, TINT.B, '按需做', '用到时才创建', ['图片控件', '比较器', '尺寸观察器']],
+    [K.R4, MINT, '只做一次', '算过的、建过的都留着', ['Diff 缓存', 'KeepAlive', '按代次复用编码']],
+  ];
+  L.forEach((l, i) => { const y = 280 + i * 148, k = pop(t, l[0], 0.4);
+    at(g, 960, y, k, () => { card(g, -780, -62, 1560, 124, 24, l[1]); label(g, l[2], -746, 0, serif(42), INK); label(g, l[3], -746, 38, sans(20, 700), DIM);
+      g.strokeStyle = 'rgba(27,34,51,.3)'; g.lineWidth = 2.5; g.beginPath(); g.moveTo(-430, -42); g.lineTo(-430, 42); g.stroke(); });
+    let x = 560; l[4].forEach((s, j) => { const f = sans(23, 700), w = W(f, s) + 23 * 1.3; chip(g, x + w / 2, y, pop(t, l[0] + 0.4 + j * 0.2), s, { px: 23, bg: CARD }); x += w + 16; }); });
+}
+
+// ───────────────────────── 十一 · 结尾 ─────────────────────────
+const KT11 = [0, 1, 2, 3, 4, 5, 6, 7].map(i => K.END + 0.8 + i * 0.22);
+function s11(g, t) {
+  const Y = 400, k = pop(t, K.END, 0.4), n = KT11.filter(q => t >= q).length;
+  docPage(g, 960, Y, 520, 380, k, '长文档', [[0.9], [0.7], [0.85]], { gap: 46, bh: 16, draw: (x, y) => {
+    card(g, x + 24, y + 230, 472, 60, 12, CARD, OK, 4, 0); const s = 'smooth!'.slice(0, n), f = mono(32, 700); label(g, s, x + 42, y + 272, f, INK); if ((t * 2) % 1 < 0.6) { g.fillStyle = OK; g.fillRect(x + 46 + W(f, s), y + 244, 4, 34); } } });
+  const press = KT11.reduce((m, q) => Math.max(m, bump(t, q, 0.18)), 0);
+  buddy(g, 560, Y + 40, { who: 'A', s: 1.25 * pop(t, K.END + 0.2), t, look: [1, 0.2], mood: n >= 7 ? 'happy' : 'neutral', squash: press * 0.4 });
+  chip(g, 1360, Y - 60, pop(t, K.END + 2.6), '跟手', { px: 28, bg: MINT, w: 800, rot: 0.05 });
+  const f = serif(76), p = ['先量', '，再改，', '再量'], ws = p.map(s => W(f, s)), tot = ws.reduce((a, b) => a + b, 0), x0 = 960 - tot / 2, kt = pop(t, K.TAG, 0.4);
+  at(g, 960, 720, kt, () => { g.translate(-960, -720); let x = x0;
+    marker(g, x - 3, 706, ws[0] + 6, 34, eOut(seg(t, K.TAG + 0.35, K.TAG + 0.8))); marker(g, x + ws[0] + ws[1] - 3, 706, ws[2] + 6, 34, eOut(seg(t, K.TAG + 0.6, K.TAG + 1.05)), '#bfe8d3');
+    p.forEach((s, i) => { label(g, s, x, 744, f, INK); x += ws[i]; }); });
+  withAlpha(g, seg(t, K.TAG + 0.9, K.TAG + 1.3), () => label(g, '少做 · 晚做 · 按需做 · 只做一次', 960, 814, sans(30, 500), DIM, 'center'));
+}
+
+
+// ───────────────────────── 字幕与整帧 ─────────────────────────
+const CAPF = sans(42, 600), CAPB = sans(42, 800);
+const CAPP = CAPS.map(c => c[2].split('\n').map(line => { const parts = []; line.split(/[{}]/).forEach((p, i) => { if (p) parts.push([p, i % 2 === 1]); }); return parts; }));
+function captions(g, t) {
+  const gr = g.createLinearGradient(0, 878, 0, 940); gr.addColorStop(0, 'rgba(244,239,227,0)'); gr.addColorStop(1, 'rgba(244,239,227,.95)'); g.fillStyle = gr; g.fillRect(0, 878, SW, 202);
+  for (let i = 0; i < CAPS.length; i++) { const c = CAPS[i]; if (t < c[0] || t > c[1] + 0.2) continue;
+    const a = seg(t, c[0], c[0] + 0.2) * (1 - seg(t, c[1], c[1] + 0.2)), lines = CAPP[i], rise = (1 - eOut(seg(t, c[0], c[0] + 0.25))) * 10;
+    withAlpha(g, a, () => lines.forEach((parts, li) => { let w = 0; for (const p of parts) w += W(p[1] ? CAPB : CAPF, p[0]); let x = 960 - w / 2; const y = (lines.length === 1 ? 994 : 964 + li * 58) + rise;
+      for (const p of parts) { const f = p[1] ? CAPB : CAPF, pw = W(f, p[0]); if (p[1]) marker(g, x, y - 33, pw, 40, eOut(seg(t, c[0] + 0.25 + li * 0.25, c[0] + 0.8 + li * 0.25))); label(g, p[0], x, y, f, INK); x += pw; } })); }
+}
+const SCENES = [s0, s1, s2, s3, s4, s5, s6, s7, s8, s9, s10, s11];
+const camY = t => { let y = 0; for (let i = 1; i < SC.length; i++) y += PAGE * eIO(seg(t, SC[i] - 0.5, SC[i] + 0.4)); return y; };
+function frame(g, t) {
+  t = clamp(t, 0, DUR); const cy = camY(t), off = ((cy % 60) + 60) % 60;
+  g.globalAlpha = 1; g.textBaseline = 'alphabetic'; g.fillStyle = PAPER; g.fillRect(0, 0, SW, SH);
+  g.strokeStyle = 'rgba(40,70,120,.085)'; g.lineWidth = 1.5; g.beginPath(); for (let x = 30; x < SW; x += 60) { g.moveTo(x, 0); g.lineTo(x, SH); } for (let y = 30 - off; y < SH; y += 60) { g.moveTo(0, y); g.lineTo(SW, y); } g.stroke();
+  for (let i = 0; i < SCENES.length; i++) { const oy = i * PAGE - cy; if (oy <= -SH || oy >= SH) continue; g.save(); g.translate(0, oy); SCENES[i](g, t); g.restore(); }
+  captions(g, t);
+  const fo = seg(t, K.FADE, K.FADE + 1.2); if (fo > 0) { g.globalAlpha = fo; g.fillStyle = PAPER; g.fillRect(0, 0, SW, SH); g.globalAlpha = 1; }
+}
+
+// ───────────────────────── 配乐：逐采样合成 ─────────────────────────
+// C 大调，120 BPM。拨弦音色唱旋律（两小节问、两小节答），长音铺和声，低音走根音和五度，沙锤与轻鼓打拍。
+// 「一次按键做了多少事」转到小调的固定音型，讲清问题后回到大调。拟音都挂在画面事件的时刻上。
+const SR = 44100, NS = Math.ceil((DUR + 1) * SR);
+function compose() {
+  const ev = [], N = n => 440 * Math.pow(2, (n - 69) / 12), add = (type, t, f = 0, dur = 0, amp = 0.1, pan = 0) => ev.push([type, t, f, dur, amp, pan]);
+  const CH = { C: [36, [60, 64, 67, 72]], Am: [33, [57, 60, 64, 69]], F: [29, [57, 60, 65, 69]], G: [31, [59, 62, 67, 71]], Em: [28, [59, 64, 67, 71]], Dm: [38, [57, 62, 65, 69]], E: [28, [56, 59, 64, 68]] };
+  const LOOPS = { main: ['C', 'Am', 'F', 'G'], alt: ['F', 'G', 'Em', 'Am'], tense: ['Am', 'F', 'Dm', 'E'] };
+  // 旋律：每小节 8 个八分音符位，[位置, 音高, 时值]
+  const MEL = {
+    main: [[[0, 76, 2], [2, 79, 2], [4, 76, 1], [5, 74, 1], [6, 72, 2]], [[0, 69, 2], [2, 72, 2], [4, 76, 4]], [[0, 77, 2], [2, 81, 2], [4, 77, 1], [5, 76, 1], [6, 74, 2]], [[0, 71, 2], [2, 74, 2], [4, 79, 4]]],
+    mainB: [[[0, 72, 3], [4, 67, 2], [6, 72, 2]], [[0, 76, 4]], [[0, 72, 3], [4, 69, 2], [6, 72, 2]], [[0, 74, 2], [2, 71, 2], [4, 67, 4]]],
+    alt: [[[0, 81, 2], [2, 77, 2], [4, 72, 2], [6, 77, 2]], [[0, 83, 2], [2, 79, 2], [4, 74, 4]], [[0, 79, 2], [2, 76, 2], [4, 71, 2], [6, 76, 2]], [[0, 69, 2], [2, 72, 1], [3, 76, 3]]],
+    altB: [[[0, 77, 4], [4, 72, 4]], [[0, 74, 4], [6, 71, 2]], [[0, 76, 4], [4, 71, 4]], [[0, 72, 2], [2, 69, 6]]],
+    tense: [[[0, 69, 1], [1, 72, 1], [2, 76, 2], [4, 69, 1], [5, 72, 1], [6, 76, 2]], [[0, 69, 1], [1, 72, 1], [2, 77, 2], [4, 69, 1], [5, 72, 1], [6, 77, 2]], [[0, 69, 1], [1, 74, 1], [2, 77, 2], [4, 69, 1], [5, 74, 1], [6, 77, 2]], [[0, 68, 1], [1, 71, 1], [2, 76, 2], [4, 68, 1], [5, 71, 1], [6, 76, 2]]],
+  };
+  // 每一段：[起始小节, 小节数, 和声循环, 轮换的旋律, 鼓的层数, 力度]；一段对应画面的一幕
+  const SECT = [
+    [0, 7, 'main', ['mainB'], 0, 0.7], [7, 4, 'main', ['main'], 2, 1], [11, 13, 'alt', ['altB', 'alt'], 1, 0.8], [24, 12, 'tense', ['tense'], 1, 0.85],
+    [36, 18, 'main', ['mainB', 'main'], 2, 0.9], [54, 13, 'alt', ['alt', 'altB'], 2, 0.9], [67, 9, 'main', ['main', 'mainB'], 1, 0.85], [76, 10, 'alt', ['altB', 'alt'], 1, 0.85],
+    [86, 14, 'main', ['mainB', 'main'], 2, 0.9], [100, 9, 'alt', ['altB'], 0, 0.72], [109, 6, 'main', ['main', 'mainB'], 2, 0.95],
+  ];
+  for (const [b0, nb, loop, mels, drums, vel] of SECT) for (let i = 0; i < nb; i++) {
+    const t0 = (b0 + i) * 2, last = i === nb - 1, [root, tones] = CH[last ? 'G' : LOOPS[loop][i % 4]];
+    for (const n of tones) add('pad', t0, N(n), 2.6, 0.015 * vel);
+    if (drums === 0) add('bass', t0, N(root + 12), 1.6, 0.1 * vel);
+    else { add('bass', t0, N(root + 12), 0.9, 0.15 * vel); add('bass', t0 + 1, N(root + 12 + (i % 2 ? 7 : 0)), 0.45, 0.11 * vel); if (drums >= 2) add('bass', t0 + 1.5, N(root + 19), 0.4, 0.1 * vel); }
+    const pat = last ? [[0, 74, 2], [2, 76, 2], [4, 79, 2], [6, 83, 2]] : MEL[mels[Math.floor(i / 4) % mels.length]][i % 4];
+    for (const [p, n, l] of pat) add('pluck', t0 + p * 0.25, N(n), l * 0.25, 0.1 * vel, (p % 4) / 8 - 0.2);
+    if (drums >= 1) for (let s = 0; s < 8; s++) add('shaker', t0 + s * 0.25, 0, 0, (s % 2 ? 0.02 : 0.032) * vel, 0.25);
+    if (drums >= 2) { add('kick', t0, 0, 0, 0.26 * vel); add('kick', t0 + 1, 0, 0, 0.22 * vel); add('rim', t0 + 0.5, 0, 0, 0.05 * vel, -0.2); add('rim', t0 + 1.5, 0, 0, 0.05 * vel, -0.2); if (last) add('kick', t0 + 1.75, 0, 0, 0.18 * vel); }
+  }
+  // 收尾：主和弦铺开，琶音上行
+  const E0 = SC[SC.length - 1];
+  for (const n of [60, 64, 67, 72, 76]) { add('pad', E0, N(n), 4.6, 0.016); add('pad', E0 + 4.2, N(n), 4.6, 0.015); }
+  add('bass', E0, N(48), 3, 0.14); add('bass', E0 + 4.4, N(48), 3.4, 0.15);
+  [72, 76, 79, 84].forEach((n, i) => add('pluck', E0 + 0.6 + i * 0.25, N(n), 0.5, 0.09, i / 8 - 0.2)); [79, 76, 72].forEach((n, i) => add('pluck', E0 + 4.5 + i * 0.5, N(n), 1, 0.07));
+  [72, 79, 84, 88].forEach((n, i) => add('pluck', K.TAG + i * 0.09, N(n), 2.4, 0.085, i / 6 - 0.25));
+  // 拟音：出现（pop）、按键（tick）、飞行（whoosh）、落定（thud）、通过（ding）、拒绝或超标（buzz）
+  const PENT = [523.25, 587.33, 659.25, 783.99, 880];
+  const pops = [K.PAN, K.STATS, K.AP, K.AP + 0.6, K.SLOW, K.Q0, K.ST1, K.ST2, K.ST3, K.PROJ,
+    K.SAMPLE, K.REAL, K.REAL + 0.3, K.REAL + 0.6, K.REAL + 0.9, K.NOSTUB, K.ENV, K.RUL, K.RUL + 1.6, K.RUL + 3.2, K.P95 + 2.0, K.ONE, K.ROUNDS, K.ROUNDS + 0.5, K.ROUNDS + 1.0,
+    K.TXN + 0.2, K.BLK, K.BLK + 1.4, K.BLK + 2.8, K.BLK + 4.2, K.PAINT, K.FRAME + 0.2,
+    K.REF, K.REF + 2.6, K.SHALLOW, K.SWAP + 0.4, K.SKIPID, K.RUN + 1.5, K.DEADLINE, K.REUSE, K.BOUND, K.BOUND + 0.2, K.BOUND + 0.4, K.BOUND + 1.0, K.RES + 2.3, K.RES2 + 2.3,
+    K.ALLC, K.ON, K.ON + 0.6, K.ON + 0.85, K.ON + 1.1, K.ON + 1.35, K.OBS, K.CUR, K.METER + 1.8,
+    K.WID, K.WID + 0.3, K.WID + 0.6, K.BATCH + 2.6, K.HIDE,
+    K.TABS, K.SW1 + 0.1, K.CACHE, K.CACHE + 0.5, K.NOSER, K.IMM,
+    K.KA, K.PARK + 0.8, K.CUT + 0.2, K.ASK + 1.1, K.SMALL, K.SMALL + 0.3, K.RECHK, K.RECHK + 0.4, K.WAKE + 0.2, K.EVICT, K.EVICT + 1.0,
+    K.ENV9, K.OK9, K.CPU6, K.SWT9, K.NOTYET, K.SAY,
+    K.R1, K.R2, K.R3, K.R4, K.MEAS, K.END, K.END + 2.6];
+  pops.forEach((t, i) => add('pop', t, PENT[(i * 3) % 5], 0, 0.06, ((i % 3) - 1) * 0.25));
+  for (const q of [...KT0, ...KT4, ...KT11, K.KEY]) add('tick', q, 2300, 0, 0.06, -0.3);
+  for (let i = 0; i < 5; i++) add('tick', K.SLICE + 0.35 + i * 0.3, 2300, 0, 0.04, -0.2);
+  for (let i = 0; i < 8; i++) add('tick', K.RW + i * 0.42, 2000, 0, 0.035, 0.2);
+  for (let i = 0; i < 6; i++) add('tick', K.BATCH + 0.3 + i * 0.25, 2000, 0, 0.035, 0.2);
+  for (let i = 1; i < SC.length; i++) add('whoosh', SC[i] - 0.5, 0, 0.95, 0.05, 0.3);
+  for (const [t, d] of [[K.PAN + 0.3, 3.5], [K.SWAP, 0.8], [K.LEAVE0 + 0.3, 0.9], [K.BACK0, 1.0], [K.PARK, 0.8], [K.ASK, 1.0], [K.SAME, 0.8], [K.MERGE, 0.9], [K.EVICT, 0.8], [K.HIT, 0.8], [K.SCROLL, 2.0]]) add('whoosh', t, 0, d, 0.04, 0.4);
+  for (const t of [K.RUN, K.RUN + 0.9, K.RUN + 1.1, K.REUSE + 0.1, K.HIT + 0.9, K.SW3, K.SAME + 0.8, K.WAKE, K.OK9, K.BATCH + 2.1]) add('ding', t, 1318.5, 0, 0.06);
+  add('ding', K.GATE8 + 0.4, 1046.5, 0, 0.05); add('ding', K.ASK + 1.9, 1174.7, 0, 0.05);
+  for (const t of [K.TITLE, K.SYNC, K.TOTAL, K.RES + 1.2, K.RES2 + 1.2, K.METER + 0.9, K.CUT, K.SW1 + 0.1]) add('thud', t, 0, 0, 0.17);
+  for (const [t, f] of [[K.SLOW, 104], [K.TOTAL + 0.1, 98], [K.RW + 2 * 0.42, 104], [K.RW + 5 * 0.42, 104], [K.CPU6, 98], [K.SWT9, 104], [K.NOSTUB + 0.3, 110], [K.NOSER + 0.3, 110]]) add('buzz', t, f, 0.28, 0.045);
+  // 滚动段：指针每进入一张图，整页样式重算一次
+  let off = 0; const IMGOFF = []; DOCSEQ.forEach(([ty]) => { if (ty === 'img') IMGOFF.push(off); off += DOCH[ty]; });
+  for (let c = 0; c < 30; c++) for (const o of IMGOFF) { const tt = K.SCROLL + (c * DOCCYC + o + 14 - (PTR5[1] - 228) - 600) / 260; if (tt > K.FLASH && tt < K.ON) add('buzz', tt, 110, 0.2, 0.035); }
+  for (const t of [K.TITLE + 0.1, K.RES + 2.3, K.METER + 1.8, K.SMALL, K.TAG + 0.9]) [84, 88, 91, 96].forEach((n, i) => add('pluck', t + i * 0.06, N(n), 0.3, 0.035, i / 6 - 0.25));
+  return ev;
+}
+
+async function synth(onProgress) {
+  const L = new Float32Array(NS), R = new Float32Array(NS), ev = compose(), rnd = rng(20261116), ECHO = Math.round(0.375 * SR);
+  const put = (i, v, pan) => { if (i < NS) { L[i] += v * (1 - pan); R[i] += v * (1 + pan); } };
+  const V = {
+    pluck(i0, f, dur, amp, pan) { const tau = (0.14 + dur * 0.45) * SR, len = Math.round(tau * 6), w = TAU * f / SR, d1 = Math.exp(-1 / tau), d2 = Math.exp(-2.2 / tau), d3 = Math.exp(-5 / tau); let e1 = 1, e2 = 0.4, e3 = 0.18;
+      for (let i = 0; i < len; i++) { const ph = w * i, v = amp * Math.min(1, i / 160) * (e1 * Math.sin(ph) + e2 * Math.sin(2 * ph) + e3 * Math.sin(4 * ph)); e1 *= d1; e2 *= d2; e3 *= d3; put(i0 + i, v, pan); put(i0 + i + ECHO, v * 0.24, -pan); put(i0 + i + 2 * ECHO, v * 0.09, pan); } },
+    pad(i0, f, dur, amp) { const len = Math.round(dur * SR), w = TAU * f / SR, a = 0.5 * SR, r = 0.6 * SR;
+      for (let i = 0; i < len; i++) { const ph = w * i, s1 = Math.sin(ph), s2 = Math.sin(ph * 1.0045 + 1), v = amp * Math.min(1, i / a, (len - i) / r); put(i0 + i, v * (s1 + 0.4 * s2 + 0.2 * Math.sin(ph * 2)), -0.35); put(i0 + i, v * (0.4 * s1 + s2), 0.35); } },
+    bass(i0, f, dur, amp) { const len = Math.round((dur + 0.1) * SR), w = TAU * f / SR, d = Math.exp(-1 / (dur * 0.6 * SR)); let e = 1;
+      for (let i = 0; i < len; i++) { const ph = w * i; put(i0 + i, amp * e * Math.min(1, i / 220, (len - i) / 800) * (Math.sin(ph) + 0.3 * Math.sin(2 * ph)), 0); e *= d; } },
+    kick(i0, f, dur, amp) { const len = Math.round(0.3 * SR), d = Math.exp(-1 / (0.09 * SR)), q = Math.exp(-1 / (0.022 * SR)); let ph = 0, e = 1, sw = 1;
+      for (let i = 0; i < len; i++) { ph += TAU * (46 + 110 * sw) / SR; put(i0 + i, amp * e * Math.sin(ph), 0); e *= d; sw *= q; } },
+    shaker(i0, f, dur, amp, pan) { const len = Math.round(0.07 * SR), d = Math.exp(-1 / (0.016 * SR)); let prev = 0, e = 1;
+      for (let i = 0; i < len; i++) { const x = rnd() * 2 - 1; put(i0 + i, (x - prev) * amp * e * Math.min(1, i / 60), pan); prev = x; e *= d; } },
+    rim(i0, f, dur, amp, pan) { const len = Math.round(0.08 * SR), d = Math.exp(-1 / (0.012 * SR)); let e = 1;
+      for (let i = 0; i < len; i++) { put(i0 + i, amp * e * (0.7 * Math.sin(TAU * 1750 * i / SR) + 0.5 * (rnd() * 2 - 1)), pan); e *= d; } },
+    pop(i0, f, dur, amp, pan) { const len = Math.round(0.18 * SR), d = Math.exp(-1 / (0.04 * SR)); let ph = 0, e = 1;
+      for (let i = 0; i < len; i++) { ph += TAU * f * (1 + 0.55 * Math.min(1, i / (0.05 * SR))) / SR; put(i0 + i, amp * e * Math.min(1, i / 40) * Math.sin(ph), pan); e *= d; } },
+    tick(i0, f, dur, amp, pan) { const len = Math.round(0.04 * SR), d = Math.exp(-1 / (0.007 * SR)); let e = 1;
+      for (let i = 0; i < len; i++) { put(i0 + i, amp * e * (0.6 * Math.sin(TAU * f * i / SR) + 0.5 * (rnd() * 2 - 1)), pan); e *= d; } },
+    whoosh(i0, f, dur, amp, pan) { const len = Math.round(dur * SR); let y1 = 0, y2 = 0;
+      for (let i = 0; i < len; i++) { const k = i / len, s = Math.sin(k * Math.PI), x = rnd() * 2 - 1; y1 += (0.03 + 0.3 * s * s) * (x - y1); y2 += 0.02 * (y1 - y2); put(i0 + i, amp * s * s * (y1 - y2) * 3, pan * (2 * k - 1)); } },
+    ding(i0, f, dur, amp, pan) { const len = Math.round(1.3 * SR), d = Math.exp(-1 / (0.3 * SR)); let e = 1;
+      for (let i = 0; i < len; i++) { const ph = TAU * f * i / SR; put(i0 + i, amp * e * Math.min(1, i / 60) * (Math.sin(ph) + 0.4 * e * Math.sin(ph * 2.76) + 0.3 * Math.sin(ph * 1.5)), pan); e *= d; } },
+    thud(i0, f, dur, amp, pan) { const len = Math.round(0.2 * SR), d = Math.exp(-1 / (0.05 * SR)), q = Math.exp(-1 / (0.02 * SR)); let ph = 0, e = 1, sw = 1;
+      for (let i = 0; i < len; i++) { ph += TAU * (60 + 70 * sw) / SR; put(i0 + i, amp * (e * Math.sin(ph) + (i < 200 ? (rnd() * 2 - 1) * 0.3 * (1 - i / 200) : 0)), pan); e *= d; sw *= q; } },
+    buzz(i0, f, dur, amp, pan) { const len = Math.round(dur * SR); let y = 0;
+      for (let i = 0; i < len; i++) { const x = (Math.sin(TAU * f * i / SR) > 0 ? 1 : -1) + (Math.sin(TAU * f * 1.06 * i / SR) > 0 ? 1 : -1); y += 0.12 * (x - y); put(i0 + i, amp * 0.5 * y * Math.min(1, i / 300, (len - i) / 1500), pan); } },
+  };
+  let last = performance.now();
+  for (let i = 0; i < ev.length; i++) { const e = ev[i]; V[e[0]](Math.max(0, Math.round(e[1] * SR)), e[2], e[3], e[4], e[5]);
+    if (performance.now() - last > 28) { onProgress(i / ev.length); await new Promise(r => setTimeout(r)); last = performance.now(); } }
+  // 收束动态：按峰值定增益后软限幅，首尾淡变
+  let peak = 1e-6; for (let i = 0; i < NS; i++) { const a = Math.abs(L[i]), b = Math.abs(R[i]); if (a > peak) peak = a; if (b > peak) peak = b; }
+  const gain = 1.5 / peak, f0 = (K.FADE - 1.4) * SR, f1 = (DUR - 0.2) * SR;
+  for (let i = 0; i < NS; i++) { const k = Math.min(1, i / (0.2 * SR)) * (i < f0 ? 1 : i > f1 ? 0 : Math.pow(1 - (i - f0) / (f1 - f0), 1.6)); L[i] = Math.tanh(L[i] * gain) * 0.86 * k; R[i] = Math.tanh(R[i] * gain) * 0.86 * k; }
+  return [L, R];
+}
+
+// ───────────────────────── 播放器 ─────────────────────────
+const $ = id => document.getElementById(id);
+const cv = $('view'), g = cv.getContext('2d'), seek = $('seek'), pp = $('pp'), go = $('go'), statusEl = $('status'), startEl = $('start'), chapEl = $('chapters');
+MG = document.createElement('canvas').getContext('2d');
+let scale = 1, pos = 0, playing = false, ctx = null, buf = null, src = null, base = 0, wall = 0, pcm = null, raf = 0, idleTimer = 0, dragging = false;
+const chapBtns = CHAPTERS.map(c => { const b = document.createElement('button'); b.textContent = c.n; b.onclick = () => { seekTo(c.t); poke(); }; chapEl.appendChild(b); return b; });
+seek.max = DUR;
+function paint() {
+  g.setTransform(scale, 0, 0, scale, 0, 0); frame(g, pos);
+  if (!dragging) seek.value = pos;
+  $('time').textContent = `${mmss(pos)} / ${mmss(DUR)}`; pp.textContent = playing ? '❚❚' : '▶';
+  let cur = 0; CHAPTERS.forEach((c, i) => { if (pos >= c.t - 0.45) cur = i; }); chapBtns.forEach((b, i) => b.classList.toggle('on', i === cur));
+}
+function fit() {
+  const s = Math.min(innerWidth / SW, innerHeight / SH), dpr = Math.min(window.devicePixelRatio || 1, 2);
+  cv.style.width = `${SW * s}px`; cv.style.height = `${SH * s}px`; cv.width = Math.round(SW * s * dpr); cv.height = Math.round(SH * s * dpr); scale = cv.width / SW; paint();
+}
+const clock = () => (ctx ? ctx.currentTime - base : (performance.now() - wall) / 1000);
+function tick() { if (!playing) return; pos = clock(); if (pos >= DUR) { pos = DUR; pause(); ended(); return; } paint(); raf = requestAnimationFrame(tick); }
+function play() {
+  if (playing) return; if (pos >= DUR - 0.05) pos = 0;
+  if (ctx) { if (ctx.state === 'suspended') ctx.resume(); src = ctx.createBufferSource(); src.buffer = buf; src.connect(ctx.destination); src.start(0, pos); base = ctx.currentTime - pos; } else wall = performance.now() - pos * 1000;
+  playing = true; document.body.classList.add('playing'); poke(); raf = requestAnimationFrame(tick);
+}
+function pause() {
+  if (!playing) return; pos = clamp(clock(), 0, DUR); playing = false; cancelAnimationFrame(raf);
+  if (src) { try { src.stop(); } catch (e) { /* 已经停了 */ } src.disconnect(); src = null; }
+  document.body.classList.remove('playing'); paint();
+}
+function seekTo(t) { const was = playing; if (was) pause(); pos = clamp(t, 0, DUR - 0.01); if (was) play(); else paint(); }
+function ended() { go.textContent = '↻ 再看一遍'; statusEl.textContent = ''; startEl.classList.remove('hide'); }
+function poke() { document.body.classList.remove('idle'); clearTimeout(idleTimer); idleTimer = setTimeout(() => document.body.classList.add('idle'), 2600); }
+function fullscreen() { if (document.fullscreenElement) document.exitFullscreen(); else if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(() => {}); }
+
+go.onclick = () => {
+  if (!ctx && pcm) { try { ctx = new (window.AudioContext || window.webkitAudioContext)(); buf = ctx.createBuffer(2, NS, SR); buf.copyToChannel(pcm[0], 0); buf.copyToChannel(pcm[1], 1); } catch (e) { ctx = null; } }
+  startEl.classList.add('hide'); document.body.classList.add('started'); pos = 0; play();
+};
+pp.onclick = () => (playing ? pause() : play());
+cv.onclick = () => { if (playing) pause(); else play(); poke(); };
+$('fs').onclick = fullscreen;
+seek.addEventListener('pointerdown', () => { dragging = true; });
+seek.addEventListener('input', () => { seekTo(+seek.value); poke(); });
+seek.addEventListener('change', () => { dragging = false; });
+addEventListener('pointerup', () => { dragging = false; });
+addEventListener('pointermove', poke);
+addEventListener('resize', fit);
+addEventListener('keydown', e => {
+  if (!document.body.classList.contains('started') || !startEl.classList.contains('hide')) return;
+  if (e.code === 'Space') { e.preventDefault(); if (playing) pause(); else play(); }
+  else if (e.code === 'ArrowRight') seekTo(pos + 5); else if (e.code === 'ArrowLeft') seekTo(pos - 5); else if (e.code === 'Home') seekTo(0); else if (e.code === 'KeyF') fullscreen(); else return;
+  poke();
+});
+
+fit();
+synth(p => { statusEl.textContent = `正在合成配乐… ${Math.round(p * 100)}%`; })
+  .then(r => { pcm = r; statusEl.textContent = '配乐已就绪 · 空格暂停 · F 全屏'; })
+  .catch(() => { statusEl.textContent = '配乐合成失败，将静音播放'; })
+  .finally(() => { go.disabled = false; });
+})();
+</script>
+</body>
+</html>

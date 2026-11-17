@@ -7,7 +7,7 @@
 <p align="center"><strong>共同编辑一份文档，保存正式版本，看清每一次变化。</strong></p>
 <p align="center">Nuxt 4 · Vue 3 · Tiptap · Yjs · PostgreSQL · Drizzle · Better Auth · Bing UI</p>
 
-**[在线体验](https://101.35.217.21/demo/)** · [宣传片](https://101.35.217.21/promo.html) · [Yjs 原理动画](https://101.35.217.21/crdt.html) · [功能与界面](#功能与界面) · [技术亮点](#技术亮点) · [本地运行](#本地运行) · [开发文档](docs/README.md) · [相关项目](#相关项目)
+**[在线体验](https://101.35.217.21/demo/)** · [宣传片](https://101.35.217.21/promo.html) · [Yjs 原理动画](https://101.35.217.21/crdt.html) · [Hocuspocus 接入动画](https://101.35.217.21/hocuspocus.html) · [AI 接口动画](https://101.35.217.21/agent.html) · [性能优化动画](https://101.35.217.21/perf.html) · [表结构动画](https://101.35.217.21/schema.html) · [功能与界面](#功能与界面) · [技术亮点](#技术亮点) · [本地运行](#本地运行) · [开发文档](docs/README.md) · [相关项目](#相关项目)
 
 Requirement Board 面向小团队，把需求、缺陷、说明和待办放进统一的文档工作流。成员可以实时编辑同一篇富文本，按需保存正式版本，比较文字、格式、表格和图片的变化，并从选中文字追溯历史；AI 助手也可以通过配套 Skill 读取文档、处理标注和提交修改。
 
@@ -18,6 +18,14 @@ Requirement Board 面向小团队，把需求、缺陷、说明和待办放进�
 > **宣传片**[《谁动了开饭时间？》](https://101.35.217.21/promo.html)（96 秒）用一桩“猫粮失踪案”演示共同编辑、版本比较、选区历史、局部恢复和 AI 独占编辑锁。它是单个 HTML 文件 [`public/promo.html`](public/promo.html)，画面和配乐都在浏览器里实时生成，不依赖外部资源，也可以下载后直接打开。
 >
 > **原理动画**[《拆开 Yjs》](https://101.35.217.21/crdt.html)（4 分 32 秒）讲共同编辑底下的 Yjs 是怎么实现的：Item 链表、ID、插入与并发插入、合并存储、StructStore、删除和同步。同样是单个 HTML 文件 [`public/crdt.html`](public/crdt.html)，画面和配乐在浏览器里实时生成，可以下载后直接打开。
+>
+> **续集**[《Yjs × Hocuspocus》](https://101.35.217.21/hocuspocus.html)（4 分 12 秒）讲 Yjs 的更新怎么送到别人那里，以及这个项目怎么接上它们：同步握手、房间、钩子、二进制落库、编辑副本与确认副本、`POST /edits` 上行与 WebSocket 下行、AI 编辑锁。单个 HTML 文件 [`public/hocuspocus.html`](public/hocuspocus.html)，同样可以下载后直接打开。
+>
+> **第三集**[《AI 改文档：怎么不覆盖人的修改？》](https://101.35.217.21/agent.html)（4 分 52 秒）讲 AI 通过接口和 Skill 修改文档的过程：读取快照与编辑锁、幂等与基线、执行修改、旧页面处理、AI 标注的定位与完成回执、凭证与安装。单个 HTML 文件 [`public/agent.html`](public/agent.html)。
+>
+> **第四集**[《长文档：打一个字为什么要等？》](https://101.35.217.21/perf.html)（3 分 58 秒）讲长文档的性能优化：先量清楚，再分析打字为什么慢、少做与晚做、滚动时先读后写、比较视图、离开再回来，最后说明这些数字的边界。单个 HTML 文件 [`public/perf.html`](public/perf.html)。
+>
+> **第五集**[《31 张表：它们是怎么连起来的？》](https://101.35.217.21/schema.html)（4 分 22 秒）讲数据库表结构与表间关系：七组表、1:N / 1:1 / N:M 三种连法、正文的三种形态、复合外键、无向关系、删除策略、软引用与回收任务、唯一约束与 CHECK，以及新建文档的事务。单个 HTML 文件 [`public/schema.html`](public/schema.html)。
 
 [![生产工作台：个人工作流、项目动态、团队负载与完成节奏](docs/images/workbench-production.png)](docs/images/workbench-production.png)
 
